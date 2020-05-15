@@ -3,7 +3,7 @@ import Contact from "./Contact";
 
 const Footer = () => {
   return (
-    <div id="footer">
+    <footer>
       <div className="container">
         <form className="contact-form">
           <textarea
@@ -22,7 +22,7 @@ const Footer = () => {
         © 2019 Tüm hakları saklıdır. notebookpower.com <br />
         Web tasarım by myyilmaz.com
       </div>
-    </div>
+    </footer>
   );
 };
 

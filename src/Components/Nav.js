@@ -31,6 +31,7 @@ const Nav = () => {
           </div>
         </div>
       </nav>
+
       <div className="nav-expand-panel">
         <div className="container">
           <div className="nav-shrink-btn" onClick={() => shrinkNav()}>

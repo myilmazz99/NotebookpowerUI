@@ -9,7 +9,7 @@ const Tns = ({ container, products }) => {
   useEffect(() => {
     tns({
       container: "." + container,
-      items: 2,
+      items: 1,
       gutter: 18,
       center: true,
       mouseDrag: true,
@@ -23,12 +23,8 @@ const Tns = ({ container, products }) => {
           gutter: 26,
         },
         992: {
-          items: 5,
-          gutter: 32,
-        },
-        1200: {
-          items: 6,
-          gutter: 50,
+          items: 3,
+          gutter: 26,
         },
       },
     });
