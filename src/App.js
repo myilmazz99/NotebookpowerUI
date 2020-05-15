@@ -8,6 +8,7 @@ export default class App extends Component {
   render() {
     return (
       <>
+        {/* v0.1 */}
         <Nav />
         <Home />
         {/* <Product /> deneme devam ediyor...*/}
