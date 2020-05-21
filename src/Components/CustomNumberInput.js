@@ -10,6 +10,7 @@ const CustomNumberInput = () => {
 
   const decrementOrderCount = () => {
     let value = document.querySelector(".order-count").value;
+    if (Number(value) <= 1) return;
     setOrderCount(Number(value) - 1);
   };
 
@@ -38,7 +39,7 @@ const CustomNumberInput = () => {
   };
 
   return (
-    <span style={{ userSelect: "none" }}>
+    <>
       <span
         className="decrement"
         style={buttonStyling}
@@ -60,7 +61,7 @@ const CustomNumberInput = () => {
       >
         +
       </span>
-    </span>
+    </>
   );
 };
 

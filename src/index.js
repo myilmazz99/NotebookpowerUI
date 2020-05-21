@@ -20,6 +20,7 @@ import {
   faSortAmountDownAlt,
   faShoppingCart,
   faFilter,
+  faHome,
 } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { BrowserRouter } from "react-router-dom";
@@ -40,7 +41,8 @@ library.add(
   faChevronLeft,
   faSortAmountDownAlt,
   faFilter,
-  faShoppingCart
+  faShoppingCart,
+  faHome
 );
 
 ReactDOM.render(

@@ -15,73 +15,103 @@ const Nav = () => {
   };
 
   return (
-    <>
-      <nav>
-        <div className="container">
-          <div className="nav-expand-btn" onClick={() => expandNav()}>
-            <div className="line first-line"></div>
-            <div className="line second-line"></div>
-            <div className="line third-line"></div>
-          </div>
-          <img
-            src={logo}
-            alt="notebookpower brand logo"
-            className="nav-brand"
-          />
-          <div>
+    <header>
+      <nav className="top-bar inner-container">
+        <button className="nav-expand-btn" onClick={() => expandNav()}>
+          <div className="line first-line"></div>
+          <div className="line second-line"></div>
+          <div className="line third-line"></div>
+        </button>
+        <Link to="/" className="home-btn">
+          <FontAwesomeIcon icon="home" />
+        </Link>
+
+        <ul className="nav-links">
+          <li className="nav-link">
+            <Link to="/products?category=gaming">Oyuncu</Link>
+          </li>
+          <li className="nav-link">
+            <Link to="/products?category=casual">İş & Multimedya</Link>
+          </li>
+          <li className="nav-link">
+            <Link to="/products?category=accessory">Aksesuar</Link>
+          </li>
+        </ul>
+        <img src={logo} alt="notebookpower brand logo" className="nav-brand" />
+        <ul className="nav-user-actions">
+          <li className="user-action">
+            <FontAwesomeIcon icon="shopping-cart" />
+          </li>
+          <li className="user-action">
+            <FontAwesomeIcon icon="user-circle" />
+          </li>
+          <li className="user-action">
             <FontAwesomeIcon icon="search" />
-          </div>
-        </div>
+          </li>
+        </ul>
+        <button className="search-btn">
+          <FontAwesomeIcon icon="search" />
+        </button>
       </nav>
 
-      <div className="nav-expand-panel">
-        <div className="container">
-          <div className="nav-shrink-btn" onClick={() => shrinkNav()}>
-            <FontAwesomeIcon icon="times" />
-          </div>
-          <Search />
-          <div className="links">
+      <nav className="nav-expand-panel inner-container">
+        <button className="nav-shrink-btn" onClick={() => shrinkNav()}>
+          <FontAwesomeIcon icon="times" />
+        </button>
+        <ul className="links">
+          <li>
             <Link to="/" className="nav-link">
-              <span>Ana Sayfa</span>
+              Ana Sayfa
               <FontAwesomeIcon icon="chevron-right" size="xs" />
             </Link>
-            <Link to="/" className="nav-link">
-              <span>Gaming Notebook</span>
+          </li>
+          <li>
+            <Link to="/products?category=gaming" className="nav-link">
+              Gaming Notebook
               <FontAwesomeIcon icon="chevron-right" size="xs" />
             </Link>
-            <Link to="/" className="nav-link">
-              <span>Casual Notebook</span>
+          </li>
+          <li>
+            <Link to="/products?category=casual" className="nav-link">
+              Casual Notebook
               <FontAwesomeIcon icon="chevron-right" size="xs" />
             </Link>
-            <Link to="/" className="nav-link">
-              <span>Notebook Aksesuar</span>
+          </li>
+          <li>
+            <Link to="/products?category=accessory" className="nav-link">
+              Notebook Aksesuar
               <FontAwesomeIcon icon="chevron-right" size="xs" />
             </Link>
-            <Link to="/" className="nav-link">
-              <span>Tüm Ürünlerimiz</span>
+          </li>
+          <li>
+            <Link to="/products" className="nav-link">
+              Tüm Ürünlerimiz
               <FontAwesomeIcon icon="chevron-right" size="xs" />
             </Link>
-          </div>
+          </li>
+        </ul>
 
-          <div className="account">
-            <div className="account-link">
-              <FontAwesomeIcon icon="shopping-cart" />
-              <a href="#">Sepetim</a>
-            </div>
-            <div className="account-link">
-              <FontAwesomeIcon icon="user-circle" />
-              <a href="#">Giriş Yap / Üye Ol</a>
-            </div>
-            <div className="account-link">
-              <FontAwesomeIcon icon="heart" />
-              <a href="#">Favorilerim</a>
-            </div>
-          </div>
-          <hr />
-          <Contact />
-        </div>
-      </div>
-    </>
+        <ul className="account">
+          <li className="account-link">
+            <Link to="/cart">
+              <FontAwesomeIcon icon="shopping-cart" /> Sepetim
+            </Link>
+          </li>
+          <li className="account-link">
+            <Link to="/account">
+              <FontAwesomeIcon icon="user-circle" /> Giriş Yap / Üye Ol
+            </Link>
+          </li>
+          <li className="account-link">
+            <Link to="/account/favorites">
+              <FontAwesomeIcon icon="heart" /> Favorilerim
+            </Link>
+          </li>
+        </ul>
+        <hr />
+        <Contact />
+      </nav>
+    </header>
   );
 };
 
