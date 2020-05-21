@@ -1,7 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Contact from "./Contact";
+import Search from "./Search";
 import logo from "../img/logo.png";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   const expandNav = () => {
@@ -37,30 +39,35 @@ const Nav = () => {
           <div className="nav-shrink-btn" onClick={() => shrinkNav()}>
             <FontAwesomeIcon icon="times" />
           </div>
+          <Search />
           <div className="links">
-            <div className="nav-link">
+            <Link to="/" className="nav-link">
               <span>Ana Sayfa</span>
               <FontAwesomeIcon icon="chevron-right" size="xs" />
-            </div>
-            <div className="nav-link">
+            </Link>
+            <Link to="/" className="nav-link">
               <span>Gaming Notebook</span>
               <FontAwesomeIcon icon="chevron-right" size="xs" />
-            </div>
-            <div className="nav-link">
+            </Link>
+            <Link to="/" className="nav-link">
               <span>Casual Notebook</span>
               <FontAwesomeIcon icon="chevron-right" size="xs" />
-            </div>
-            <div className="nav-link">
+            </Link>
+            <Link to="/" className="nav-link">
               <span>Notebook Aksesuar</span>
               <FontAwesomeIcon icon="chevron-right" size="xs" />
-            </div>
-            <div className="nav-link">
+            </Link>
+            <Link to="/" className="nav-link">
               <span>Tüm Ürünlerimiz</span>
               <FontAwesomeIcon icon="chevron-right" size="xs" />
-            </div>
+            </Link>
           </div>
 
           <div className="account">
+            <div className="account-link">
+              <FontAwesomeIcon icon="shopping-cart" />
+              <a href="#">Sepetim</a>
+            </div>
             <div className="account-link">
               <FontAwesomeIcon icon="user-circle" />
               <a href="#">Giriş Yap / Üye Ol</a>

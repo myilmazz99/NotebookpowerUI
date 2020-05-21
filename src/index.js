@@ -17,8 +17,12 @@ import {
   faStar,
   faStarHalf,
   faLiraSign,
+  faSortAmountDownAlt,
+  faShoppingCart,
+  faFilter,
 } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
+import { BrowserRouter } from "react-router-dom";
 
 library.add(
   faCheckSquare,
@@ -33,9 +37,17 @@ library.add(
   faStar,
   faStarHalf,
   faLiraSign,
-  faChevronLeft
+  faChevronLeft,
+  faSortAmountDownAlt,
+  faFilter,
+  faShoppingCart
 );
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById("root")
+);
 
 serviceWorker.unregister();
