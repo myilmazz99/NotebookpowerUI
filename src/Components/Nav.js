@@ -16,7 +16,7 @@ const Nav = () => {
 
   return (
     <header>
-      <nav className="top-bar inner-container">
+      <nav className="top-bar">
         <button className="nav-expand-btn" onClick={() => expandNav()}>
           <div className="line first-line"></div>
           <div className="line second-line"></div>
@@ -54,7 +54,7 @@ const Nav = () => {
         </button>
       </nav>
 
-      <nav className="nav-expand-panel inner-container">
+      <nav className="nav-expand-panel">
         <button className="nav-shrink-btn" onClick={() => shrinkNav()}>
           <FontAwesomeIcon icon="times" />
         </button>
@@ -93,7 +93,7 @@ const Nav = () => {
 
         <ul className="account">
           <li className="account-link">
-            <Link to="/cart">
+            <Link to="/cart/1">
               <FontAwesomeIcon icon="shopping-cart" /> Sepetim
             </Link>
           </li>

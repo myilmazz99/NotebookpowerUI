@@ -33,7 +33,7 @@ export default class App extends Component {
   - Home +
   - Product List +
   - Product Details +
-  - Cart
+  - Cart +
   - Order Details + Payment
 
   ** COMPONENTS **

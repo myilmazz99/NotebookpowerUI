@@ -4,7 +4,7 @@ import Contact from "./Contact";
 const Footer = () => {
   return (
     <footer>
-      <section className="container">
+      <section>
         <form className="contact-form">
           <textarea
             cols="auto"

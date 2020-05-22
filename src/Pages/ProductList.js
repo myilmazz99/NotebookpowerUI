@@ -95,7 +95,7 @@ const ProductList = () => {
         </ul>
       </div>
 
-      <ProductPreviewList container="container" />
+      <ProductPreviewList />
     </main>
   );
 };
