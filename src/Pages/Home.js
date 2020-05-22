@@ -7,7 +7,7 @@ import Mailing from "../Components/Mailing";
 
 const Home = () => {
   return (
-    <main>
+    <main id="home">
       <Slider />
       <CategoryCards />
       <BestSelling />

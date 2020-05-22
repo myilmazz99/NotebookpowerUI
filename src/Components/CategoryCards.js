@@ -5,7 +5,7 @@ import accessory from "../img/accessories.png";
 
 const CategoryCards = () => {
   return (
-    <div className="category-cards-container container">
+    <div className="category-cards-container">
       <div className="category-card">
         <img
           className="category-card-image"
