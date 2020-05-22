@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Order = () => {
   return (
-    <div id="order" className="container">
+    <main id="order" className="container">
       <div className="address">
         <h2>Adreslerim</h2>
         <div className="saved-addresses">
@@ -44,7 +44,7 @@ const Order = () => {
           />
         </form>
       </div>
-    </div>
+    </main>
   );
 };
 

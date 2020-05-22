@@ -41,7 +41,7 @@ const Tabs = () => {
   };
 
   return (
-    <>
+    <section className="tabs">
       <div
         className="product-tabs"
         onClick={(e) => {
@@ -73,7 +73,7 @@ const Tabs = () => {
           {/* veya yorumlar. */}
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

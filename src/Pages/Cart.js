@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 
 const Cart = () => {
   return (
-    <>
-      <div id="cart" className="container">
+    <main id="cart">
+      <section className="cart-wrapper">
         <ul className="cart-list">
           <h1>Sepetim</h1>
           <li className="cart-item">
@@ -100,9 +100,10 @@ const Cart = () => {
           </div>
           <button className="checkout-btn">Alışverişi Tamamla</button>
         </div>
-      </div>
+      </section>
+
       <BestSelling />
-    </>
+    </main>
   );
 };
 

@@ -20,7 +20,7 @@ const ProductList = () => {
   };
 
   return (
-    <div id="product-list-page">
+    <main id="product-list-page">
       <Jumbotron />
       <div className="product-list-filters">
         <div className="orderby-btn btn">
@@ -96,7 +96,7 @@ const ProductList = () => {
       </div>
 
       <ProductPreviewList container="container" />
-    </div>
+    </main>
   );
 };
 

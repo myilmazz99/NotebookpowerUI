@@ -4,7 +4,7 @@ import Contact from "./Contact";
 const Footer = () => {
   return (
     <footer>
-      <div className="container">
+      <section className="inner-container">
         <form className="contact-form">
           <textarea
             cols="auto"
@@ -16,12 +16,12 @@ const Footer = () => {
           <input type="submit" value="Gönder" />
         </form>
         <Contact />
-      </div>
+      </section>
 
-      <div className="copyright">
+      <section className="copyright">
         © 2019 Tüm hakları saklıdır. notebookpower.com <br />
         Web tasarım by myyilmaz.com
-      </div>
+      </section>
     </footer>
   );
 };

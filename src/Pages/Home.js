@@ -7,13 +7,13 @@ import Mailing from "../Components/Mailing";
 
 const Home = () => {
   return (
-    <>
+    <main>
       <Slider />
       <CategoryCards />
       <BestSelling />
       <Mailing />
       <DailyDeals />
-    </>
+    </main>
   );
 };
 
