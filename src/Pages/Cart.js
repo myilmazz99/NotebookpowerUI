@@ -3,6 +3,7 @@ import CustomNumberInput from "../Components/CustomNumberInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BestSelling from "../Components/BestSelling";
 import { Link } from "react-router-dom";
+import CartSummary from "../Components/CartSummary";
 
 const Cart = () => {
   return (
@@ -77,29 +78,7 @@ const Cart = () => {
           </li>
         </ul>
 
-        <div className="cart-summary">
-          <h2>Sipariş Özeti</h2>
-          <div className="total-price">
-            <span>Ödenecek Tutar</span>
-            <span>
-              2499 <FontAwesomeIcon icon="lira-sign" />
-            </span>
-          </div>
-          <div className="shipping-price">
-            <span>Kargo Tutarı</span>
-            <span>
-              0 <FontAwesomeIcon icon="lira-sign" />
-            </span>
-          </div>
-          <hr />
-          <div className="final-price">
-            <span>Toplam</span>
-            <span>
-              2499 <FontAwesomeIcon icon="lira-sign" />
-            </span>
-          </div>
-          <button className="checkout-btn">Alışverişi Tamamla</button>
-        </div>
+        <CartSummary buttonText="Ödemeye Geç" />
       </section>
 
       <BestSelling />
