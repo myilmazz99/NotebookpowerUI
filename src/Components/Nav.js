@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Contact from "./Contact";
-import Search from "./Search";
 import logo from "../img/logo.png";
 import { Link } from "react-router-dom";
+import Modal from "./Modal";
 
 const Nav = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
   const expandNav = () => {
     document.querySelector(".nav-expand-panel").classList.add("expanded");
   };
@@ -43,7 +49,8 @@ const Nav = () => {
             <FontAwesomeIcon icon="shopping-cart" />
           </li>
           <li className="user-action">
-            <FontAwesomeIcon icon="user-circle" />
+            <FontAwesomeIcon icon="user-circle" onClick={() => toggleModal()} />
+            <Modal show={isModalOpen} onClose={toggleModal} />
           </li>
           <li className="user-action">
             <FontAwesomeIcon icon="search" />

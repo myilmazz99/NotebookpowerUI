@@ -9,6 +9,10 @@ import Order from "./Pages/Order";
 import { Switch, Route } from "react-router-dom";
 
 export default class App extends Component {
+  state = {
+    show: false,
+  };
+
   render() {
     return (
       <>
