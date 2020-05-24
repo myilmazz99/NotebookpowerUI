@@ -5,16 +5,16 @@ const Tabs = () => {
     if (!e.target.className.includes("product-tabs")) {
       let tabs = document.querySelectorAll(".tab");
 
+      const changeTabs = (data) => {
+        document.querySelector(".tabs-data > .container").innerHTML = data;
+        e.target.classList.add("tab-active");
+      };
+
       for (var i = 0; i < tabs.length; i++) {
         if (tabs[i].className.includes("tab-active")) {
           tabs[i].classList.remove("tab-active");
         }
       }
-
-      const changeTabs = (data) => {
-        document.querySelector(".tabs-data > .container").innerHTML = data;
-        e.target.classList.add("tab-active");
-      };
 
       if (e.target.className.includes("comment-tab")) {
         changeTabs("comments");
