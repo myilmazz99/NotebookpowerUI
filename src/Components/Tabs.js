@@ -29,16 +29,16 @@ const Tabs = ({ tabs }) => {
 
   return (
     <section className="tabs">
-      <div
+      <ul
         className="product-tabs"
         onClick={(e) => {
           handleTabs(e);
         }}
       >
         {tabs.map((i) => {
-          return <div className="tab">{Object.getOwnPropertyNames(i)}</div>;
+          return <li className="tab">{Object.getOwnPropertyNames(i)}</li>;
         })}
-      </div>
+      </ul>
       <div className="tabs-data">
         <div className="container">{Object.values(tabs[0])}</div>
       </div>
