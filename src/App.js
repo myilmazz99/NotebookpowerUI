@@ -7,6 +7,7 @@ import ProductList from "./Pages/ProductList";
 import Cart from "./Pages/Cart";
 import Order from "./Pages/Order";
 import { Switch, Route } from "react-router-dom";
+import ScrollToTop from "./Components/ScrollToTop";
 
 export default class App extends Component {
   state = {
@@ -16,6 +17,7 @@ export default class App extends Component {
   render() {
     return (
       <>
+        <ScrollToTop />
         <Nav />
         <Switch>
           <Route exact path="/" component={Home} />
@@ -38,10 +40,10 @@ export default class App extends Component {
   - Product List +
   - Product Details +
   - Cart +
-  - Order Details + Payment
+  - Order Details + Payment +
 
   ** COMPONENTS **
-  - Login & Register Modals
+  - Login & Register Modals +
   - Contact Form +
   - Mailing +
   - Best selling section + 

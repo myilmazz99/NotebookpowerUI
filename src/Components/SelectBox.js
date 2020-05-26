@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const SelectBox = ({ selectedCategory, icon, options, reset, ...props }) => {
+const SelectBox = ({ selectedCategory, icon, options, reset }) => {
   let [selected, setSelected] = useState(selectedCategory);
 
   useEffect(() => {

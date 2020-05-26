@@ -14,23 +14,8 @@ $viewport-lg: 992px;
 $viewport-md: 768px;
 $viewport-sm: 576px;
 
-%input {
-  border-radius: 10px;
-  margin-top: 1rem;
-  font-family: inherit;
-  border: none;
-  padding: 0.6rem 1rem;
-  background-color: rgba(255, 255, 255, 0.3);
-  font-size: inherit;
-
-  &:focus {
-    outline: none;
-  }
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 1);
-  }
-}
+$shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+$shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 
 %textarea {
   @extend %input;
@@ -46,12 +31,31 @@ $viewport-sm: 576px;
   object-position: center;
 }
 
+%input {
+  margin-top: 1rem;
+  font-family: inherit;
+  border: none;
+  padding: 0.6rem 1rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  font-size: inherit;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
+}
+
 %input-submit {
   @extend %input;
   border: 1px solid $secondary-color;
   background-color: transparent;
   cursor: pointer;
   transition: all 0.4s;
+  width: 100%;
 
   &:hover {
     background-color: $secondary-color;
@@ -87,6 +91,15 @@ html {
 
 input {
   outline: none;
+  @extend %input;
+}
+
+input[type="submit"] {
+  @extend %input-submit;
+}
+
+textarea {
+  @extend %textarea;
 }
 
 /*GENERAL*/
@@ -134,6 +147,10 @@ li {
 
 %container-xy {
   padding: 1.6rem !important;
+}
+
+.modal-open {
+  display: block !important;
 }
 
 /*ROOT*/
@@ -454,6 +471,20 @@ nav.top-bar {
 
   @media (min-width: $viewport-md) {
     display: none;
+  }
+}
+
+.modal {
+  border: 5px solid $secondary-color;
+
+  .account-tab + .tabs-data {
+    border: 1px solid $secondary-color;
+    input {
+      border-bottom: 1px solid $secondary-color;
+    }
+    h4 {
+      text-align: center;
+    }
   }
 }
 
@@ -861,9 +892,24 @@ nav.top-bar {
   display: flex;
 
   .product-preview {
+    box-shadow: $shadow-md;
     position: relative;
     max-width: 17rem;
     background-color: #fff;
+    transition: box-shadow 0.6s;
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    .add-to-fav {
+      position: absolute;
+      top: 0.6rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      z-index: 5;
+      color: red;
+    }
 
     .preview-image {
       display: block;
@@ -877,29 +923,17 @@ nav.top-bar {
     }
 
     .product-menu {
-      width: 100%;
-      border: 1px solid black;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
+      border-top: 1px solid $secondary-color;
       z-index: 1;
       transition: bottom 0.4s;
       background-color: #fff;
       font-size: 1.1rem;
 
       .product-menu-option {
-        border-right: 1px solid black;
+        cursor: pointer;
+        border-right: 1px solid $secondary-color;
         text-align: center;
-        flex-basis: 20%;
         padding: 0.4rem 0;
-
-        &:first-child {
-          color: red;
-        }
-
-        &:nth-child(2) {
-          flex-basis: 60%;
-        }
 
         &:last-child {
           border-right: none;
@@ -914,9 +948,13 @@ nav.top-bar {
         font-size: 1.3rem;
       }
 
-      .preview-product-rating {
+      .product-rating {
         color: gold;
         padding: 0.6rem 0;
+
+        .review-count {
+          color: $light-grey;
+        }
       }
 
       .preview-product-price {
@@ -965,8 +1003,8 @@ nav.top-bar {
 
   input {
     @extend %input;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     flex-basis: 70%;
   }
 
@@ -990,15 +1028,14 @@ nav.top-bar {
 .jumbotron {
   grid-area: jumbotron;
   position: relative;
-  height: 40vh;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: #fff;
-  background: $secondary-color url("/static/media/gamingBg.535d7d7c.png");
-  background-size: contain;
-  background-repeat: no-repeat;
+  background-color: $secondary-color;
+  background-size: cover;
   background-position: center;
 
   .category-name {
@@ -1131,37 +1168,6 @@ nav.top-bar {
     }
   }
 
-  .tabs {
-    grid-area: tabs;
-    .product-tabs {
-      margin-bottom: 0;
-      display: flex;
-
-      .tab {
-        cursor: pointer;
-        padding: 0.6rem 1rem;
-        border-right: 1px solid $secondary-color;
-        border-top: 1px solid $secondary-color;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-
-        &:hover {
-          background-color: $secondary-color;
-        }
-
-        &:first-child {
-          border-left: 1px solid $secondary-color;
-          margin-left: 1.5rem;
-        }
-      }
-    }
-
-    .tabs-data {
-      border-top: 1px solid $secondary-color;
-      @extend %container-xy;
-    }
-  }
-
   @media (min-width: $viewport-lg) {
     grid-template-columns: 1fr 5fr 5fr 1fr;
     grid-template-rows: 1px;
@@ -1171,6 +1177,39 @@ nav.top-bar {
       ". product-slider product-details ."
       "tabs tabs tabs tabs"
       "similiar-products similiar-products similiar-products similiar-products";
+  }
+}
+
+/*TABS*/
+.tabs {
+  grid-area: tabs;
+
+  .tab-container {
+    margin-bottom: 0;
+    display: flex;
+
+    .tab {
+      cursor: pointer;
+      padding: 0.6rem 1rem;
+      border-right: 1px solid $secondary-color;
+      border-top: 1px solid $secondary-color;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+
+      &:hover {
+        background-color: $secondary-color;
+      }
+
+      &:first-child {
+        border-left: 1px solid $secondary-color;
+        margin-left: 1.5rem;
+      }
+    }
+  }
+
+  .tabs-data {
+    border-top: 1px solid $secondary-color;
+    @extend %container-xy;
   }
 }
 
@@ -1191,6 +1230,8 @@ nav.top-bar {
     grid-area: filters;
     display: flex;
     justify-content: center;
+    max-width: 500px;
+    justify-self: center;
 
     .btn {
       @extend %input;
@@ -1225,8 +1266,10 @@ nav.top-bar {
         .clear-filters {
           font-size: 1.1rem;
           border-radius: 0;
-          @extend %input;
+          border: 1px solid $secondary-color;
           @extend %input-submit;
+          width: auto;
+          margin-top: 0;
         }
       }
 
@@ -1349,14 +1392,18 @@ nav.top-bar {
             margin: 1rem 0;
           }
           .remove-cart-item {
-            @extend %input;
             @extend %input-submit;
             border-color: red;
+            width: auto;
             margin-top: 0;
 
             &:hover {
               background-color: red;
             }
+          }
+
+          @media (min-width: $viewport-sm) {
+            padding-left: 1rem;
           }
         }
 
@@ -1548,15 +1595,11 @@ footer {
 
     input,
     textarea {
-      @extend %textarea;
+      border-radius: 10px;
 
       @media (min-width: $viewport-sm) {
         width: 70%;
       }
-    }
-
-    input[type="submit"] {
-      @extend %input-submit;
     }
   }
 

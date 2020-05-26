@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SelectBox from "../Components/SelectBox";
 import Jumbotron from "../Components/Jumbotron";
 
-const ProductList = () => {
+const ProductList = (props) => {
   const [clearFilter, setClearFilter] = useState(false);
 
   const openFilterMenu = (e) => {
@@ -21,7 +21,7 @@ const ProductList = () => {
 
   return (
     <main id="product-list-page">
-      <Jumbotron />
+      <Jumbotron history />
       <div className="product-list-filters">
         <div className="orderby-btn btn">
           <SelectBox

@@ -3,15 +3,13 @@ import React, { useState } from "react";
 const CustomNumberInput = () => {
   const [orderCount, setOrderCount] = useState(1);
 
-  const incrementOrderCount = () => {
-    let value = document.querySelector(".order-count").value;
-    setOrderCount(Number(value) + 1);
+  const incrementOrderCount = (e) => {
+    setOrderCount(Number(e.target.previousSibling.value) + 1);
   };
 
-  const decrementOrderCount = () => {
-    let value = document.querySelector(".order-count").value;
-    if (Number(value) <= 1) return;
-    setOrderCount(Number(value) - 1);
+  const decrementOrderCount = (e) => {
+    if (Number(e.target.nextSibling.value) <= 1) return;
+    setOrderCount(Number(e.target.nextSibling.value) - 1);
   };
 
   const handleOnChange = (e) => {
@@ -38,8 +36,12 @@ const CustomNumberInput = () => {
     fontFamily: "inherit",
   };
 
+  const container = {
+    userSelect: "none",
+  };
+
   return (
-    <span>
+    <span style={container}>
       <span
         className="decrement"
         style={buttonStyling}
@@ -57,7 +59,7 @@ const CustomNumberInput = () => {
       <span
         style={buttonStyling}
         className="increment"
-        onClick={() => incrementOrderCount()}
+        onClick={(e) => incrementOrderCount(e)}
       >
         +
       </span>

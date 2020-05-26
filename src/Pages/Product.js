@@ -6,6 +6,7 @@ import cargo from "../img/free-cargo.png";
 import AddToCart from "../Components/AddToCart";
 import Tabs from "../Components/Tabs";
 import SimiliarProducts from "../Components/SimiliarProducts";
+import ProductRating from "../Components/ProductRating";
 
 const Product = () => {
   useEffect(() => {
@@ -53,14 +54,7 @@ const Product = () => {
         </h1>
         {10 > 5 ? <div className="low-stock-number">Son 5 ürün!</div> : ""}
         <div className="price-and-rating">
-          <div className="product-rating">
-            <FontAwesomeIcon icon="star" />
-            <FontAwesomeIcon icon="star" />
-            <FontAwesomeIcon icon="star" />
-            <FontAwesomeIcon icon="star" />
-            <FontAwesomeIcon icon="star-half" />
-            <span className="review-count">3 yorum</span>
-          </div>
+          <ProductRating />
           <div className="product-price">
             <span className="discount-amount">
               <span>{"%" + Math.floor(((499 - 399) * 100) / 499)}</span>
@@ -86,6 +80,7 @@ const Product = () => {
       </div>
 
       <Tabs
+        tabName="product-tab"
         tabs={[
           {
             Açıklama: `TX V-MAX 5 Fanlı Oyuncu Notebook Soğutucusu (TXACNBVMAX) TX V-Max

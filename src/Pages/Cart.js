@@ -72,7 +72,7 @@ const Cart = () => {
             </div>
           </li>
           <li>
-            <Link>
+            <Link to="/products">
               <FontAwesomeIcon icon="chevron-left" /> Alışverişe devam et
             </Link>
           </li>
