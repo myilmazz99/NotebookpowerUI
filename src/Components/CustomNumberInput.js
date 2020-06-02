@@ -30,7 +30,7 @@ const CustomNumberInput = () => {
     width: "60px",
     margin: "0 1rem",
     textAlign: "center",
-    padding: "0.6rem 1rem",
+    padding: "0.6rem 0",
     backgroundColor: "rgba(255,255,255,0)",
     fontSize: "1.1rem",
     fontFamily: "inherit",
