@@ -1353,8 +1353,8 @@ nav.top-bar {
 
 #admin {
   grid-template-columns: 280px 1fr 1px;
-  grid-template-areas: ". heading ." ". table-actions ." ". table .";
   gap: 1rem;
+  background-color: transparent;
 
   hr {
     border: none;
@@ -1403,8 +1403,8 @@ nav.top-bar {
     }
   }
 
-  h1 {
-    grid-area: heading;
+  h1,
+  h2 {
     position: relative;
     padding-bottom: 0.4rem;
     text-align: center;
@@ -1421,68 +1421,78 @@ nav.top-bar {
     }
   }
 
-  .table-actions {
-    grid-area: table-actions;
-
-    .add-btn {
-      display: inline-block;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      padding: 0.6rem;
-      font-size: 13px;
-      background-color: lighten($color: blue, $amount: 20);
-      color: #fff;
-    }
+  h4 {
+    text-align: left;
+    color: $light-grey;
   }
 
   table {
-    grid-area: table;
-    text-align: center;
-    border-collapse: collapse;
-
-    td,
-    th {
-      border: 1px solid #ddd;
-      padding: 3px;
-    }
-
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
-    }
-
-    tr:hover {
-      background-color: #ddd;
-    }
-
-    th {
-      background-color: $secondary-color;
-      font-weight: lighterw;
-      color: white;
-    }
-
     img {
-      display: block;
       width: 50px;
-      margin: 0 auto;
     }
 
-    .table-btn {
-      display: block;
-      width: 75%;
-      padding: 0.2rem 0.4rem;
-      margin: 0.2rem auto;
-      font-size: 13px;
+    thead tr th:last-child {
+      width: 140px !important;
     }
 
-    .delete-btn {
-      font-family: inherit;
+    tbody tr td:last-child {
+      width: 140px !important;
+    }
+  }
+
+  form {
+    .form-control,
+    .custom-select {
+      height: calc(3.25em);
+    }
+
+    label {
+      position: relative;
+      padding-bottom: 0.2rem;
+    }
+    label::before {
+      content: "";
+      width: 30px;
+      height: 2px;
       background-color: red;
-      color: #fff;
+      position: absolute;
+      bottom: 0;
+      left: 0;
     }
+  }
 
-    .update-btn {
-      background-color: darken($color: yellow, $amount: 6);
+  #admin-add-product {
+    grid-column: 2/3;
+  }
+
+  #admin-order-list {
+    grid-column: 2/3;
+  }
+
+  #admin-product-list {
+    grid-column: 2/3;
+  }
+
+  #admin-order-details {
+    grid-column: 2/3;
+    justify-self: center;
+
+    dl {
+      width: 100%;
+
+      dt,
+      dd {
+        padding: 0.6rem;
+      }
+
+      dd {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
     }
+  }
+
+  #admin-update-product {
+    grid-column: 2/3;
   }
 }
 

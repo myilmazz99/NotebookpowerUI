@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import "./App.scss";
+import "./styles/App.scss";
+import "./styles/bootstrapcustom.min.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faCheckSquare,
@@ -24,6 +25,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import configureStore from "./Redux/Reducers/configureStore";
 
 library.add(
   faCheckSquare,
@@ -45,9 +48,13 @@ library.add(
   faHome
 );
 
+const store = configureStore();
+
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>,
   document.getElementById("root")
 );

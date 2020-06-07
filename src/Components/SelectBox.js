@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const SelectBox = ({ selectedCategory, icon, options, reset }) => {
-  let [selected, setSelected] = useState(selectedCategory);
+const SelectBox = ({ defaultValue, name, options, reset, handleChange }) => {
+  let [selected, setSelected] = useState(defaultValue);
 
   useEffect(() => {
-    setSelected(selectedCategory);
+    setSelected(defaultValue);
   }, [reset]);
 
   const handleSelect = (e) => {
@@ -38,9 +37,7 @@ const SelectBox = ({ selectedCategory, icon, options, reset }) => {
 
   return (
     <div onClick={handleSelect} className="selectbox">
-      <span>
-        {icon ? <FontAwesomeIcon icon={icon} /> : ""} {selected}
-      </span>
+      <input type="text" value={selected} onChange={handleChange} />
 
       <span className="select-arrow"></span>
       <ul className="options closed">

@@ -4,14 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Products = () => {
   return (
-    <>
+    <div id="admin-product-list">
       <h1>Ürünler</h1>
-      <section className="table-actions">
-        <Link to="/admin/products/add" className="add-btn">
+      <section className="table-actions mb-2">
+        <Link to="/admin/products/add" className="btn btn-primary">
           Yeni Ürün Ekle
         </Link>
       </section>
-      <table>
+      <table className="table table-striped table-bordered">
         <thead>
           <tr>
             <th>#</th>
@@ -40,8 +40,11 @@ const Products = () => {
             <td>10</td>
             <td>Oyuncu</td>
             <td>
-              <button className="table-btn delete-btn">Sil</button>
-              <Link to="/admin/product/108" className="table-btn update-btn">
+              <button className="btn btn-danger btn-sm w-100 mb-1">Sil</button>
+              <Link
+                to="/admin/products/108"
+                className="btn btn-warning btn-sm w-100"
+              >
                 Güncelle
               </Link>
             </td>
@@ -62,8 +65,11 @@ const Products = () => {
             <td>10</td>
             <td>Oyuncu</td>
             <td>
-              <button className="table-btn delete-btn">Sil</button>
-              <Link to="/admin/product/108" className="table-btn update-btn">
+              <button className="btn btn-danger btn-sm w-100 mb-1">Sil</button>
+              <Link
+                to="/admin/product/108"
+                className="btn btn-warning btn-sm w-100"
+              >
                 Güncelle
               </Link>
             </td>
@@ -84,15 +90,18 @@ const Products = () => {
             <td>10</td>
             <td>Oyuncu</td>
             <td>
-              <button className="table-btn delete-btn">Sil</button>
-              <Link to="/admin/product/108" className="table-btn update-btn">
+              <button className="btn btn-danger btn-sm w-100 mb-1">Sil</button>
+              <Link
+                to="/admin/product/108"
+                className="btn btn-warning btn-sm w-100"
+              >
                 Güncelle
               </Link>
             </td>
           </tr>
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

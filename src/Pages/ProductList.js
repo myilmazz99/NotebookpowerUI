@@ -25,8 +25,7 @@ const ProductList = (props) => {
       <div className="product-list-filters">
         <div className="orderby-btn btn">
           <SelectBox
-            selectedCategory="Sırala"
-            icon="sort-amount-down-alt"
+            defaultValue="Sırala"
             options={[
               "En Düşük Fiyat",
               "En Yüksek Fiyat",
@@ -52,35 +51,35 @@ const ProductList = (props) => {
             <li>
               <SelectBox
                 reset={clearFilter}
-                selectedCategory="Marka"
+                defaultValue="Marka"
                 options={["Asus", "MSI", "Monster"]}
               />
             </li>
             <li>
               <SelectBox
                 reset={clearFilter}
-                selectedCategory="Renk"
+                defaultValue="Renk"
                 options={["Mavi", "Yeşil", "Siyah"]}
               />
             </li>
             <li>
               <SelectBox
                 reset={clearFilter}
-                selectedCategory="İşletim Sistemi"
+                defaultValue="İşletim Sistemi"
                 options={["Windows 10", "Freedos", "Windows 8"]}
               />
             </li>
             <li>
               <SelectBox
                 reset={clearFilter}
-                selectedCategory="İşlemci"
+                defaultValue="İşlemci"
                 options={["Intel Core 2 Duo", "Intel Core i5", "Intel Core i7"]}
               />
             </li>
             <li>
               <SelectBox
                 reset={clearFilter}
-                selectedCategory="Ekran Kartı"
+                defaultValue="Ekran Kartı"
                 options={["GTX 1050", "RTX 2080", "GTX 850M"]}
               />
             </li>

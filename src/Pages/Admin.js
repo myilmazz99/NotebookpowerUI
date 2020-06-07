@@ -1,13 +1,14 @@
 import React from "react";
 import { Link, Switch, Route } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddProduct from "../Components/Admin/AddProduct";
 import UpdateProduct from "../Components/Admin/UpdateProduct";
 import Products from "../Components/Admin/Products";
+import Orders from "../Components/Admin/Orders";
+import OrderDetails from "../Components/Admin/OrderDetails";
 
 const Admin = () => {
   return (
-    <main id="admin">
+    <main id="admin" className="bootstrapiso">
       <nav>
         <h3>Yönetim Paneli</h3>
         <hr />
@@ -25,6 +26,8 @@ const Admin = () => {
         <Route exact path="/admin/products" component={Products} />
         <Route exact path="/admin/products/add" component={AddProduct} />
         <Route exact path="/admin/products/:id" component={UpdateProduct} />
+        <Route exact path="/admin/orders" component={Orders} />
+        <Route exact path="/admin/orders/:id" component={OrderDetails} />
       </Switch>
     </main>
   );
