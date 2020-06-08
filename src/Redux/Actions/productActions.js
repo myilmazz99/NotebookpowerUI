@@ -10,16 +10,24 @@ export const addProduct = (product) => {
           formData.append("productImages", i);
         }
 
-      delete product.productImages;
       console.log(product);
-      await axios.post("http://localhost:61361/api/products/add", product);
-      await axios.post(
-        "http://localhost:61361/api/products/addImages",
-        formData
-      );
+
+      delete product.productImages;
+
+      // let response = await axios.post(
+      //   "http://localhost:61361/api/products/add",
+      //   product
+      // );
+
+      // formData.append("productId", parseInt(response.data));
+
+      // await axios.post(
+      //   "http://localhost:61361/api/products/addImages",
+      //   formData
+      // );
       dispatch({ type: actionTypes.ADD_PRODUCT_SUCCESS, payload: product });
     } catch (err) {
-      console.log(err.response);
+      console.log(JSON.parse(err.response.data));
     }
   };
 };

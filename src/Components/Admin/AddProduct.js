@@ -6,9 +6,14 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addProduct } from "../../Redux/Actions/productActions";
 import useSpecRows from "../Utilities/useSpecRows";
+//Validation
+import ProductValidation from "../Utilities/ValidationRules/ProductValidation";
 
 const AddProduct = ({ addProduct }) => {
-  let { handleSubmit, handleChange, values, handleUpload } = useForm(add);
+  let { handleSubmit, handleChange, values, handleUpload, errors } = useForm(
+    add,
+    ProductValidation
+  );
   let { setSpecRowCount, displaySpecRow, getRowValues } = useSpecRows();
 
   const retrieveMissingInputValuesAndSubmit = (e) => {
@@ -48,8 +53,11 @@ const AddProduct = ({ addProduct }) => {
             placeholder="Ürün Adı"
             onChange={handleChange}
             value={values.productName || ""}
-            className="form-control"
+            className={`form-control ${errors.productName && "border-danger"}`}
           />
+          {errors.productName && (
+            <div className="text-danger small">{errors.productName}</div>
+          )}
         </div>
 
         <div className="form-row d-flex justify-between my-4">
@@ -60,8 +68,11 @@ const AddProduct = ({ addProduct }) => {
               name="oldPrice"
               onChange={handleChange}
               value={values.oldPrice || ""}
-              className="form-control"
+              className={`form-control ${errors.oldPrice && "border-danger"}`}
             />
+            {errors.oldPrice && (
+              <div className="text-danger small">{errors.oldPrice}</div>
+            )}
           </div>
           <div className="col-4">
             <label>İndirimli Fiyat</label>
@@ -70,8 +81,11 @@ const AddProduct = ({ addProduct }) => {
               name="newPrice"
               onChange={handleChange}
               value={values.newPrice || ""}
-              className="form-control"
+              className={`form-control ${errors.newPrice && "border-danger"}`}
             />
+            {errors.newPrice && (
+              <div className="text-danger small">{errors.newPrice}</div>
+            )}
           </div>
           <div className="col-4">
             <label>Stok Adedi</label>
@@ -80,8 +94,11 @@ const AddProduct = ({ addProduct }) => {
               name="stock"
               onChange={handleChange}
               value={values.stock || ""}
-              className="form-control"
+              className={`form-control ${errors.stock && "border-danger"}`}
             />
+            {errors.stock && (
+              <div className="text-danger small">{errors.stock}</div>
+            )}
           </div>
         </div>
 
@@ -93,13 +110,21 @@ const AddProduct = ({ addProduct }) => {
             name="productDescription"
             rows="5"
             placeholder="Ürün Bilgileri"
-            className="form-control"
+            className={`form-control ${
+              errors.productDescription && "border-danger"
+            }`}
           ></textarea>
+          {errors.productDescription && (
+            <div className="text-danger small">{errors.productDescription}</div>
+          )}
         </div>
 
         <div className="my-4">
           <label>Kategori</label>
           <CategorySelectBox handleChange={handleChange} />
+          {errors.categoryId && (
+            <div className="text-danger small">{errors.categoryId}</div>
+          )}
         </div>
 
         <div className="form-group my-4">

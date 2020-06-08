@@ -1,21 +1,22 @@
 import { useState, useEffect } from "react";
 
-const useForm = (callback) => {
+const useForm = (callback, validate) => {
   const [didSubmit, setDidSubmit] = useState(false);
-  //const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
   const [values, setValues] = useState({});
 
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
     setDidSubmit(true);
+    setErrors(validate(values));
   };
 
   useEffect(() => {
-    if (didSubmit) {
+    if (Object.keys(errors).length === 0 && didSubmit) {
       callback();
       setDidSubmit(false);
     }
-  }, [didSubmit]);
+  }, [callback, didSubmit]);
 
   const handleChange = (e) => {
     let { name, value } = e.target;
@@ -38,6 +39,7 @@ const useForm = (callback) => {
     handleSubmit,
     handleChange,
     handleUpload,
+    errors,
   };
 };
 export default useForm;

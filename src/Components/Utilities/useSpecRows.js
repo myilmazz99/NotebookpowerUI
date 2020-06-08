@@ -42,11 +42,11 @@ const useSpecRows = () => {
 
     for (let i = 0; i < specNames.length; i++) {
       var found = specifications.find(
-        (i) =>
-          i.specificationName === specNames[i].value &&
-          i.specificationValue === specValues[i].value
+        (s) =>
+          s.specificationName === specNames[i].value &&
+          s.specificationValue === specValues[i].value
       );
-      if (!found) {
+      if (!found && specValues[i].value !== "" && specNames[i].value !== "") {
         specArr.push({
           specificationName: specNames[i].value,
           specificationValue: specValues[i].value,

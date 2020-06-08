@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const OrderDetails = () => {
   return (
-    <div id="order-details">
+    <div id="admin-order-details">
       <h2 className="mb-5">Sipariş Detayları</h2>
       <dl className="row">
         <dt className="col-3">Sipariş Tarihi</dt>

@@ -3,11 +3,16 @@ import CategorySelectBox from "../CategorySelectBox";
 import useForm from "../Utilities/useForm";
 import { useParams } from "react-router-dom";
 import useSpecRows from "../Utilities/useSpecRows";
+//Validation
+import ProductValidation from "../Utilities/ValidationRules/ProductValidation";
 
 const UpdateProduct = ({ products }) => {
-  let { handleChange, handleSubmit, values, handleUpload } = useForm();
-  let { productId } = useParams();
+  let { handleChange, handleSubmit, values, handleUpload, errors } = useForm(
+    update,
+    ProductValidation
+  );
   let { setSpecRowCount, displaySpecRow, getRowValues } = useSpecRows();
+  const { productId } = useParams();
 
   useEffect(() => {
     if (products && !products.find((i) => i.id === productId));
@@ -32,6 +37,8 @@ const UpdateProduct = ({ products }) => {
     handleSubmit();
   };
 
+  function update() {}
+
   return (
     <div id="admin-update-product">
       <h2 className="mb-3">Ürün Güncelle</h2>
@@ -47,8 +54,11 @@ const UpdateProduct = ({ products }) => {
             placeholder="Ürün Adı"
             onChange={handleChange}
             value={values.productName || ""}
-            className="form-control"
+            className={`form-control ${errors.productName && "border-danger"}`}
           />
+          {errors.productName && (
+            <div className="text-danger small">{errors.productName}</div>
+          )}
         </div>
 
         <div className="form-row d-flex justify-between my-4">
@@ -59,8 +69,11 @@ const UpdateProduct = ({ products }) => {
               name="oldPrice"
               onChange={handleChange}
               value={values.oldPrice || ""}
-              className="form-control"
+              className={`form-control ${errors.oldPrice && "border-danger"}`}
             />
+            {errors.oldPrice && (
+              <div className="text-danger small">{errors.oldPrice}</div>
+            )}
           </div>
           <div className="col-4">
             <label>İndirimli Fiyat</label>
@@ -69,8 +82,11 @@ const UpdateProduct = ({ products }) => {
               name="newPrice"
               onChange={handleChange}
               value={values.newPrice || ""}
-              className="form-control"
+              className={`form-control ${errors.newPrice && "border-danger"}`}
             />
+            {errors.newPrice && (
+              <div className="text-danger small">{errors.newPrice}</div>
+            )}
           </div>
           <div className="col-4">
             <label>Stok Adedi</label>
@@ -79,8 +95,11 @@ const UpdateProduct = ({ products }) => {
               name="stock"
               onChange={handleChange}
               value={values.stock || ""}
-              className="form-control"
+              className={`form-control ${errors.stock && "border-danger"}`}
             />
+            {errors.stock && (
+              <div className="text-danger small">{errors.stock}</div>
+            )}
           </div>
         </div>
 
@@ -92,13 +111,21 @@ const UpdateProduct = ({ products }) => {
             name="productDescription"
             rows="5"
             placeholder="Ürün Bilgileri"
-            className="form-control"
+            className={`form-control ${
+              errors.productDescription && "border-danger"
+            }`}
           ></textarea>
+          {errors.productDescription && (
+            <div className="text-danger small">{errors.productDescription}</div>
+          )}
         </div>
 
         <div className="my-4">
           <label>Kategori</label>
           <CategorySelectBox handleChange={handleChange} />
+          {errors.categoryId && (
+            <div className="text-danger small">{errors.categoryId}</div>
+          )}
         </div>
 
         <div className="form-group my-4">
