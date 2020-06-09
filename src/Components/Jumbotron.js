@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 
 const Jumbotron = (props) => {
-  let category = queryString.parse(useLocation().search).category;
+  let { category, s } = queryString.parse(useLocation().search);
   const [img, setImg] = useState(null);
   const [text, setText] = useState("");
 
@@ -26,9 +26,11 @@ const Jumbotron = (props) => {
         break;
 
       default:
+        setImg(accessoryBg);
+        setText("Tüm Ürünler");
         break;
     }
-  }, [category]);
+  }, [category, s]);
 
   const bg = {
     backgroundImage: `url(${img})`,

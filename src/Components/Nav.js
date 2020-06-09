@@ -5,6 +5,7 @@ import logo from "../img/logo.png";
 import { Link } from "react-router-dom";
 import { Modal, toggleModal } from "./Modal";
 import Tabs from "./Tabs";
+import Search from "./Search";
 
 const Nav = () => {
   const expandNav = () => {
@@ -76,12 +77,12 @@ const Nav = () => {
             />
           </li>
           <li className="user-action">
-            <FontAwesomeIcon icon="search" />
+            <Search />
           </li>
         </ul>
-        <button className="search-btn">
-          <FontAwesomeIcon icon="search" />
-        </button>
+        <div className="search">
+          <Search />
+        </div>
       </nav>
 
       <nav className="nav-expand-panel">

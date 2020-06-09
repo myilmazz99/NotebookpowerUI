@@ -14,6 +14,9 @@ const Admin = () => {
         <hr />
         <ul className="nav-links">
           <li className="nav-link">
+            <Link to="/">Anasayfa</Link>
+          </li>
+          <li className="nav-link">
             <Link to="/admin/products">Ürünler</Link>
           </li>
           <li className="nav-link">

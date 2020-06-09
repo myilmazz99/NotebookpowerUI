@@ -10,21 +10,20 @@ export const addProduct = (product) => {
           formData.append("productImages", i);
         }
 
-      console.log(product);
-
       delete product.productImages;
 
-      // let response = await axios.post(
-      //   "http://localhost:61361/api/products/add",
-      //   product
-      // );
+      let response = await axios.post(
+        "http://localhost:61361/api/products/add",
+        product
+      );
 
-      // formData.append("productId", parseInt(response.data));
+      formData.append("productId", parseInt(response.data));
 
-      // await axios.post(
-      //   "http://localhost:61361/api/products/addImages",
-      //   formData
-      // );
+      await axios.post(
+        "http://localhost:61361/api/products/addImages",
+        formData
+      );
+
       dispatch({ type: actionTypes.ADD_PRODUCT_SUCCESS, payload: product });
     } catch (err) {
       console.log(JSON.parse(err.response.data));

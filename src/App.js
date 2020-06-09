@@ -45,20 +45,9 @@ export default App;
 /*
   - notebookpower.com
   
-  ** PAGES **
-  - Home +
-  - Product List +
-  - Product Details +
-  - Cart +
-  - Order Details + Payment +
-
-  ** COMPONENTS **
-  - Login & Register Modals +
-  - Contact Form +
-  - Mailing +
-  - Best selling section + 
-  - Recently added section +
-
-  - Laptops categorized by brands and gaming or not.
+  - Cart Actions /add, create
+  - User Page /myorders, favs, logout, iade
+  - Order Forms
+  - payment api
 
 */

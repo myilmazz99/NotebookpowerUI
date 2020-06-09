@@ -7,6 +7,7 @@ import AddToCart from "../Components/AddToCart";
 import Tabs from "../Components/Tabs";
 import SimiliarProducts from "../Components/SimiliarProducts";
 import ProductRating from "../Components/ProductRating";
+import SpecificationList from "../Components/SpecificationList";
 
 const Product = () => {
   useEffect(() => {
@@ -104,6 +105,8 @@ const Product = () => {
           { Yorumlar: "Comments" },
         ]}
       />
+
+      <SpecificationList />
 
       <SimiliarProducts />
     </main>

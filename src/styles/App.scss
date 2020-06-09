@@ -59,6 +59,7 @@ button {
   background-color: transparent;
   transition: all 0.4s;
   width: 100%;
+  cursor: pointer;
 
   &:hover {
     background-color: $secondary-color;
@@ -189,6 +190,11 @@ main {
   padding: 0.6rem 1rem;
   position: relative;
 
+  input {
+    margin: 0;
+    padding: 0;
+  }
+
   .options {
     position: absolute;
     top: 100%;
@@ -284,10 +290,42 @@ nav.top-bar {
     }
   }
 
-  .search-btn {
+  .search {
     @media (min-width: $viewport-md) {
       display: none;
     }
+  }
+
+  .search-form {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    right: -100%;
+    opacity: 0;
+    transform: translateY(100%);
+    background-color: #fff;
+    transition: right 0.6s;
+    transition: opacity 0.8s;
+    box-shadow: $shadow-md;
+
+    a {
+      display: block;
+      width: 60px;
+      @extend %input-submit;
+      margin-top: 0;
+    }
+
+    input[name="s"] {
+      margin-top: 0;
+      border: 1px solid $secondary-color;
+      border-right: none;
+      width: 250px;
+    }
+  }
+
+  .form-visible {
+    right: 0;
+    opacity: 1;
   }
 
   .nav-brand {
@@ -343,6 +381,7 @@ nav.top-bar {
   .nav-user-actions {
     display: none;
     .user-action {
+      cursor: pointer;
       margin-left: 1.4rem;
     }
 
@@ -1066,6 +1105,7 @@ nav.top-bar {
     "product-slider product-slider product-slider"
     ". product-details ."
     "tabs tabs tabs"
+    ". specs ."
     "similiar-products similiar-products similiar-products";
 
   .product-slider {
@@ -1184,6 +1224,35 @@ nav.top-bar {
     }
   }
 
+  .specification-list {
+    grid-area: specs;
+    display: flex;
+    flex-wrap: wrap;
+
+    h2 {
+      flex-basis: 100%;
+    }
+
+    dt {
+      flex-basis: 25%;
+      font-weight: bolder;
+      padding: 0.6rem;
+
+      &:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.125);
+      }
+    }
+
+    dd {
+      flex-basis: 75%;
+      padding: 0.6rem;
+
+      &:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.125);
+      }
+    }
+  }
+
   @media (min-width: $viewport-lg) {
     grid-template-columns: 1fr 5fr 5fr 1fr;
     grid-template-rows: 1px;
@@ -1192,6 +1261,7 @@ nav.top-bar {
       ". . . ."
       ". product-slider product-details ."
       "tabs tabs tabs tabs"
+      ". specs specs ."
       "similiar-products similiar-products similiar-products similiar-products";
   }
 }
@@ -1302,17 +1372,21 @@ nav.top-bar {
         }
       }
 
-      li.option {
-        font-size: 1.2rem;
-      }
-
-      .container > li {
+      & > li {
         padding-top: 3rem;
 
         .selectbox {
           width: 100%;
           padding-left: 0;
         }
+      }
+
+      li.option {
+        font-size: 1.2rem;
+      }
+
+      .submit-filters {
+        @extend %input-submit;
       }
     }
 
@@ -1443,7 +1517,7 @@ nav.top-bar {
   form {
     .form-control,
     .custom-select {
-      height: calc(3.25em);
+      height: calc(2.8em);
     }
 
     label {
