@@ -2,7 +2,7 @@ import React from "react";
 //Components
 import Nav from "./Components/Nav";
 import Footer from "./Components/Footer";
-import ScrollToTop from "./Components/ScrollToTop";
+import ScrollToTop from "./Components/Utilities/ScrollToTop";
 //Pages
 import Admin from "./Pages/Admin";
 import Home from "./Pages/Home";
