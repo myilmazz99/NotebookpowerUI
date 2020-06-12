@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 //router
 import { Link } from "react-router-dom";
 
 const SelectBox = ({ defaultValue, name, options, reset, collectFilters }) => {
   let [selected, setSelected] = useState(defaultValue);
+  const optionsList = useRef(null);
+  const selectArrow = useRef(null);
 
   useEffect(() => {
     setSelected(defaultValue);
@@ -14,16 +16,14 @@ const SelectBox = ({ defaultValue, name, options, reset, collectFilters }) => {
   }, [selected]);
 
   const handleSelect = (e) => {
-    document
-      .querySelector(`.selectbox-${name} .options`)
-      .classList.toggle("closed");
-    document
-      .querySelector(`.selectbox-${name} .select-arrow`)
-      .classList.toggle("select-arrow-up");
+    optionsList.current.classList.toggle("closed");
+    selectArrow.current.classList.toggle("select-arrow-up");
   };
 
   const handleOption = (e) => {
     if (e.target.tagName.includes("A")) {
+      setSelected(e.target.innerText);
+    } else if (name !== "orderby" && e.target.tagName.includes("LI")) {
       setSelected(e.target.innerText);
     } else {
       setSelected(e.target.children[0].innerText);
@@ -31,15 +31,19 @@ const SelectBox = ({ defaultValue, name, options, reset, collectFilters }) => {
   };
 
   return (
-    <div onClick={handleSelect} className={`selectbox selectbox-${name}`}>
+    <div onClick={handleSelect} className="selectbox">
       <span className="selectbox-value">{selected}</span>
 
-      <span className="select-arrow"></span>
-      <ul className="options closed">
+      <span className="select-arrow" ref={selectArrow}></span>
+      <ul className="options closed" ref={optionsList}>
         {options
-          ? options.map((i) => (
+          ? options.map((i, j) => (
               <li className="option" onClick={handleOption}>
-                <Link to={`/products?${name}=${i}`}>{i}</Link>
+                {name === "orderby" ? (
+                  <Link to={`/products?${name}=${i}`}>{i}</Link>
+                ) : (
+                  i
+                )}
               </li>
             ))
           : ""}

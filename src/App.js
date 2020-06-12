@@ -44,10 +44,9 @@ export default App;
 
 /*
   - notebookpower.com
-  
-  - Cart Actions /add, create
+
   - User Page /myorders, favs, logout, iade
-  - Order Forms
+  - Order & User Forms
   - payment api
 
 */
