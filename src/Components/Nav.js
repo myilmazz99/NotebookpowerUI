@@ -1,49 +1,23 @@
-import React from "react";
+import React, { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Contact from "./Contact";
 import logo from "../img/logo.png";
 import { Link } from "react-router-dom";
-import { Modal, toggleModal } from "./Modal";
-import Tabs from "./Tabs";
+import { toggleModal } from "./Utilities/Modal";
 import Search from "./Search";
+import AccountModal from "./AccountModal";
 
 const Nav = () => {
-  const expandNav = () => {
-    document.querySelector(".nav-expand-panel").classList.add("expanded");
-  };
+  const sideNav = useRef(null);
 
-  const shrinkNav = () => {
-    document.querySelector(".nav-expand-panel").classList.remove("expanded");
-  };
-
-  const renderSignUp = () => {
-    return (
-      <form className="signUp-form">
-        <h4>Üye Ol</h4>
-        <input type="text" placeholder="Adınız ve Soyadınız" />
-        <input type="text" placeholder="E Mailiniz" />
-        <input type="password" placeholder="Şifre belirleyiniz" />
-        <input type="password" placeholder="Şifre tekrar" />
-        <input type="submit" value="Kayıt Ol" />
-      </form>
-    );
-  };
-
-  const renderSignIn = () => {
-    return (
-      <form className="signIn-form">
-        <h4>Giriş Yap</h4>
-        <input type="text" placeholder="E Mailiniz" />
-        <input type="password" placeholder="Şifreniz" />
-        <input type="submit" value="Giriş Yap" />
-      </form>
-    );
+  const toggleSideNav = () => {
+    sideNav.current.classList.toggle("expanded");
   };
 
   return (
     <header>
       <nav className="top-bar">
-        <button className="nav-expand-btn" onClick={() => expandNav()}>
+        <button className="nav-expand-btn" onClick={toggleSideNav}>
           <div className="line first-line"></div>
           <div className="line second-line"></div>
           <div className="line third-line"></div>
@@ -85,13 +59,13 @@ const Nav = () => {
         </div>
       </nav>
 
-      <nav className="nav-expand-panel">
-        <button className="nav-shrink-btn" onClick={() => shrinkNav()}>
+      <nav ref={sideNav} className="nav-expand-panel">
+        <button className="nav-shrink-btn" onClick={toggleSideNav}>
           <FontAwesomeIcon icon="times" />
         </button>
         <ul className="links">
           <li>
-            <Link to="/" className="nav-link" onClick={() => shrinkNav()}>
+            <Link to="/" className="nav-link" onClick={toggleSideNav}>
               Ana Sayfa
               <FontAwesomeIcon icon="chevron-right" size="xs" />
             </Link>
@@ -100,7 +74,7 @@ const Nav = () => {
             <Link
               to="/products?category=gaming"
               className="nav-link"
-              onClick={() => shrinkNav()}
+              onClick={toggleSideNav}
             >
               Gaming Notebook
               <FontAwesomeIcon icon="chevron-right" size="xs" />
@@ -110,7 +84,7 @@ const Nav = () => {
             <Link
               to="/products?category=casual"
               className="nav-link"
-              onClick={() => shrinkNav()}
+              onClick={toggleSideNav}
             >
               Casual Notebook
               <FontAwesomeIcon icon="chevron-right" size="xs" />
@@ -120,18 +94,14 @@ const Nav = () => {
             <Link
               to="/products?category=accessory"
               className="nav-link"
-              onClick={() => shrinkNav()}
+              onClick={toggleSideNav}
             >
               Notebook Aksesuar
               <FontAwesomeIcon icon="chevron-right" size="xs" />
             </Link>
           </li>
           <li>
-            <Link
-              to="/products"
-              className="nav-link"
-              onClick={() => shrinkNav()}
-            >
+            <Link to="/products" className="nav-link" onClick={toggleSideNav}>
               Tüm Ürünlerimiz
               <FontAwesomeIcon icon="chevron-right" size="xs" />
             </Link>
@@ -140,14 +110,14 @@ const Nav = () => {
 
         <ul className="account">
           <li className="account-link">
-            <Link to="/cart/1" onClick={() => shrinkNav()}>
+            <Link to="/cart/1" onClick={toggleSideNav}>
               <FontAwesomeIcon icon="shopping-cart" /> Sepetim
             </Link>
           </li>
           <li className="account-link">
             <span
               onClick={() => {
-                shrinkNav();
+                toggleSideNav();
                 toggleModal("account-modal");
               }}
             >
@@ -155,7 +125,7 @@ const Nav = () => {
             </span>
           </li>
           <li className="account-link">
-            <Link to="/account/favorites" onClick={() => shrinkNav()}>
+            <Link to="/account/favorites" onClick={toggleSideNav}>
               <FontAwesomeIcon icon="heart" /> Favorilerim
             </Link>
           </li>
@@ -164,19 +134,7 @@ const Nav = () => {
         <Contact />
       </nav>
 
-      <Modal
-        onClose={toggleModal}
-        modalName="account-modal"
-        data={
-          <Tabs
-            tabName="account-tab"
-            tabs={[
-              { "Üye Ol": renderSignUp() },
-              { "Giriş Yap": renderSignIn() },
-            ]}
-          />
-        }
-      />
+      <AccountModal />
     </header>
   );
 };

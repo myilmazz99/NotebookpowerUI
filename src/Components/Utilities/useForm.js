@@ -9,11 +9,12 @@ const useForm = (callback, validate) => {
     if (e) e.preventDefault();
     setDidSubmit(true);
     setErrors(validate(values));
+    console.log(values);
   };
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && didSubmit) {
-      callback();
+      //callback();
       setDidSubmit(false);
     }
   }, [callback, didSubmit]);

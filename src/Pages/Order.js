@@ -1,69 +1,28 @@
 import React from "react";
 import CartSummary from "../Components/CartSummary";
-import Tabs from "../Components/Tabs";
+import AddressForm from "../Components/Order/AddressForm";
+import Input from "../Components/Utilities/Input";
 
 const Order = () => {
-  const renderAddresses = () => (
-    <>
-      <h2>Adreslerim</h2>
-      <div className="saved-addresses">
-        <span>Kayıtlı adres bulunamadı.</span>
-      </div>
-    </>
-  );
-
-  const renderAddressForm = () => (
-    <form className="address-form">
-      <h2>Adres Ekle</h2>
-      <input type="text" name="fullName" placeholder="Adınız ve Soyadınız" />
-      <input type="text" name="tel" placeholder="Telefon numaranız" />
-      <input type="email" name="email" placeholder="E-mail" />
-      <input type="text" name="addressHeader" placeholder="Adres Başlığı" />
-      <input type="text" name="city" placeholder="Şehir" />
-      <input type="text" name="state" placeholder="Semt" />
-      <textarea
-        name="addressDetails"
-        id=""
-        cols="auto"
-        rows="auto"
-        placeholder="Adres detayları"
-      ></textarea>
-      <input type="submit" value="Kaydet" />
-    </form>
-  );
-
   return (
     <main id="order">
       <div className="order-wrapper">
-        <div className="address">
-          <Tabs
-            tabName="address-tab"
-            tabs={[
-              {
-                Adreslerim: renderAddresses(),
-              },
-              {
-                "Adres Ekle": renderAddressForm(),
-              },
-            ]}
-          />
-        </div>
-
+        <AddressForm />
         <div className="credit-card">
           <h2>Kart Bilgileri</h2>
           <form className="credit-card-details">
-            <input type="text" name="cardNumber" placeholder="Kart Numarası" />
-            <input
+            <Input type="text" name="cardNumber" placeholder="Kart Numarası" />
+            <Input
               type="text"
               name="cardName"
               placeholder="Kart üzerindeki isim"
             />
-            <input
+            <Input
               type="text"
               name="securityNumber"
               placeholder="Güvenlik Kodu"
             />
-            <input
+            <Input
               type="date"
               name="expiration"
               placeholder="Son kullanma tarihi"
