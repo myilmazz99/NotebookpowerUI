@@ -1306,6 +1306,14 @@ nav.top-bar {
   .tabs-data {
     border-top: 1px solid $secondary-color;
     @extend %container-xy;
+
+    .tab-data {
+      display: none;
+    }
+
+    .show {
+      display: block;
+    }
   }
 }
 

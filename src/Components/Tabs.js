@@ -1,28 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 const Tabs = ({ tabs, tabName }) => {
-  const [data, setData] = useState(null);
+  const tab = useRef(null);
+  const tabData = useRef(null);
 
   useEffect(() => {
-    let tabNodes = document.querySelectorAll(`.${tabName} > .tab`);
-    tabNodes[0].classList.add("tab-active");
-    setData(Object.values(tabs[0]));
+    tab.current.childNodes[0].classList.add("tab-active");
+    tabData.current.childNodes[0].classList.add("show");
   }, []);
 
   const handleTabs = (e) => {
-    let tabNodes = document.querySelectorAll(`.${tabName} > .tab`);
+    let tabNodes = tab.current.childNodes;
+    let tabDatas = tabData.current.childNodes;
+
     const changeTabs = (data) => {
-      setData(data);
       e.target.classList.add("tab-active");
     };
 
     for (var i = 0; i < tabNodes.length; i++) {
       if (tabNodes[i].className.includes("tab-active")) {
         tabNodes[i].classList.remove("tab-active");
+        tabDatas[i].classList.remove("show");
       }
 
       if (e.target.innerText === Object.keys(tabs[i]).toString()) {
         tabNodes[i].classList.add("tab-active");
+        tabDatas[i].classList.add("show");
         changeTabs(Object.values(tabs[i]));
       }
     }
@@ -31,17 +34,22 @@ const Tabs = ({ tabs, tabName }) => {
   return (
     <section className="tabs">
       <ul
-        className={`tab-container ${tabName}`}
+        ref={tab}
+        className="tab-container"
         onClick={(e) => {
           handleTabs(e);
         }}
       >
-        {tabs.map((i) => {
-          return <li className="tab">{Object.getOwnPropertyNames(i)}</li>;
+        {tabs.map((i, j) => {
+          return (
+            <li className={`tab tab-${j}`}>{Object.getOwnPropertyNames(i)}</li>
+          );
         })}
       </ul>
-      <div className="tabs-data">
-        {typeof data === "function" ? data() : data}
+      <div className="tabs-data" ref={tabData}>
+        {tabs.map((i, j) => {
+          return <div className={`tab-data tab-${j}`}>{Object.values(i)}</div>;
+        })}
       </div>
     </section>
   );
