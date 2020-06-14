@@ -9,15 +9,16 @@ const useForm = (callback, validate) => {
     if (e) e.preventDefault();
     setDidSubmit(true);
     setErrors(validate(values));
-    console.log(values);
   };
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && didSubmit) {
-      //callback();
+      callback();
+      setDidSubmit(false);
+    } else {
       setDidSubmit(false);
     }
-  }, [callback, didSubmit]);
+  }, [didSubmit]);
 
   const handleChange = (e) => {
     let { name, value } = e.target;

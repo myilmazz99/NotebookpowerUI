@@ -30,3 +30,15 @@ export const addProduct = (product) => {
     }
   };
 };
+
+export const getProducts = () => async (dispatch) => {
+  try {
+    let response = await axios.get("http://localhost:61361/api/products");
+    dispatch({
+      type: actionTypes.GET_ALL_PRODUCTS_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

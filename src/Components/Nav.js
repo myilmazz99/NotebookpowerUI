@@ -49,6 +49,14 @@ const Nav = () => {
               icon="user-circle"
               onClick={() => toggleModal("account-modal")}
             />
+            <ul className="user-window">
+              <li>
+                <Link to="/user/1/favorites">Favorilerim</Link>
+              </li>
+              <li>
+                <Link to="/user/1/orders">Siparişlerim</Link>
+              </li>
+            </ul>
           </li>
           <li className="user-action">
             <Search />
@@ -125,8 +133,13 @@ const Nav = () => {
             </span>
           </li>
           <li className="account-link">
-            <Link to="/account/favorites" onClick={toggleSideNav}>
+            <Link to="/user/1/favorites" onClick={toggleSideNav}>
               <FontAwesomeIcon icon="heart" /> Favorilerim
+            </Link>
+          </li>
+          <li className="account-link">
+            <Link to="/user/1/orders" onClick={toggleSideNav}>
+              <FontAwesomeIcon icon="dollar-sign" /> Siparişlerim
             </Link>
           </li>
         </ul>

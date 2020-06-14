@@ -8,6 +8,7 @@ import Tabs from "../Components/Tabs";
 import SimiliarProducts from "../Components/SimiliarProducts";
 import ProductRating from "../Components/ProductRating";
 import SpecificationList from "../Components/SpecificationList";
+import AddToFav from "../Components/Utilities/AddToFav";
 
 const Product = () => {
   useEffect(() => {
@@ -51,7 +52,7 @@ const Product = () => {
 
       <div className="product-details">
         <h1>
-          <span>Libero Headphones</span> <FontAwesomeIcon icon="heart" />{" "}
+          <span>Libero Headphones</span> <AddToFav />
         </h1>
         {10 > 5 ? <div className="low-stock-number">Son 5 ürün!</div> : ""}
         <div className="price-and-rating">

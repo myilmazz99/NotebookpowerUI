@@ -22,7 +22,9 @@ import {
   faShoppingCart,
   faFilter,
   faHome,
+  faDollarSign,
 } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -37,6 +39,7 @@ library.add(
   faHeart,
   faEnvelope,
   faPhone,
+  far,
   fab,
   faStar,
   faStarHalf,
@@ -45,7 +48,8 @@ library.add(
   faSortAmountDownAlt,
   faFilter,
   faShoppingCart,
-  faHome
+  faHome,
+  faDollarSign
 );
 
 const store = configureStore();

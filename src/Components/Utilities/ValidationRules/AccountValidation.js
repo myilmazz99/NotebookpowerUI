@@ -1,4 +1,4 @@
-const AccountValidation = (values) => {
+export const registerValidation = (values) => {
   let errors = {};
 
   if (!values.fullName) errors.fullName = "İsim alanını doldurmak zorunludur";
@@ -10,4 +10,11 @@ const AccountValidation = (values) => {
   return errors;
 };
 
-export default AccountValidation;
+export const loginValidation = (values) => {
+  let errors = {};
+
+  if (!values.email) errors.email = "Email alanını doldurmak zorunludur";
+  if (!values.password) errors.password = "Şifre alanını doldurmak zorunludur";
+
+  return errors;
+};

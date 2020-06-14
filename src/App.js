@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 //Components
 import Nav from "./Components/Nav";
 import Footer from "./Components/Footer";
@@ -12,14 +12,30 @@ import Cart from "./Pages/Cart";
 import Order from "./Pages/Order";
 //Router
 import { Switch, Route, useLocation } from "react-router-dom";
+import User from "./Pages/User";
+import { authenticate, logout } from "./Redux/Actions/userActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-const App = () => {
+const App = ({ logout, authenticate, userState }) => {
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    var token = localStorage.getItem("token");
+    if (token) {
+      var parsedToken = JSON.parse(token);
+      if (parsedToken.Expiration < Date.now()) {
+        logout();
+      } else {
+        authenticate();
+      }
+    }
+  }, []);
 
   return (
     <>
       <ScrollToTop />
-      {pathname.includes("admin") ? (
+      {pathname.includes("admin") && userState.authenticated ? (
         <Switch>
           <Route path="/admin" component={Admin} />
         </Switch>
@@ -28,6 +44,7 @@ const App = () => {
           <Nav />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/user/:id" component={User} />
             <Route exact path="/product/:productId" component={Product} />
             <Route exact path="/products" component={ProductList} />
             <Route exact path="/cart/:cartId" component={Cart} />
@@ -40,13 +57,20 @@ const App = () => {
   );
 };
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  authenticate: bindActionCreators(authenticate, dispatch),
+  logout: bindActionCreators(logout, dispatch),
+});
+
+const mapStateToProps = (state) => ({
+  userState: state.userReducer,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 /*
   - notebookpower.com
 
-  - User Page /myorders, favs, logout, iade
-  - Order & User Forms
   - payment api
 
 */

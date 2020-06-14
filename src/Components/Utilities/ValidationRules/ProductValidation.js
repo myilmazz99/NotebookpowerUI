@@ -3,8 +3,8 @@ const ProductValidation = (values) => {
 
   if (!values.productName) {
     errors.productName = "Ürün ismi girmek zorunludur.";
-  } else if (values.productName && values.productName.length > 50) {
-    errors.productName = "Ürün ismi en fazla 50 karakter içerebilir.";
+  } else if (values.productName && values.productName.length > 100) {
+    errors.productName = "Ürün ismi en fazla 100 karakter içerebilir.";
   }
 
   if (!values.productDescription) {

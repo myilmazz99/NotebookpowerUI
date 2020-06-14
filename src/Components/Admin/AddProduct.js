@@ -8,8 +8,10 @@ import { addProduct } from "../../Redux/Actions/productActions";
 import useSpecRows from "../Utilities/useSpecRows";
 //Validation
 import ProductValidation from "../Utilities/ValidationRules/ProductValidation";
+import { useHistory } from "react-router-dom";
 
 const AddProduct = ({ addProduct }) => {
+  const history = useHistory();
   let { handleSubmit, handleChange, values, handleUpload, errors } = useForm(
     add,
     ProductValidation
@@ -36,6 +38,7 @@ const AddProduct = ({ addProduct }) => {
 
   function add() {
     addProduct(values);
+    history.goBack();
   }
 
   return (
@@ -66,6 +69,7 @@ const AddProduct = ({ addProduct }) => {
             <input
               type="number"
               name="oldPrice"
+              step="0.01"
               onChange={handleChange}
               value={values.oldPrice || ""}
               className={`form-control ${errors.oldPrice && "border-danger"}`}
@@ -79,6 +83,7 @@ const AddProduct = ({ addProduct }) => {
             <input
               type="number"
               name="newPrice"
+              step="0.01"
               onChange={handleChange}
               value={values.newPrice || ""}
               className={`form-control ${errors.newPrice && "border-danger"}`}

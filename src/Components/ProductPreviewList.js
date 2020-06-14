@@ -3,9 +3,12 @@ import productImg from "../img/productimg.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import ProductRating from "./ProductRating";
+import AddToFav from "./Utilities/AddToFav";
 
 const ProductPreviewList = ({ container }) => {
   const [itemCount] = useState(Array(10).fill(null));
+
+  const addToFavs = () => {};
 
   return (
     <div className={`product-preview-list ${container ? container : ""}`}>
@@ -37,8 +40,8 @@ const ProductPreviewList = ({ container }) => {
           <div className="product-menu">
             <div className="product-menu-option">Sepete ekle</div>
           </div>
-          <div className="add-to-fav">
-            <FontAwesomeIcon icon="heart" />
+          <div className="add-to-fav" onClick={addToFavs}>
+            <AddToFav />
           </div>
         </div>
       ))}

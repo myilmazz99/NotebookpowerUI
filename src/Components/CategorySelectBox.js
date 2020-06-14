@@ -6,14 +6,18 @@ import { getCategories } from "../Redux/Actions/categoryActions";
 
 const CategorySelectBox = ({ getCategories, categories, handleChange }) => {
   useEffect(() => {
-    getCategories();
+    if (categories.length === 0) getCategories();
   }, []);
 
   return (
     <select name="categoryId" className="custom-select" onChange={handleChange}>
       <option>Kategori Seç...</option>
       {categories &&
-        categories.map((i) => <option value={i.id}>{i.categoryName}</option>)}
+        categories.map((i) => (
+          <option key={i.id} value={i.id}>
+            {i.categoryName}
+          </option>
+        ))}
     </select>
   );
 };

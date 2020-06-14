@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { getProducts } from "../../Redux/Actions/productActions";
 
-const Products = () => {
+const Products = ({ products, getProducts }) => {
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
     <div id="admin-product-list">
       <h1>Ürünler</h1>
@@ -24,85 +31,53 @@ const Products = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>108</td>
-            <td>
-              <img src="https://via.placeholder.com/100x100" alt="" />
-            </td>
-            <td>
-              {"Libero Headphones".length > 20
-                ? "Libero Headphones".slice(0, 20) + "..."
-                : "Libero Headphones"}
-            </td>
-            <td>
-              499 <FontAwesomeIcon icon="lira-sign" />
-            </td>
-            <td>10</td>
-            <td>Oyuncu</td>
-            <td>
-              <button className="btn btn-danger btn-sm w-100 mb-1">Sil</button>
-              <Link
-                to="/admin/products/108"
-                className="btn btn-warning btn-sm w-100"
-              >
-                Güncelle
-              </Link>
-            </td>
-          </tr>
-          <tr>
-            <td>108</td>
-            <td>
-              <img src="https://via.placeholder.com/100x100" alt="" />
-            </td>
-            <td>
-              {"Libero Headphones".length > 20
-                ? "Libero Headphones".slice(0, 20) + "..."
-                : "Libero Headphones"}
-            </td>
-            <td>
-              499 <FontAwesomeIcon icon="lira-sign" />
-            </td>
-            <td>10</td>
-            <td>Oyuncu</td>
-            <td>
-              <button className="btn btn-danger btn-sm w-100 mb-1">Sil</button>
-              <Link
-                to="/admin/product/108"
-                className="btn btn-warning btn-sm w-100"
-              >
-                Güncelle
-              </Link>
-            </td>
-          </tr>
-          <tr>
-            <td>108</td>
-            <td>
-              <img src="https://via.placeholder.com/100x100" alt="" />
-            </td>
-            <td>
-              {"Libero Headphones".length > 20
-                ? "Libero Headphones".slice(0, 20) + "..."
-                : "Libero Headphones"}
-            </td>
-            <td>
-              499 <FontAwesomeIcon icon="lira-sign" />
-            </td>
-            <td>10</td>
-            <td>Oyuncu</td>
-            <td>
-              <button className="btn btn-danger btn-sm w-100 mb-1">Sil</button>
-              <Link
-                to="/admin/product/108"
-                className="btn btn-warning btn-sm w-100"
-              >
-                Güncelle
-              </Link>
-            </td>
-          </tr>
+          {products && products.length !== 0 ? (
+            products.map((i) => (
+              <tr key={i.id}>
+                <td>108</td>
+                <td>
+                  <img src={i.productImages[0].imageUrl} alt="" />
+                </td>
+                <td>
+                  {i.productName.length > 20
+                    ? i.productName.slice(0, 20) + "..."
+                    : i.productName}
+                </td>
+                <td>
+                  {i.newPrice} <FontAwesomeIcon icon="lira-sign" />
+                </td>
+                <td>{i.stock}</td>
+                <td>{i.categoryName}</td>
+                <td>
+                  <button className="btn btn-danger btn-sm w-100 mb-1">
+                    Sil
+                  </button>
+                  <Link
+                    to="/admin/products/108"
+                    className="btn btn-warning btn-sm w-100"
+                  >
+                    Güncelle
+                  </Link>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="7">Henüz hiç ürün eklenmemiş.</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
   );
 };
 
-export default Products;
+const mapStateToProps = (state) => ({
+  products: state.productReducer.products,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getProducts: bindActionCreators(getProducts, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Products);
