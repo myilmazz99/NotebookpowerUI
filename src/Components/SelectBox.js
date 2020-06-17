@@ -38,7 +38,7 @@ const SelectBox = ({ defaultValue, name, options, reset, collectFilters }) => {
       <ul className="options closed" ref={optionsList}>
         {options
           ? options.map((i, j) => (
-              <li className="option" onClick={handleOption}>
+              <li key={j} className="option" onClick={handleOption}>
                 {name === "orderby" ? (
                   <Link to={`/products?${name}=${i}`}>{i}</Link>
                 ) : (

@@ -42,13 +42,19 @@ const Tabs = ({ tabs, tabName }) => {
       >
         {tabs.map((i, j) => {
           return (
-            <li className={`tab tab-${j}`}>{Object.getOwnPropertyNames(i)}</li>
+            <li key={j} className={`tab tab-${j}`}>
+              {Object.getOwnPropertyNames(i)}
+            </li>
           );
         })}
       </ul>
       <div className="tabs-data" ref={tabData}>
         {tabs.map((i, j) => {
-          return <div className={`tab-data tab-${j}`}>{Object.values(i)}</div>;
+          return (
+            <div key={j} className={`tab-data tab-${j}`}>
+              {Object.values(i)}
+            </div>
+          );
         })}
       </div>
     </section>

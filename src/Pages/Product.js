@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { tns } from "tiny-slider/src/tiny-slider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import payment from "../img/safe-payment.png";
@@ -9,8 +9,15 @@ import SimiliarProducts from "../Components/SimiliarProducts";
 import ProductRating from "../Components/ProductRating";
 import SpecificationList from "../Components/SpecificationList";
 import AddToFav from "../Components/Utilities/AddToFav";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { getProduct } from "../Redux/Actions/productActions";
+import { useParams } from "react-router-dom";
 
-const Product = () => {
+const Product = ({ products, getProduct }) => {
+  const { productId } = useParams();
+  const [product, setProduct] = useState({});
+
   useEffect(() => {
     tns({
       container: ".product-slider-wrapper",
@@ -20,6 +27,14 @@ const Product = () => {
       navAsThumbnails: true,
     });
   }, []);
+
+  useEffect(() => {
+    if (products && !products.find((i) => i.id !== productId)) {
+      getProduct(productId);
+    }
+
+    setProduct(products.find((i) => i.id !== productId));
+  }, [products]);
 
   return (
     <main id="product-page">
@@ -52,22 +67,39 @@ const Product = () => {
 
       <div className="product-details">
         <h1>
-          <span>Libero Headphones</span> <AddToFav />
+          <span>{product && product.productName}</span> <AddToFav />
         </h1>
-        {10 > 5 ? <div className="low-stock-number">Son 5 ürün!</div> : ""}
+        {product ? (
+          10 > product.stock ? (
+            <div className="low-stock-number">Son {product.stock} ürün!</div>
+          ) : (
+            ""
+          )
+        ) : (
+          ""
+        )}
         <div className="price-and-rating">
           <ProductRating />
           <div className="product-price">
             <span className="discount-amount">
-              <span>{"%" + Math.floor(((499 - 399) * 100) / 499)}</span>
-              <span>{"indirim"}</span>
+              <span>
+                {product &&
+                  "%" +
+                    Math.floor(
+                      ((product.oldPrice - product.newPrice) * 100) /
+                        product.oldPrice
+                    )}
+              </span>
+              <span>indirim</span>
             </span>
             <div className="prices">
               <div className="old-price">
-                499 <FontAwesomeIcon icon="lira-sign" />
+                {product && product.oldPrice}{" "}
+                <FontAwesomeIcon icon="lira-sign" />
               </div>
               <div className="new-price">
-                399 <FontAwesomeIcon icon="lira-sign" />
+                {product && product.newPrice}{" "}
+                <FontAwesomeIcon icon="lira-sign" />
               </div>
             </div>
           </div>
@@ -85,33 +117,25 @@ const Product = () => {
         tabName="product-tab"
         tabs={[
           {
-            Açıklama: `TX V-MAX 5 Fanlı Oyuncu Notebook Soğutucusu (TXACNBVMAX) TX V-Max
-              Oyuncuların Yeni Gizli Silahı ! V-Max 5x Fanlı, 6x Yükseklik Ayarlı,
-              2x Usb Hub'lı, 11" - 17" Desteği ve Analog Fan Kontrolcüsü ile Yeni
-              Nesil Notebook Soğutucu TX V-Max Emirlerinizi Bekliyor! TX V-Max,
-              dilediğinizde hücüma çıkan, dilediğinizde dizginlenebilir kırmızı
-              fan ordusu ile dizüstü bilgisayarınız buz kesecek. Tam 5 adet
-              7cm'lik kırmızı LED fanlardan gelen soğuk fırtına Mesh ızgaralı
-              alüminyum ön panelden geçerek bilgisayarınızı soğutur. Sahip olduğu
-              analog fan kontrolcü ile fırtınayı dindirebilir dilerseniz de
-              fırtınanın şiddetini arttırarak tam bir kasırgaya
-              dönüştürebilirsiniz. Tam 6 kademe yükseklik ayarı ve sünger destek
-              sayesinde dizüstü bilgisayarınızı istediğiniz yükseklikte rahatça
-              kullanabilirsiniz. Arka panelde yer alan tam 2x USB 2.0 portları ile
-              USB port kaybetme derdiniz olmayacak. Bilgisayarınızı saatlerce
-              performansından faydalanmanız için TX V-Max fan ordusu sizin için
-              her daim hazır! 11"-17" Tüm Laptoplar ile Tam Uyumluluk TX V-Max
-              notebook soğutucu benzersiz 310mm'lik genişliği...`,
+            Açıklama: product && product.productDescription,
           },
           { Yorumlar: "Comments" },
         ]}
       />
 
-      <SpecificationList />
+      <SpecificationList specifications={product && product.specifications} />
 
       <SimiliarProducts />
     </main>
   );
 };
 
-export default Product;
+const mapStateToProps = (state) => ({
+  products: state.productReducer.products,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getProduct: bindActionCreators(getProduct, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

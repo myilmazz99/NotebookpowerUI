@@ -34,9 +34,9 @@ const Products = ({ products, getProducts }) => {
           {products && products.length !== 0 ? (
             products.map((i) => (
               <tr key={i.id}>
-                <td>108</td>
+                <td>{i.id}</td>
                 <td>
-                  <img src={i.productImages[0].imageUrl} alt="" />
+                  {/* <img src={i.productImages[0].imageUrl} alt="" /> */}
                 </td>
                 <td>
                   {i.productName.length > 20

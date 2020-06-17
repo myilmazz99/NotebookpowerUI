@@ -7,7 +7,6 @@ const Tns = ({ container, products }) => {
     tns({
       container: "." + container,
       items: 1.2,
-      center: true,
       mouseDrag: true,
       controlsText: ["<", ">"],
       responsive: {
@@ -21,10 +20,11 @@ const Tns = ({ container, products }) => {
           items: 4.2,
         },
       },
+      loop: false,
     });
-  }, [container]);
+  }, [container, products]);
 
-  return <ProductPreviewList container={container} />;
+  return <ProductPreviewList container={container} products={products} />;
 };
 
 export default Tns;

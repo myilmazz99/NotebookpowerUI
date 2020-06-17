@@ -24,9 +24,12 @@ export const addProduct = (product) => {
         formData
       );
 
-      dispatch({ type: actionTypes.ADD_PRODUCT_SUCCESS, payload: product });
+      // dispatch({
+      //   type: actionTypes.ADD_PRODUCT_SUCCESS,
+      //   payload: { ...product, id: response.data },
+      // });
     } catch (err) {
-      console.log(JSON.parse(err.response.data));
+      console.log(err.response);
     }
   };
 };
@@ -38,6 +41,57 @@ export const getProducts = () => async (dispatch) => {
       type: actionTypes.GET_ALL_PRODUCTS_SUCCESS,
       payload: response.data,
     });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBestSeller = () => async (dispatch) => {
+  try {
+    let response = await axios.get(
+      "http://localhost:61361/api/products/bestseller"
+    );
+    dispatch({
+      type: actionTypes.GET_BEST_SELLER_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getDailyDeals = () => async (dispatch) => {
+  try {
+    let response = await axios.get(
+      "http://localhost:61361/api/products/dailydeals"
+    );
+    dispatch({
+      type: actionTypes.GET_DAILY_DEALS_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getSimiliar = (categoryId) => async (dispatch) => {
+  try {
+    let response = await axios.get(
+      `http://localhost:61361/api/products/similiar/${categoryId}`
+    );
+    dispatch({
+      type: actionTypes.GET_SIMILIAR_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getProduct = (id) => async (dispatch) => {
+  try {
+    let response = await axios.get(`http://localhost:61361/api/products/${id}`);
+    dispatch({ type: actionTypes.GET_PRODUCT_SUCCESS, payload: response.data });
   } catch (error) {
     console.log(error);
   }
