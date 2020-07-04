@@ -1,13 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SelectBox from "../Components/SelectBox";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { getSpecifications } from "../Redux/Actions/productActions";
 
-const FilterMenu = () => {
+const FilterMenu = ({ specifications, getSpecifications }) => {
   const [clearFilter, setClearFilter] = useState(false);
   const [filters, setFilters] = useState();
   const his = useHistory();
   const filterMenu = useRef(null);
+
+  useEffect(() => {
+    if (specifications && specifications.length === 0) getSpecifications();
+  }, []);
 
   const toggleFilterMenu = () => {
     filterMenu.current.classList.toggle("filter-menu-open");
@@ -35,6 +42,7 @@ const FilterMenu = () => {
     }
 
     his.push(`/products${path}`);
+    toggleFilterMenu();
   };
 
   const handleChange = (e) => {
@@ -43,6 +51,13 @@ const FilterMenu = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const filterOptions = (filterName) => {
+    return specifications
+      .filter((i) => i.specificationName === filterName)
+      .map((i) => i.specificationValue)
+      .filter((i, j, arr) => arr.indexOf(i) === j);
   };
 
   return (
@@ -76,7 +91,7 @@ const FilterMenu = () => {
             name="brand"
             reset={clearFilter}
             defaultValue="Marka"
-            options={["Asus", "MSI", "Monster"]}
+            options={filterOptions("Marka")}
           />
         </li>
         <li>
@@ -85,7 +100,7 @@ const FilterMenu = () => {
             name="color"
             reset={clearFilter}
             defaultValue="Renk"
-            options={["Mavi", "Yeşil", "Siyah"]}
+            options={filterOptions("Renk")}
           />
         </li>
         <li>
@@ -94,7 +109,7 @@ const FilterMenu = () => {
             name="system"
             reset={clearFilter}
             defaultValue="İşletim Sistemi"
-            options={["Windows 10", "Freedos", "Windows 8"]}
+            options={filterOptions("İşletim Sistemi")}
           />
         </li>
         <li>
@@ -103,7 +118,7 @@ const FilterMenu = () => {
             name="cpu"
             reset={clearFilter}
             defaultValue="İşlemci"
-            options={["Intel Core 2 Duo", "Intel Core i5", "Intel Core i7"]}
+            options={filterOptions("İşlemci")}
           />
         </li>
         <li>
@@ -112,7 +127,7 @@ const FilterMenu = () => {
             name="gpu"
             reset={clearFilter}
             defaultValue="Ekran Kartı"
-            options={["GTX 1050", "RTX 2080", "GTX 850M"]}
+            options={filterOptions("Ekran Kartı")}
           />
         </li>
         <li>
@@ -143,4 +158,12 @@ const FilterMenu = () => {
   );
 };
 
-export default FilterMenu;
+const mapState = (state) => ({
+  specifications: state.productReducer.specifications,
+});
+
+const mapDispatch = (dispatch) => ({
+  getSpecifications: bindActionCreators(getSpecifications, dispatch),
+});
+
+export default connect(mapState, mapDispatch)(FilterMenu);

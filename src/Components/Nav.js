@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Contact from "./Contact";
 import logo from "../img/logo.png";
@@ -6,9 +6,16 @@ import { Link } from "react-router-dom";
 import { toggleModal } from "./Utilities/Modal";
 import Search from "./Search";
 import AccountModal from "./AccountModal";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { getCategories } from "../Redux/Actions/categoryActions";
 
-const Nav = () => {
+const Nav = ({ categories, getCategories }) => {
   const sideNav = useRef(null);
+
+  useEffect(() => {
+    if (categories.length === 0) getCategories();
+  }, []);
 
   const toggleSideNav = () => {
     sideNav.current.classList.toggle("expanded");
@@ -27,15 +34,14 @@ const Nav = () => {
         </Link>
 
         <ul className="nav-links">
-          <li className="nav-link">
-            <Link to="/products?category=gaming">Oyuncu</Link>
-          </li>
-          <li className="nav-link">
-            <Link to="/products?category=casual">İş & Multimedya</Link>
-          </li>
-          <li className="nav-link">
-            <Link to="/products?category=accessory">Aksesuar</Link>
-          </li>
+          {categories &&
+            categories.map((i) => (
+              <li key={i.id} className="nav-link">
+                <Link to={`/products?category=${i.categoryName}`}>
+                  {i.categoryName}
+                </Link>
+              </li>
+            ))}
         </ul>
         <img src={logo} alt="notebookpower brand logo" className="nav-brand" />
         <ul className="nav-user-actions">
@@ -78,39 +84,22 @@ const Nav = () => {
               <FontAwesomeIcon icon="chevron-right" size="xs" />
             </Link>
           </li>
-          <li>
-            <Link
-              to="/products?category=gaming"
-              className="nav-link"
-              onClick={toggleSideNav}
-            >
-              Gaming Notebook
-              <FontAwesomeIcon icon="chevron-right" size="xs" />
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/products?category=casual"
-              className="nav-link"
-              onClick={toggleSideNav}
-            >
-              Casual Notebook
-              <FontAwesomeIcon icon="chevron-right" size="xs" />
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/products?category=accessory"
-              className="nav-link"
-              onClick={toggleSideNav}
-            >
-              Notebook Aksesuar
-              <FontAwesomeIcon icon="chevron-right" size="xs" />
-            </Link>
-          </li>
+          {categories &&
+            categories.map((i) => (
+              <li key={i.id}>
+                <Link
+                  to={`/products?category=${i.categoryName}`}
+                  className="nav-link"
+                  onClick={toggleSideNav}
+                >
+                  {i.categoryName}
+                  <FontAwesomeIcon icon="chevron-right" size="xs" />
+                </Link>
+              </li>
+            ))}
           <li>
             <Link to="/products" className="nav-link" onClick={toggleSideNav}>
-              Tüm Ürünlerimiz
+              Tüm Ürünler
               <FontAwesomeIcon icon="chevron-right" size="xs" />
             </Link>
           </li>
@@ -152,4 +141,12 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+const mapState = (state) => ({
+  categories: state.categoryReducer.categories,
+});
+
+const mapDispatch = (dispatch) => ({
+  getCategories: bindActionCreators(getCategories, dispatch),
+});
+
+export default connect(mapState, mapDispatch)(Nav);

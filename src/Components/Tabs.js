@@ -49,13 +49,24 @@ const Tabs = ({ tabs, tabName }) => {
         })}
       </ul>
       <div className="tabs-data" ref={tabData}>
-        {tabs.map((i, j) => {
-          return (
-            <div key={j} className={`tab-data tab-${j}`}>
-              {Object.values(i)}
-            </div>
-          );
-        })}
+        {tabs &&
+          tabs.map((i, j) => {
+            if (typeof Object.values(i)[0] === "string") {
+              return (
+                <div
+                  key={j}
+                  dangerouslySetInnerHTML={{ __html: Object.values(i) }}
+                  className={`tab-data tab-${j}`}
+                ></div>
+              );
+            } else {
+              return (
+                <div key={j} className={`tab-data tab-${j}`}>
+                  {Object.values(i)}
+                </div>
+              );
+            }
+          })}
       </div>
     </section>
   );

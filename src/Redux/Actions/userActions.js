@@ -78,7 +78,7 @@ export const addToFavorites = (productId, userId) => async (dispatch) => {
     let response = await Axios.post(
       "http://localhost:61361/api/accounts/addtofav",
       {
-        productId: 1,
+        productId: Number(productId),
         userId,
       }
     );
@@ -91,13 +91,18 @@ export const addToFavorites = (productId, userId) => async (dispatch) => {
   }
 };
 
-export const removeFromFavorites = (favId) => async (dispatch) => {
+export const removeFromFavorites = (productId, userId) => async (dispatch) => {
   try {
     await Axios.delete(
-      `http://localhost:61361/api/accounts/removefromfav/${favId}`
+      `http://localhost:61361/api/accounts/${userId}/removefromfav/${Number(
+        productId
+      )}`
     );
-    dispatch({ type: actionTypes.REMOVE_FROM_FAV_SUCCESS, payload: favId });
+    dispatch({
+      type: actionTypes.REMOVE_FROM_FAV_SUCCESS,
+      payload: Number(productId),
+    });
   } catch (error) {
-    console.log(error);
+    console.log(error.response);
   }
 };

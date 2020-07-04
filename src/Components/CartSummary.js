@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-const CartSummary = ({ buttonText, action }) => {
+const CartSummary = ({ buttonText, itemCount, prices }) => {
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    if (prices && prices.length !== 0)
+      setTotalPrice(
+        prices
+          .map((i) => i.totalPrice)
+          .reduce((i, j) => (Number(i) + Number(j)).toFixed(3))
+      );
+
+    if (itemCount === 0) setTotalPrice(0);
+  }, [prices]);
+
   return (
     <ul className="cart-summary">
       <h2>Sipariş Özeti</h2>
       <li className="cart-summary-item">
         <span>Ürün Adedi</span>
-        <span>3</span>
+        <span>{itemCount}</span>
       </li>
       <li className="cart-summary-item">
         <span>Ödenecek Tutar</span>
         <span>
-          2499 <FontAwesomeIcon icon="lira-sign" />
+          {totalPrice} <FontAwesomeIcon icon="lira-sign" />
         </span>
       </li>
       <li className="cart-summary-item">
@@ -26,7 +40,7 @@ const CartSummary = ({ buttonText, action }) => {
       <li className="cart-summary-item">
         <span>Toplam</span>
         <span>
-          2499 <FontAwesomeIcon icon="lira-sign" />
+          {totalPrice} <FontAwesomeIcon icon="lira-sign" />
         </span>
       </li>
       <li>
@@ -38,4 +52,9 @@ const CartSummary = ({ buttonText, action }) => {
   );
 };
 
-export default CartSummary;
+const mapState = (state) => ({
+  itemCount: state.cartReducer.cartItems.length,
+  prices: state.cartReducer.prices,
+});
+
+export default connect(mapState)(CartSummary);

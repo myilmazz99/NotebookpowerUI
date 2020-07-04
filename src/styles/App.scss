@@ -137,13 +137,11 @@ dl {
   dt {
     flex-basis: 30%;
     font-weight: bold;
-    margin-bottom: 0.6rem;
     padding-right: 0.4rem;
   }
 
   dd {
     flex-basis: 65%;
-    margin-bottom: 0.6rem;
   }
 }
 
@@ -166,11 +164,17 @@ li {
   color: #fff;
 }
 
-.fa-times {
-  cursor: pointer;
-  font-size: 2rem;
-  &:hover {
-    color: #c5bbb3;
+svg {
+  &.fa-star {
+    color: gold !important;
+  }
+
+  &.fa-times {
+    cursor: pointer;
+    font-size: 2rem;
+    &:hover {
+      color: #c5bbb3;
+    }
   }
 }
 
@@ -1006,6 +1010,16 @@ nav.top-bar {
 .product-preview-list {
   display: flex;
 
+  .add-to-cart {
+    display: flex;
+    align-items: center;
+    padding: 0.4rem 0.6rem;
+    .custom-number-input {
+      display: flex;
+      margin-right: 0.6rem;
+    }
+  }
+
   .product-preview {
     box-shadow: $shadow-md;
     position: relative;
@@ -1297,6 +1311,82 @@ nav.top-bar {
     }
   }
 
+  .comments {
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      .ratings {
+        flex-basis: 30%;
+        li {
+          display: flex;
+          align-items: center;
+          margin: 1rem 0;
+        }
+
+        input {
+          width: auto;
+          margin-right: 1rem;
+        }
+      }
+
+      div {
+        flex-basis: 100%;
+
+        .input-wrapper {
+          margin-bottom: 0;
+
+          textarea {
+            border: 1px solid $secondary-color;
+            width: 100% !important;
+            margin-bottom: 0;
+            height: 85px;
+          }
+        }
+
+        button {
+          @extend %input-submit;
+          width: auto;
+          margin-left: auto;
+        }
+
+        @media (min-width: $viewport-sm) {
+          flex-basis: 70%;
+        }
+      }
+    }
+
+    .comment-list {
+      .comment {
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid $secondary-color;
+        padding-bottom: 1rem;
+        margin-top: 1rem;
+
+        .username {
+          font-weight: bold;
+          flex-basis: 50%;
+        }
+
+        time {
+          color: $light-grey;
+          text-align: right;
+          flex-basis: 50%;
+        }
+
+        .rating {
+          flex-basis: 100%;
+        }
+
+        .comment-text {
+          margin-top: 1rem;
+        }
+      }
+    }
+  }
+
   .specification-list {
     grid-area: specs;
     display: flex;
@@ -1353,6 +1443,10 @@ nav.top-bar {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .price {
+      padding: 0.4rem 0;
+    }
   }
 
   .list-item,
@@ -1459,6 +1553,10 @@ nav.top-bar {
 
     .tab-data {
       display: none;
+
+      img {
+        @extend %responsive-img;
+      }
     }
 
     .show {

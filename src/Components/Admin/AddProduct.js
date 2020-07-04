@@ -1,6 +1,6 @@
 import React from "react";
 import useForm from "../Utilities/useForm";
-import CategorySelectBox from "../CategorySelectBox";
+import CategorySelectBox from "../Utilities/CategorySelectBox";
 //REDUX
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";

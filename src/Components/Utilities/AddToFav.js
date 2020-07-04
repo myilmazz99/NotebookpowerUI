@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -8,36 +8,39 @@ import {
 } from "../../Redux/Actions/userActions";
 
 const AddToFav = ({ productId, userId, favorites, add, remove }) => {
-  const [icon, setIcon] = useState(["far", "heart"]);
+  const [iconS, setIconS] = useState(["far", "heart"]);
 
   useEffect(() => {
-    if (favorites.find((i) => i.userId === userId)) setIcon("heart");
-  }, [userId, favorites]);
+    if (
+      favorites.find(
+        (i) => i.userId === userId && i.productId === Number(productId)
+      )
+    ) {
+      setIconS("heart");
+    }
+  }, [favorites, productId]);
 
   const toggleFavs = (productId, userId) => {
-    if (icon === "heart") {
-      //removeFromFavorites();
-    } else {
+    if (iconS !== "heart") {
+      setIconS("heart");
       add(productId, userId);
+    } else {
+      setIconS(["far", "heart"]);
+      remove(productId, userId);
     }
   };
 
   return (
     <FontAwesomeIcon
-      icon={icon}
+      icon={iconS}
       onClick={() => toggleFavs(productId, userId)}
     />
   );
 };
-
-const mapStateToProps = (state) => ({
-  userId: state.userReducer.userCredentials.userId,
-  favorites: state.userReducer.favorites,
-});
 
 const mapDispatchToProps = (dispatch) => ({
   add: bindActionCreators(addToFavorites, dispatch),
   remove: bindActionCreators(removeFromFavorites, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddToFav);
+export default connect(null, mapDispatchToProps)(AddToFav);

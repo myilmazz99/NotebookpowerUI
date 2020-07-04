@@ -2,32 +2,29 @@ import React, { useState, useEffect } from "react";
 import gamingBg from "../img/gamingBg.png";
 import casualBg from "../img/casualBg.jpg";
 import accessoryBg from "../img/accessoryBg.jpg";
-import { useLocation } from "react-router-dom";
-import queryString from "query-string";
 
-const Jumbotron = (props) => {
-  let { category, s } = queryString.parse(useLocation().search);
+const Jumbotron = ({ category, s }) => {
   const [img, setImg] = useState(null);
   const [text, setText] = useState("");
 
   useEffect(() => {
     switch (category) {
-      case "gaming":
+      case "Oyuncu":
         setImg(gamingBg);
         setText("Oyun Dizüstüleri");
         break;
-      case "casual":
+      case "İş ve Multimedya":
         setImg(casualBg);
         setText("İş ve Multimedya Dizüstüleri");
         break;
-      case "accessory":
+      case "Aksesuar":
         setImg(accessoryBg);
         setText("Dizüstü Ekipmanları");
         break;
 
       default:
         setImg(accessoryBg);
-        setText("Tüm Ürünler");
+        setText("Ürünler");
         break;
     }
   }, [category, s]);
@@ -38,7 +35,7 @@ const Jumbotron = (props) => {
 
   return (
     <section className="jumbotron" style={bg}>
-      <nav className="breadcrumbs">Ana sayfa / {text}</nav>
+      <nav className="breadcrumbs">Ana sayfa / Ürünler</nav>
       <h1 className="category-name">{text}</h1>
     </section>
   );

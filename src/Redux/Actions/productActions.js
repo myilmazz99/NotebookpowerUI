@@ -24,14 +24,45 @@ export const addProduct = (product) => {
         formData
       );
 
-      // dispatch({
-      //   type: actionTypes.ADD_PRODUCT_SUCCESS,
-      //   payload: { ...product, id: response.data },
-      // });
+      dispatch({
+        type: actionTypes.ADD_PRODUCT_SUCCESS,
+        payload: { ...product, id: response.data },
+      });
     } catch (err) {
       console.log(err.response);
     }
   };
+};
+
+export const updateProduct = (product) => async (dispatch) => {
+  try {
+    let formData = new FormData();
+
+    if (product.productImages.length > 0) {
+      for (const i of product.productImages) {
+        formData.append("productImages", i);
+      }
+
+      delete product.productImages;
+    }
+
+    await axios.put("http://localhost:61361/api/products", product);
+
+    await axios.post("http://localhost:61361/api/products/addImages", formData);
+
+    dispatch({ type: actionTypes.UPDATE_PRODUCT_SUCCESS, payload: product });
+  } catch (error) {
+    console.log(error.response);
+  }
+};
+
+export const deleteProduct = (id) => async (dispatch) => {
+  try {
+    await axios.delete(`http://localhost:61361/api/products/${id}`);
+    dispatch({ type: actionTypes.DELETE_PRODUCT_SUCCESS, payload: id });
+  } catch (error) {
+    console.log(error.response);
+  }
 };
 
 export const getProducts = () => async (dispatch) => {
@@ -94,5 +125,59 @@ export const getProduct = (id) => async (dispatch) => {
     dispatch({ type: actionTypes.GET_PRODUCT_SUCCESS, payload: response.data });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getSpecifications = () => async (dispatch) => {
+  try {
+    let response = await axios.get(
+      `http://localhost:61361/api/products/specifications`
+    );
+    dispatch({
+      type: actionTypes.GET_SPECIFICATIONS_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const removeSpecification = (productId, specId) => async (dispatch) => {
+  try {
+    await axios.delete(
+      `http://localhost:61361/api/products/${productId}/${specId}`
+    );
+    dispatch({
+      type: actionTypes.REMOVE_SPECIFICATION_SUCCESS,
+      payload: specId,
+    });
+  } catch (error) {
+    console.log(error.response);
+  }
+};
+
+export const addComment = (productId, userId, username, comment) => async (
+  dispatch
+) => {
+  try {
+    await axios.post("http://localhost:61361/api/comments/add", {
+      productId,
+      userId,
+      rating: comment.rating,
+      commentText: comment.commentText,
+      username,
+    });
+    dispatch({
+      type: actionTypes.ADD_COMMENT_SUCCESS,
+      payload: {
+        productId,
+        userId,
+        rating: comment.rating,
+        commentText: comment.commentText,
+        username,
+      },
+    });
+  } catch (error) {
+    console.log(error.response);
   }
 };

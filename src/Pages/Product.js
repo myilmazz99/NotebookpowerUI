@@ -13,8 +13,10 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getProduct } from "../Redux/Actions/productActions";
 import { useParams } from "react-router-dom";
+import { getFavorites } from "../Redux/Actions/userActions";
+import Comments from "../Components/Product/Comments";
 
-const Product = ({ products, getProduct }) => {
+const Product = ({ products, getProduct, userId, getFavorites, favorites }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState({});
 
@@ -29,12 +31,18 @@ const Product = ({ products, getProduct }) => {
   }, []);
 
   useEffect(() => {
-    if (products && !products.find((i) => i.id !== productId)) {
+    if (!products.find((i) => Number(i.id) === Number(productId))) {
       getProduct(productId);
     }
 
-    setProduct(products.find((i) => i.id !== productId));
+    setProduct(products.find((i) => Number(i.id) === Number(productId)));
   }, [products]);
+
+  useEffect(() => {
+    if (favorites && userId && favorites.length === 0) {
+      getFavorites(userId);
+    }
+  }, [userId]);
 
   return (
     <main id="product-page">
@@ -67,7 +75,12 @@ const Product = ({ products, getProduct }) => {
 
       <div className="product-details">
         <h1>
-          <span>{product && product.productName}</span> <AddToFav />
+          <span>{product && product.productName}</span>{" "}
+          <AddToFav
+            productId={product && product.id}
+            userId={userId && userId}
+            favorites={favorites && favorites}
+          />
         </h1>
         {product ? (
           10 > product.stock ? (
@@ -105,7 +118,7 @@ const Product = ({ products, getProduct }) => {
           </div>
         </div>
 
-        <AddToCart />
+        <AddToCart productId={product && product.id} />
 
         <div className="trust-imgs">
           <img src={cargo} alt="" />
@@ -119,7 +132,14 @@ const Product = ({ products, getProduct }) => {
           {
             Açıklama: product && product.productDescription,
           },
-          { Yorumlar: "Comments" },
+          {
+            Yorumlar: (
+              <Comments
+                productId={productId}
+                comments={product && product.comments}
+              />
+            ),
+          },
         ]}
       />
 
@@ -132,10 +152,13 @@ const Product = ({ products, getProduct }) => {
 
 const mapStateToProps = (state) => ({
   products: state.productReducer.products,
+  userId: state.userReducer.userCredentials.userId,
+  favorites: state.userReducer.favorites,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getProduct: bindActionCreators(getProduct, dispatch),
+  getFavorites: bindActionCreators(getFavorites, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);

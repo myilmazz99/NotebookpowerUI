@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import ProductRating from "./ProductRating";
 import AddToFav from "./Utilities/AddToFav";
+import { connect } from "react-redux";
+import AddToCart from "./AddToCart";
 
-const ProductPreviewList = ({ container, products }) => {
-  const addToFavs = () => {};
-
+const ProductPreviewList = ({ container, products, favorites, userId }) => {
   return (
     <div className={`product-preview-list ${container || ""}`}>
-      {products &&
+      {products && products.length !== 0 ? (
         products.map((data) => (
           <div key={data.id} className="product-preview">
             <img
@@ -19,7 +19,7 @@ const ProductPreviewList = ({ container, products }) => {
               alt={data.productName}
             />
 
-            <Link to="/product/1">
+            <Link to={"/product/" + data.id}>
               <div className="preview-product-details">
                 <h3 className="preview-product-name">
                   {data.productName.length > 32
@@ -38,15 +38,27 @@ const ProductPreviewList = ({ container, products }) => {
               </div>
             </Link>
             <div className="product-menu">
-              <div className="product-menu-option">Sepete ekle</div>
+              <AddToCart productId={data.id} userId={userId} />
             </div>
-            <div className="add-to-fav" onClick={addToFavs}>
-              <AddToFav />
+            <div className="add-to-fav">
+              <AddToFav
+                productId={data.id}
+                favorites={favorites}
+                userId={userId}
+              />
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <div>Aradığınız kriterlerde ürün bulunamadı.</div>
+      )}
     </div>
   );
 };
 
-export default ProductPreviewList;
+const mapState = (state) => ({
+  userId: state.userReducer.userCredentials.userId,
+  favorites: state.userReducer.favorites,
+});
+
+export default connect(mapState)(ProductPreviewList);

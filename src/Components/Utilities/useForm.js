@@ -11,6 +11,10 @@ const useForm = (callback, validate) => {
     setErrors(validate(values));
   };
 
+  const updateValues = (obj) => {
+    setValues(obj);
+  };
+
   useEffect(() => {
     if (Object.keys(errors).length === 0 && didSubmit) {
       callback();
@@ -22,6 +26,7 @@ const useForm = (callback, validate) => {
 
   const handleChange = (e) => {
     let { name, value } = e.target;
+    console.log(name + " " + value);
     setValues((prev) => ({
       ...prev,
       [name]: value,
@@ -42,6 +47,7 @@ const useForm = (callback, validate) => {
     handleChange,
     handleUpload,
     errors,
+    updateValues,
   };
 };
 export default useForm;

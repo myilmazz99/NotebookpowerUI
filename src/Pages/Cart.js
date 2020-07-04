@@ -1,76 +1,24 @@
 import React from "react";
-import CustomNumberInput from "../Components/CustomNumberInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BestSelling from "../Components/BestSelling";
 import { Link } from "react-router-dom";
 import CartSummary from "../Components/CartSummary";
+import CartItem from "../Components/Cart/CartItem";
+import { connect } from "react-redux";
 
-const Cart = () => {
+const Cart = ({ cartItems }) => {
   return (
     <main id="cart">
       <section className="cart-wrapper">
         <ul className="cart-list">
           <h1>Sepetim</h1>
-          <li className="cart-item">
-            <div className="cart-item-img">
-              <img
-                src="https://productimages.hepsiburada.net/s/36/80/10512087220274.jpg"
-                alt=""
-              />
-            </div>
-            <div className="cart-item-details">
-              <h3 className="product-name">
-                OKI C332DN Dublex + Network A4 Renkli Laser Yazıcı
-              </h3>
-              <div className="product-prices">
-                <CustomNumberInput />
-                <span>
-                  899 <FontAwesomeIcon icon="lira-sign" />
-                </span>
-              </div>
-              <button className="remove-cart-item">Sil</button>
-            </div>
-          </li>
-          <li className="cart-item">
-            <div className="cart-item-img">
-              <img
-                src="https://productimages.hepsiburada.net/s/36/80/10512087220274.jpg"
-                alt=""
-              />
-            </div>
-            <div className="cart-item-details">
-              <h3 className="product-name">
-                OKI C332DN Dublex + Network A4 Renkli Laser Yazıcı
-              </h3>
-              <div className="product-prices">
-                <CustomNumberInput />
-                <span>
-                  899 <FontAwesomeIcon icon="lira-sign" />
-                </span>
-              </div>
-              <button className="remove-cart-item">Sil</button>
-            </div>
-          </li>
-          <li className="cart-item">
-            <div className="cart-item-img">
-              <img
-                src="https://productimages.hepsiburada.net/s/36/80/10512087220274.jpg"
-                alt=""
-              />
-            </div>
-            <div className="cart-item-details">
-              <h3 className="product-name">
-                OKI C332DN Dublex + Network A4 Renkli Laser Yazıcı
-              </h3>
-              <div className="product-prices">
-                <CustomNumberInput />
-                <span>
-                  899 <FontAwesomeIcon icon="lira-sign" />
-                </span>
-              </div>
-              <button className="remove-cart-item">Sil</button>
-            </div>
-          </li>
+
+          {cartItems.length === 0 ? (
+            <li>Henüz sepetinize ürün eklemediniz.</li>
+          ) : (
+            cartItems.map((i) => <CartItem key={i.id} cartItem={i} />)
+          )}
+
           <li>
             <Link to="/products">
               <FontAwesomeIcon icon="chevron-left" /> Alışverişe devam et
@@ -86,4 +34,8 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+const mapState = (state) => ({
+  cartItems: state.cartReducer.cartItems,
+});
+
+export default connect(mapState)(Cart);

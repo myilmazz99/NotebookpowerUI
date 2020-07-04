@@ -2,16 +2,25 @@ import React, { useEffect } from "react";
 //Redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getCategories } from "../Redux/Actions/categoryActions";
+import { getCategories } from "../../Redux/Actions/categoryActions";
 
-const CategorySelectBox = ({ getCategories, categories, handleChange }) => {
+const CategorySelectBox = ({
+  getCategories,
+  categories,
+  handleChange,
+  categoryId,
+}) => {
   useEffect(() => {
     if (categories.length === 0) getCategories();
   }, []);
 
   return (
-    <select name="categoryId" className="custom-select" onChange={handleChange}>
-      <option>Kategori Seç...</option>
+    <select
+      name="categoryId"
+      className="custom-select"
+      onChange={handleChange}
+      value={categoryId || "Kategori Seç..."}
+    >
       {categories &&
         categories.map((i) => (
           <option key={i.id} value={i.id}>

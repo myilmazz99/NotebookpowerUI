@@ -1,28 +1,60 @@
 import React, { useEffect } from "react";
-import CategorySelectBox from "../CategorySelectBox";
+import CategorySelectBox from "../Utilities/CategorySelectBox";
 import useForm from "../Utilities/useForm";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import useSpecRows from "../Utilities/useSpecRows";
 //Validation
 import ProductValidation from "../Utilities/ValidationRules/ProductValidation";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import {
+  getProduct,
+  updateProduct,
+  removeSpecification,
+} from "../../Redux/Actions/productActions";
 
-const UpdateProduct = ({ products }) => {
-  let { handleChange, handleSubmit, values, handleUpload, errors } = useForm(
-    update,
-    ProductValidation
-  );
-  let { setSpecRowCount, displaySpecRow, getRowValues } = useSpecRows();
-  const { productId } = useParams();
+const UpdateProduct = ({
+  products,
+  getProduct,
+  updateProduct,
+  removeSpecification,
+}) => {
+  let {
+    handleChange,
+    handleSubmit,
+    values,
+    handleUpload,
+    errors,
+    updateValues,
+  } = useForm(update, ProductValidation);
+  let {
+    setSpecRowCount,
+    displaySpecRow,
+    getRowValues,
+    getSpecifications,
+  } = useSpecRows(removeSpec);
+  const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
-    if (products && !products.find((i) => i.id === productId));
-    //values = action call
-  }, []);
+    if (products) {
+      let product = products.find((i) => i.id === Number(id));
+      if (!product) {
+        getProduct(Number(id));
+      } else {
+        updateValues(product);
+        getSpecifications(product.specifications);
+      }
+    }
+  }, [products]);
 
   const retrieveMissingInputValuesAndSubmit = (e) => {
     e.preventDefault();
 
-    values.specifications = [...getRowValues(values.specifications)];
+    values.specifications = [
+      ...values.specifications,
+      ...getRowValues(values.specifications),
+    ];
 
     const convertToNumber = (string, isFloat) => {
       if (isNaN(string)) return;
@@ -37,7 +69,14 @@ const UpdateProduct = ({ products }) => {
     handleSubmit();
   };
 
-  function update() {}
+  function removeSpec(specId) {
+    removeSpecification(id, specId);
+  }
+
+  function update() {
+    updateProduct(values);
+    history.goBack();
+  }
 
   return (
     <div id="admin-update-product">
@@ -67,6 +106,7 @@ const UpdateProduct = ({ products }) => {
             <input
               type="number"
               name="oldPrice"
+              step="0.01"
               onChange={handleChange}
               value={values.oldPrice || ""}
               className={`form-control ${errors.oldPrice && "border-danger"}`}
@@ -80,6 +120,7 @@ const UpdateProduct = ({ products }) => {
             <input
               type="number"
               name="newPrice"
+              step="0.01"
               onChange={handleChange}
               value={values.newPrice || ""}
               className={`form-control ${errors.newPrice && "border-danger"}`}
@@ -122,7 +163,10 @@ const UpdateProduct = ({ products }) => {
 
         <div className="my-4">
           <label>Kategori</label>
-          <CategorySelectBox handleChange={handleChange} />
+          <CategorySelectBox
+            handleChange={handleChange}
+            categoryId={values.categoryId}
+          />
           {errors.categoryId && (
             <div className="text-danger small">{errors.categoryId}</div>
           )}
@@ -159,4 +203,14 @@ const UpdateProduct = ({ products }) => {
   );
 };
 
-export default UpdateProduct;
+const mapState = (state) => ({
+  products: state.productReducer.products,
+});
+
+const mapDispatch = (dispatch) => ({
+  getProduct: bindActionCreators(getProduct, dispatch),
+  updateProduct: bindActionCreators(updateProduct, dispatch),
+  removeSpecification: bindActionCreators(removeSpecification, dispatch),
+});
+
+export default connect(mapState, mapDispatch)(UpdateProduct);

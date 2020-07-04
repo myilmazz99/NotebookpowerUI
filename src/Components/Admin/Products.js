@@ -3,12 +3,17 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getProducts } from "../../Redux/Actions/productActions";
+import { getProducts, deleteProduct } from "../../Redux/Actions/productActions";
 
-const Products = ({ products, getProducts }) => {
+const Products = ({ products, getProducts, deleteProduct }) => {
   useEffect(() => {
     getProducts();
   }, []);
+
+  function deletePr(e, id) {
+    e.preventDefault();
+    deleteProduct(id);
+  }
 
   return (
     <div id="admin-product-list">
@@ -49,11 +54,14 @@ const Products = ({ products, getProducts }) => {
                 <td>{i.stock}</td>
                 <td>{i.categoryName}</td>
                 <td>
-                  <button className="btn btn-danger btn-sm w-100 mb-1">
+                  <button
+                    className="btn btn-danger btn-sm w-100 mb-1"
+                    onClick={(e) => deletePr(e, i.id)}
+                  >
                     Sil
                   </button>
                   <Link
-                    to="/admin/products/108"
+                    to={`/admin/products/${i.id}`}
                     className="btn btn-warning btn-sm w-100"
                   >
                     Güncelle
@@ -78,6 +86,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getProducts: bindActionCreators(getProducts, dispatch),
+  deleteProduct: bindActionCreators(deleteProduct, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

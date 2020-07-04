@@ -7,6 +7,10 @@ const Search = () => {
   const [search, setSearch] = useState("");
   const form = useRef(null);
 
+  const toggleSearch = () => {
+    form.current.classList.toggle("form-visible");
+  };
+
   const handleChange = (e) => {
     let { value } = e.target;
     setSearch(value);
@@ -14,7 +18,7 @@ const Search = () => {
 
   const expandSearch = (e) => {
     e.preventDefault();
-    form.current.classList.toggle("form-visible");
+    toggleSearch();
   };
 
   return (
@@ -29,7 +33,9 @@ const Search = () => {
           className="search-input"
           onChange={handleChange}
         />
-        <Link to={`/products?s=${search}`}>Ara</Link>
+        <Link to={`/products?s=${search}`} onClick={toggleSearch}>
+          Ara
+        </Link>
       </form>
     </>
   );

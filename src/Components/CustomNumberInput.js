@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const CustomNumberInput = () => {
-  const [orderCount, setOrderCount] = useState(1);
+const CustomNumberInput = ({ refe, defValue, handleQuantity }) => {
+  const [orderCount, setOrderCount] = useState(defValue || 1);
+
+  useEffect(() => {
+    handleQuantity && handleQuantity(orderCount);
+  }, [orderCount]);
 
   const incrementOrderCount = (e) => {
     setOrderCount(Number(e.target.previousSibling.value) + 1);
@@ -10,12 +14,6 @@ const CustomNumberInput = () => {
   const decrementOrderCount = (e) => {
     if (Number(e.target.nextSibling.value) <= 1) return;
     setOrderCount(Number(e.target.nextSibling.value) - 1);
-  };
-
-  const handleOnChange = (e) => {
-    if (!isNaN(Number(e.target.value))) {
-      setOrderCount(Number(e.target.value));
-    }
   };
 
   const buttonStyling = {
@@ -41,7 +39,7 @@ const CustomNumberInput = () => {
   };
 
   return (
-    <span style={container}>
+    <span className="custom-number-input" style={container}>
       <span
         className="decrement"
         style={buttonStyling}
@@ -50,11 +48,13 @@ const CustomNumberInput = () => {
         -
       </span>
       <input
+        ref={refe}
+        name="custom-number-input"
         style={inputStyling}
         className="order-count"
         type="text"
-        onChange={(e) => handleOnChange(e)}
         value={orderCount}
+        readOnly={true}
       />
       <span
         style={buttonStyling}

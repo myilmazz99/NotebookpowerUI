@@ -18,11 +18,16 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.GET_PAST_ORDERS_SUCCESS:
       return { ...state, orders: action.payload };
     case actionTypes.ADD_TO_FAV_SUCCESS:
-      return { ...state, favorites: [...state.favorites, action.payload] };
+      return {
+        ...state,
+        favorites: [...state.favorites, action.payload],
+      };
     case actionTypes.REMOVE_FROM_FAV_SUCCESS:
       return {
         ...state,
-        favorites: state.favorites.filter((i) => i.Id !== action.payload),
+        favorites: state.favorites.filter(
+          (i) => i.productId !== action.payload
+        ),
       };
 
     default:

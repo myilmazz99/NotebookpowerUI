@@ -16,8 +16,9 @@ import User from "./Pages/User";
 import { authenticate, logout } from "./Redux/Actions/userActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { getCart } from "./Redux/Actions/cartActions";
 
-const App = ({ logout, authenticate, userState }) => {
+const App = ({ logout, authenticate, userState, getCart }) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -31,6 +32,11 @@ const App = ({ logout, authenticate, userState }) => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (userState.userCredentials.userId)
+      getCart(userState.userCredentials.userId);
+  }, [userState.userCredentials.userId]);
 
   return (
     <>
@@ -60,6 +66,7 @@ const App = ({ logout, authenticate, userState }) => {
 const mapDispatchToProps = (dispatch) => ({
   authenticate: bindActionCreators(authenticate, dispatch),
   logout: bindActionCreators(logout, dispatch),
+  getCart: bindActionCreators(getCart, dispatch),
 });
 
 const mapStateToProps = (state) => ({
