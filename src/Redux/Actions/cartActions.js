@@ -1,14 +1,20 @@
 import Axios from "axios";
 import * as actionTypes from "./actionTypes";
 
-export const addToCart = (id, productId, quantity) => async (dispatch) => {
+export const addToCart = (id, productId, quantity, productExists) => async (
+  dispatch
+) => {
   try {
     let response = await Axios.put("http://localhost:61361/api/carts", {
       productId,
       id,
       quantity,
+      productExists,
     });
-    dispatch({ type: actionTypes.ADD_TO_CART_SUCCESS, payload: response.data });
+    dispatch({
+      type: actionTypes.ADD_TO_CART_SUCCESS,
+      payload: { ...response.data, productExists },
+    });
   } catch (error) {
     console.log(error.response);
   }

@@ -4,11 +4,16 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addToCart } from "../Redux/Actions/cartActions";
 
-const AddToCart = ({ add, productId, cartId }) => {
+const AddToCart = ({ add, productId, cartId, cartItems }) => {
   const input = useRef(null);
   const handleSubmit = (e) => {
     e.preventDefault();
-    add(cartId, productId, Number(input.current.value));
+
+    let productExists = cartItems.find((i) => i.productId === productId)
+      ? true
+      : false;
+
+    add(cartId, productId, Number(input.current.value), productExists);
   };
 
   return (
@@ -21,6 +26,7 @@ const AddToCart = ({ add, productId, cartId }) => {
 
 const mapState = (state) => ({
   cartId: state.cartReducer.cartId,
+  cartItems: state.cartReducer.cartItems,
 });
 
 const mapDispatch = (dispatch) => ({

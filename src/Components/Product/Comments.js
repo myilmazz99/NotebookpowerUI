@@ -20,9 +20,12 @@ const Comments = ({
   );
 
   useEffect(() => {
-    if (comments && comments.find((i) => i.userId === userCredentials.userId))
+    if (comments && comments.find((i) => i.userId === userCredentials.userId)) {
       setUserHasComment(true);
-  }, [comments]);
+    } else {
+      setUserHasComment(false);
+    }
+  }, [comments, productId]);
 
   function add() {
     values.rating = parseInt(values.rating);
@@ -116,13 +119,13 @@ const Comments = ({
       <ul className="comment-list">
         {comments &&
           comments.map((i) => (
-            <li key={i.id} className="comment">
+            <li key={i.userId} className="comment">
               <p className="username">{i.username}</p>
               <time>02.02.2020</time>
               <p className="rating">
-                <FontAwesomeIcon icon="star" />
-                <FontAwesomeIcon icon="star" />
-                <FontAwesomeIcon icon="star" />
+                {Array(i.rating)
+                  .fill(<FontAwesomeIcon icon="star" />)
+                  .map((i) => i)}
               </p>
               <p className="comment-text">{i.commentText}</p>
             </li>

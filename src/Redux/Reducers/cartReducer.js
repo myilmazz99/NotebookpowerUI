@@ -14,8 +14,6 @@ const cartReducer = (state = initialState, action) => {
         cartId: action.payload.id,
         cartItems: [...action.payload.cartItems],
       };
-    case actionTypes.ADD_TO_CART_SUCCESS:
-      return { ...state, cartItems: [...state.cartItems, action.payload] };
     case actionTypes.REMOVE_FROM_CART:
       return {
         ...state,
@@ -32,6 +30,20 @@ const cartReducer = (state = initialState, action) => {
           action.payload,
         ],
       };
+    case actionTypes.ADD_TO_CART_SUCCESS:
+      if (action.payload.productExists) {
+        return {
+          ...state,
+          cartItems: [
+            ...state.cartItems.filter(
+              (i) => i.productId !== action.payload.productId
+            ),
+            action.payload,
+          ],
+        };
+      } else {
+        return { ...state, cartItems: [...state.cartItems, action.payload] };
+      }
 
     default:
       return state;

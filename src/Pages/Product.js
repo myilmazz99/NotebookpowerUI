@@ -36,7 +36,7 @@ const Product = ({ products, getProduct, userId, getFavorites, favorites }) => {
     }
 
     setProduct(products.find((i) => Number(i.id) === Number(productId)));
-  }, [products]);
+  }, [products, productId]);
 
   useEffect(() => {
     if (favorites && userId && favorites.length === 0) {
@@ -92,7 +92,7 @@ const Product = ({ products, getProduct, userId, getFavorites, favorites }) => {
           ""
         )}
         <div className="price-and-rating">
-          <ProductRating />
+          <ProductRating comments={product && product.comments} />
           <div className="product-price">
             <span className="discount-amount">
               <span>

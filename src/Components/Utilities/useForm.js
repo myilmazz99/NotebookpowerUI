@@ -17,7 +17,7 @@ const useForm = (callback, validate) => {
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && didSubmit) {
-      callback();
+      callback(values);
       setDidSubmit(false);
     } else {
       setDidSubmit(false);
@@ -26,7 +26,6 @@ const useForm = (callback, validate) => {
 
   const handleChange = (e) => {
     let { name, value } = e.target;
-    console.log(name + " " + value);
     setValues((prev) => ({
       ...prev,
       [name]: value,

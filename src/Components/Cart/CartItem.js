@@ -72,7 +72,6 @@ const CartItem = ({
 };
 
 const mapState = (state) => ({
-  cartItems: state.cartReducer.cartItems,
   cartId: state.cartReducer.cartId,
 });
 

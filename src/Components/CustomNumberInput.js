@@ -7,6 +7,10 @@ const CustomNumberInput = ({ refe, defValue, handleQuantity }) => {
     handleQuantity && handleQuantity(orderCount);
   }, [orderCount]);
 
+  useEffect(() => {
+    setOrderCount(defValue);
+  }, [defValue]);
+
   const incrementOrderCount = (e) => {
     setOrderCount(Number(e.target.previousSibling.value) + 1);
   };
