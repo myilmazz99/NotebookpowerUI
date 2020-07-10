@@ -8,6 +8,7 @@ import {
   removeFromCart,
   collectCartItemPrice,
 } from "../../Redux/Actions/cartActions";
+import numberFormat from "../Tools/numberFormat";
 
 const CartItem = ({
   cartItem,
@@ -30,7 +31,7 @@ const CartItem = ({
     if (quantity !== 0.0)
       collectCartItemPrice({
         cartItemId: cartItem.id,
-        totalPrice: (quantity * cartItem.product.newPrice).toFixed(3),
+        totalPrice: quantity * cartItem.product.newPrice,
       });
   }, [quantity]);
 
@@ -55,7 +56,7 @@ const CartItem = ({
               handleQuantity={handleQuantity}
             />
             <span>
-              {(quantity * cartItem.product.newPrice).toFixed(3)}{" "}
+              {numberFormat(quantity * cartItem.product.newPrice)}{" "}
               <FontAwesomeIcon icon="lira-sign" />
             </span>
           </div>

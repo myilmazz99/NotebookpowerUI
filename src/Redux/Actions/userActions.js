@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import Axios from "axios";
 import jwt_decode from "jwt-decode";
+import dispatchActionResult from "./dispatchActionResult";
 
 export const register = (user) => async (dispatch) => {
   try {
@@ -17,21 +18,28 @@ export const login = (user) => async (dispatch) => {
       "http://localhost:61361/api/accounts/login",
       user
     );
-    console.log("yo");
     localStorage.setItem("token", JSON.stringify(response.data));
     dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: decodeToken() });
+    dispatchActionResult(dispatch, true, "Giriş başarılı.");
   } catch (error) {
     console.log(error.response);
   }
 };
 
-export const logout = () => {
+export const logout = () => (dispatch) => {
   localStorage.removeItem("token");
+  dispatchActionResult(dispatch, true, "Oturum başarıyla sonlandırıldı.");
   return { type: actionTypes.LOGOUT_SUCCESS };
 };
 
-export const authenticate = () => {
-  return { type: actionTypes.LOGIN_SUCCESS, payload: decodeToken() };
+export const authenticate = (username) => (dispatch) => {
+  let userCredentials = decodeToken();
+  dispatchActionResult(
+    dispatch,
+    true,
+    `Tekrar hoşgeldin, ${userCredentials.fullname}! İyi alışverişler.`
+  );
+  return { type: actionTypes.LOGIN_SUCCESS, payload: userCredentials };
 };
 
 const decodeToken = () => {
@@ -86,8 +94,17 @@ export const addToFavorites = (productId, userId) => async (dispatch) => {
       type: actionTypes.ADD_TO_FAV_SUCCESS,
       payload: response.data,
     });
+    dispatchActionResult(
+      dispatch,
+      true,
+      "Ürün başarıyla favorilerine eklendi."
+    );
   } catch (error) {
-    console.log(error.response);
+    dispatchActionResult(
+      dispatch,
+      true,
+      "Ürün favorilerinize eklenemedi. Lütfen daha sonra tekrar deneyiniz."
+    );
   }
 };
 
@@ -102,7 +119,16 @@ export const removeFromFavorites = (productId, userId) => async (dispatch) => {
       type: actionTypes.REMOVE_FROM_FAV_SUCCESS,
       payload: Number(productId),
     });
+    dispatchActionResult(
+      dispatch,
+      true,
+      "Ürün başarıyla favorilerinizden çıkarıldı."
+    );
   } catch (error) {
-    console.log(error.response);
+    dispatchActionResult(
+      dispatch,
+      false,
+      "Ürün favorilerinizden çıkarılamadı. Lütfen daha sonra tekrar deneyiniz."
+    );
   }
 };

@@ -1,27 +1,11 @@
 import React from "react";
-import Tabs from "../Tabs";
-import useForm from "../Utilities/useForm";
-import AddressValidation from "../Utilities/ValidationRules/AddressValidation";
 import Input from "../Utilities/Input";
 import Textarea from "../Utilities/Textarea";
 
-const AddressForm = () => {
-  const { handleSubmit, handleChange, values, errors } = useForm(
-    "",
-    AddressValidation
-  );
-  const renderAddresses = () => (
-    <>
-      <h2>Adreslerim</h2>
-      <div className="saved-addresses">
-        <span>Kayıtlı adres bulunamadı.</span>
-      </div>
-    </>
-  );
-
-  const renderAddressForm = () => (
-    <form className="address-form" onSubmit={handleSubmit}>
-      <h2>Adres Ekle</h2>
+const AddressForm = ({ handleChange, values, errors }) => {
+  return (
+    <div className="address">
+      <h2>Adres</h2>
       <Input
         type="text"
         name="fullName"
@@ -32,11 +16,11 @@ const AddressForm = () => {
       />
       <Input
         type="text"
-        name="tel"
+        name="phoneNumber"
         placeholder="Telefon numaranız"
         handleChange={handleChange}
-        value={values.tel}
-        error={errors.tel}
+        value={values.phoneNumber}
+        error={errors.phoneNumber}
       />
       <Input
         type="text"
@@ -63,28 +47,11 @@ const AddressForm = () => {
         error={errors.state}
       />
       <Textarea
-        name="addressDetails"
+        name="addressDescription"
         placeholder="Adres"
         handleChange={handleChange}
-        value={values.addressDetails}
-        error={errors.addressDetails}
-      />
-      <Input type="submit" value="Kaydet" />
-    </form>
-  );
-
-  return (
-    <div className="address">
-      <Tabs
-        tabName="address-tab"
-        tabs={[
-          {
-            Adreslerim: renderAddresses(),
-          },
-          {
-            "Adres Ekle": renderAddressForm(),
-          },
-        ]}
+        value={values.addressDescription}
+        error={errors.addressDescription}
       />
     </div>
   );

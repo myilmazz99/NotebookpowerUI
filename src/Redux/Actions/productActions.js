@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
+import dispatchActionResult from "./dispatchActionResult";
 
 export const addProduct = (product) => {
   return async (dispatch) => {
@@ -28,8 +29,13 @@ export const addProduct = (product) => {
         type: actionTypes.ADD_PRODUCT_SUCCESS,
         payload: { ...product, id: response.data },
       });
+      dispatchActionResult(dispatch, true, "Ürün başarıyla eklendi.");
     } catch (err) {
-      console.log(err.response);
+      dispatchActionResult(
+        dispatch,
+        false,
+        "Ürün eklenemedi. Lütfen daha sonra tekrar deneyin veya yazılım ekibimizle irtibata geçin."
+      );
     }
   };
 };
@@ -51,8 +57,13 @@ export const updateProduct = (product) => async (dispatch) => {
     await axios.post("http://localhost:61361/api/products/addImages", formData);
 
     dispatch({ type: actionTypes.UPDATE_PRODUCT_SUCCESS, payload: product });
+    dispatchActionResult(dispatch, true, "Ürün başarıyla güncellendi.");
   } catch (error) {
-    console.log(error.response);
+    dispatchActionResult(
+      dispatch,
+      false,
+      "Ürün güncellenemedi. Lütfen daha sonra tekrar deneyin veya yazılım ekibimizle irtibata geçin."
+    );
   }
 };
 
@@ -60,8 +71,13 @@ export const deleteProduct = (id) => async (dispatch) => {
   try {
     await axios.delete(`http://localhost:61361/api/products/${id}`);
     dispatch({ type: actionTypes.DELETE_PRODUCT_SUCCESS, payload: id });
+    dispatchActionResult(dispatch, true, "Ürün başarıyla silindi.");
   } catch (error) {
-    console.log(error.response);
+    dispatchActionResult(
+      dispatch,
+      false,
+      "Ürün silinemedi. Lütfen daha sonra tekrar deneyin veya yazılım ekibimizle irtibata geçin."
+    );
   }
 };
 
@@ -151,8 +167,13 @@ export const removeSpecification = (productId, specId) => async (dispatch) => {
       type: actionTypes.REMOVE_SPECIFICATION_SUCCESS,
       payload: specId,
     });
+    dispatchActionResult(dispatch, true, "Özellik başarıyla silindi.");
   } catch (error) {
-    console.log(error.response);
+    dispatchActionResult(
+      dispatch,
+      false,
+      "Özellik silinemedi. Lütfen daha sonra tekrar deneyin veya yazılım ekibimizle irtibata geçin."
+    );
   }
 };
 
@@ -177,7 +198,12 @@ export const addComment = (productId, userId, username, comment) => async (
         username,
       },
     });
+    dispatchActionResult(dispatch, true, "Yorumunuz başarıyla eklendi.");
   } catch (error) {
-    console.log(error.response);
+    dispatchActionResult(
+      dispatch,
+      true,
+      "Yorumunuz eklenemedi. Lütfen daha sonra tekrar deneyiniz."
+    );
   }
 };

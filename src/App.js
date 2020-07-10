@@ -17,6 +17,7 @@ import { authenticate, logout } from "./Redux/Actions/userActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getCart } from "./Redux/Actions/cartActions";
+import ResultAlert from "./Components/Utilities/ResultAlert";
 
 const App = ({ logout, authenticate, userState, getCart }) => {
   const { pathname } = useLocation();
@@ -28,7 +29,7 @@ const App = ({ logout, authenticate, userState, getCart }) => {
       if (parsedToken.Expiration < Date.now()) {
         logout();
       } else {
-        authenticate();
+        authenticate(parsedToken.username);
       }
     }
   }, []);
@@ -40,6 +41,7 @@ const App = ({ logout, authenticate, userState, getCart }) => {
 
   return (
     <>
+      <ResultAlert />
       <ScrollToTop />
       {pathname.includes("admin") && userState.authenticated ? (
         <Switch>

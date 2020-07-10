@@ -1,11 +1,12 @@
 import React from "react";
 import productImg from "../img/productimg.jpg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import ProductRating from "./ProductRating";
 import AddToFav from "./Utilities/AddToFav";
 import { connect } from "react-redux";
 import AddToCart from "./AddToCart";
+import numberFormat from "./Tools/numberFormat";
+import ProductPreviewSkeleton from "./Skeletons/ProductPreviewSkeleton";
 
 const ProductPreviewList = ({ container, products, favorites, userId }) => {
   return (
@@ -19,7 +20,6 @@ const ProductPreviewList = ({ container, products, favorites, userId }) => {
                 src={productImg}
                 alt={data.productName}
               />
-
               <Link to={"/product/" + data.id}>
                 <div className="preview-product-details">
                   <h3 className="preview-product-name">
@@ -30,10 +30,10 @@ const ProductPreviewList = ({ container, products, favorites, userId }) => {
                   <ProductRating comments={data.comments} />
                   <div className="preview-product-price">
                     <span className="old-price">
-                      {data.oldPrice} <FontAwesomeIcon icon="lira-sign" />
+                      {numberFormat(data.oldPrice)}
                     </span>
                     <span className="new-price">
-                      {data.newPrice} <FontAwesomeIcon icon="lira-sign" />
+                      {numberFormat(data.newPrice)}
                     </span>
                   </div>
                 </div>
@@ -52,7 +52,14 @@ const ProductPreviewList = ({ container, products, favorites, userId }) => {
           </div>
         ))
       ) : (
-        <div>Aradığınız kriterlerde ürün bulunamadı.</div>
+        <>
+          <ProductPreviewSkeleton />
+          <ProductPreviewSkeleton />
+          <ProductPreviewSkeleton />
+          <ProductPreviewSkeleton />
+          <ProductPreviewSkeleton />
+          <ProductPreviewSkeleton />
+        </>
       )}
     </div>
   );
