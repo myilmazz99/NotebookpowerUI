@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useForm from "../Utilities/useForm";
 import CategorySelectBox from "../Utilities/CategorySelectBox";
 //REDUX
@@ -9,13 +9,18 @@ import useSpecRows from "../Utilities/useSpecRows";
 //Validation
 import ProductValidation from "../Utilities/ValidationRules/ProductValidation";
 import { useHistory } from "react-router-dom";
+import lowerCaseFirstChar from "../Tools/lowerCaseFirstChar";
 
-const AddProduct = ({ addProduct }) => {
+const AddProduct = ({ addProduct, validationErrors }) => {
   const history = useHistory();
-  let { handleSubmit, handleChange, values, handleUpload, errors } = useForm(
-    add,
-    ProductValidation
-  );
+  let {
+    handleSubmit,
+    handleChange,
+    values,
+    handleUpload,
+    errors,
+    updateErrors,
+  } = useForm(add, ProductValidation);
   let { setSpecRowCount, displaySpecRow, getRowValues } = useSpecRows();
 
   const retrieveMissingInputValuesAndSubmit = (e) => {
@@ -36,9 +41,20 @@ const AddProduct = ({ addProduct }) => {
     handleSubmit();
   };
 
+  useEffect(() => {
+    if (validationErrors.length > 0) {
+      let newErr = {};
+      validationErrors.forEach((i) => {
+        let propName = lowerCaseFirstChar(i.PropertyName);
+        newErr[propName] = i.ErrorMessage;
+      });
+      updateErrors(newErr);
+    }
+  }, [validationErrors]);
+
   function add() {
     addProduct(values);
-    history.goBack();
+    //history.goBack();
   }
 
   return (
@@ -126,7 +142,10 @@ const AddProduct = ({ addProduct }) => {
 
         <div className="my-4">
           <label>Kategori</label>
-          <CategorySelectBox handleChange={handleChange} />
+          <CategorySelectBox
+            handleChange={handleChange}
+            categoryId={values.categoryId}
+          />
           {errors.categoryId && (
             <div className="text-danger small">{errors.categoryId}</div>
           )}
@@ -167,4 +186,8 @@ const mapDispatchToProps = (dispatch) => ({
   addProduct: bindActionCreators(addProduct, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(AddProduct);
+const mapStateToProps = (state) => ({
+  validationErrors: state.productReducer.errors,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddProduct);

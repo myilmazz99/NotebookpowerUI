@@ -2,16 +2,18 @@ import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { getPastOrders } from "../../Redux/Actions/userActions";
+import { getOrdersByUserId } from "../../Redux/Actions/userActions";
 import { connect } from "react-redux";
+import displayOrderStatus from "../Tools/displayOrderStatus";
+import numberFormat from "../Tools/numberFormat";
 
 const OrderHistory = ({
   userState: { userCredentials, orders },
-  getPastOrders,
+  getOrdersByUserId,
 }) => {
   useEffect(() => {
     if (orders.length === 0 && userCredentials.userId)
-      getPastOrders(userCredentials.userId);
+      getOrdersByUserId(userCredentials.userId);
   }, [userCredentials.userId]);
 
   return (
@@ -22,75 +24,39 @@ const OrderHistory = ({
           orders.map((i) => (
             <li className="list-item">
               <ul>
-                <li className="inner-list-item">
-                  <figure>
-                    <img src="https://via.placeholder.com/200x200" alt="" />
-                  </figure>
-                  <div className="product-details">
-                    <Link to="/product/1">
-                      <h2>Ürün Adı</h2>
+                {i.orderItems.map((j) => (
+                  <li className="inner-list-item">
+                    <figure>
+                      <img src="https://via.placeholder.com/200x200" alt="" />
+                    </figure>
+                    <div className="product-details">
+                      <h4>{j.productName}</h4>
                       <dl>
                         <dt>Adet:</dt>
-                        <dd>2</dd>
+                        <dd>{j.productQuantity}</dd>
                         <dt>Fiyat:</dt>
                         <dd>
-                          499 <FontAwesomeIcon icon="lira-sign" />
+                          {numberFormat(j.productQuantity * j.productPrice)}{" "}
+                          <FontAwesomeIcon icon="lira-sign" />
                         </dd>
                       </dl>
-                    </Link>
-                  </div>
-                </li>
-                <li className="inner-list-item">
-                  <figure>
-                    <img src="https://via.placeholder.com/200x200" alt="" />
-                  </figure>
-                  <div className="product-details">
-                    <Link to="/product/1">
-                      <h2>Ürün Adı</h2>
-                      <dl>
-                        <dt>Adet:</dt>
-                        <dd>2</dd>
-                        <dt>Fiyat:</dt>
-                        <dd>
-                          499 <FontAwesomeIcon icon="lira-sign" />
-                        </dd>
-                      </dl>
-                    </Link>
-                  </div>
-                </li>
-                <li className="inner-list-item">
-                  <figure>
-                    <img src="https://via.placeholder.com/200x200" alt="" />
-                  </figure>
-                  <div className="product-details">
-                    <Link to="/product/1">
-                      <h2>Ürün Adı</h2>
-                      <dl>
-                        <dt>Adet:</dt>
-                        <dd>2</dd>
-                        <dt>Fiyat:</dt>
-                        <dd>
-                          499 <FontAwesomeIcon icon="lira-sign" />
-                        </dd>
-                      </dl>
-                    </Link>
-                  </div>
-                </li>
+                    </div>
+                  </li>
+                ))}
               </ul>
               <div className="order-sum">
                 <dl>
                   <dt>Adres:</dt>
                   <dd>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Sunt, voluptatem?
+                    {i.city + " - " + i.state + " - " + i.addressDescription}
                   </dd>
                   <dt>Tarih:</dt>
-                  <dd>20/12/2020</dd>
+                  <dd>{i.shortDate}</dd>
                   <dt>Durum:</dt>
-                  <dd>Onay bekliyor</dd>
+                  <dd>{displayOrderStatus(i.status)}</dd>
                   <dt>Tutar:</dt>
                   <dd>
-                    1499 <FontAwesomeIcon icon="lira-sign" />
+                    {i.totalPrice} <FontAwesomeIcon icon="lira-sign" />
                   </dd>
                 </dl>
               </div>
@@ -114,7 +80,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getPastOrders: bindActionCreators(getPastOrders, dispatch),
+  getOrdersByUserId: bindActionCreators(getOrdersByUserId, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderHistory);

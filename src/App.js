@@ -29,7 +29,7 @@ const App = ({ logout, authenticate, userState, getCart }) => {
       if (parsedToken.Expiration < Date.now()) {
         logout();
       } else {
-        authenticate(parsedToken.username);
+        authenticate();
       }
     }
   }, []);
@@ -55,7 +55,7 @@ const App = ({ logout, authenticate, userState, getCart }) => {
             <Route path="/user/:id" component={User} />
             <Route exact path="/product/:productId" component={Product} />
             <Route exact path="/products" component={ProductList} />
-            <Route exact path="/cart/:cartId" component={Cart} />
+            <Route exact path="/cart" component={Cart} />
             <Route exact path="/order" component={Order} />
           </Switch>
           <Footer />

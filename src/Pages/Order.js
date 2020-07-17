@@ -8,13 +8,16 @@ import OrderValidation from "../Components/Utilities/ValidationRules/OrderValida
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fulfillOrder } from "../Redux/Actions/orderActions";
+import lowerCaseFirstChar from "../Components/Tools/lowerCaseFirstChar";
 
 const Order = ({
   cartItems,
   userCredentials: { userId, email },
   fulfillOrder,
+  validationErrors,
+  paymentError,
 }) => {
-  let { handleChange, handleSubmit, values, errors } = useForm(
+  let { handleChange, handleSubmit, values, errors, updateErrors } = useForm(
     checkout,
     OrderValidation
   );
@@ -23,6 +26,18 @@ const Order = ({
     document.querySelector(".rccs__expiry__valid").innerText =
       "Son kullanma tarihi";
   }, []);
+
+  useEffect(() => {
+    if (validationErrors.length > 0) {
+      let errorsToAdd = {};
+      validationErrors.forEach((i) => {
+        let propName = lowerCaseFirstChar(i.PropertyName);
+        errorsToAdd[propName] = i.ErrorMessage;
+      });
+
+      updateErrors(errorsToAdd);
+    }
+  }, [validationErrors]);
 
   function checkout(values) {
     values.cartItems = cartItems;
@@ -46,6 +61,9 @@ const Order = ({
         />
         <section className="credit-card">
           <h2>Kart Bilgileri</h2>
+          {paymentError && (
+            <span style={{ color: "red" }}>** {paymentError}</span>
+          )}
           <section className="credit-card-details">
             <section className="card-input-wrapper">
               <Input
@@ -118,6 +136,8 @@ const Order = ({
 const mapStateToProps = (state) => ({
   cartItems: state.cartReducer.cartItems,
   userCredentials: state.userReducer.userCredentials,
+  validationErrors: state.orderReducer.errors,
+  paymentError: state.orderReducer.paymentError,
 });
 
 const mapDispatchToProps = (dispatch) => ({

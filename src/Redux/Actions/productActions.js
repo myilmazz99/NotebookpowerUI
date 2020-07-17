@@ -31,6 +31,12 @@ export const addProduct = (product) => {
       });
       dispatchActionResult(dispatch, true, "Ürün başarıyla eklendi.");
     } catch (err) {
+      let errorMessages = JSON.parse(err.response.data.ErrorMessage);
+      dispatch({
+        type: actionTypes.SET_PRODUCT_VALIDATION_ERROR,
+        payload: errorMessages,
+      });
+
       dispatchActionResult(
         dispatch,
         false,
@@ -58,12 +64,20 @@ export const updateProduct = (product) => async (dispatch) => {
 
     dispatch({ type: actionTypes.UPDATE_PRODUCT_SUCCESS, payload: product });
     dispatchActionResult(dispatch, true, "Ürün başarıyla güncellendi.");
-  } catch (error) {
-    dispatchActionResult(
-      dispatch,
-      false,
-      "Ürün güncellenemedi. Lütfen daha sonra tekrar deneyin veya yazılım ekibimizle irtibata geçin."
-    );
+  } catch (err) {
+    if (err.response.data.ErrorType.toLowerCase().includes("validation")) {
+      let errorMessages = JSON.parse(err.response.data.ErrorMessage);
+      dispatch({
+        type: actionTypes.SET_PRODUCT_VALIDATION_ERROR,
+        payload: errorMessages,
+      });
+    } else {
+      dispatchActionResult(
+        dispatch,
+        false,
+        "Ürün güncellenemedi. Lütfen daha sonra tekrar deneyin veya yazılım ekibimizle irtibata geçin."
+      );
+    }
   }
 };
 

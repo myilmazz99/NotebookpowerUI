@@ -1,11 +1,12 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import CustomNumberInput from "./CustomNumberInput";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addToCart } from "../Redux/Actions/cartActions";
 
 const AddToCart = ({ add, productId, cartId, cartItems }) => {
-  const input = useRef(null);
+  const [quantity, setQuantity] = useState(0);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -13,12 +14,16 @@ const AddToCart = ({ add, productId, cartId, cartItems }) => {
       ? true
       : false;
 
-    add(cartId, productId, Number(input.current.value), productExists);
+    add(cartId, productId, Number(quantity), productExists);
+  };
+
+  const handleQuantity = (q) => {
+    setQuantity(q);
   };
 
   return (
     <form className="add-to-cart" onSubmit={handleSubmit}>
-      <CustomNumberInput refe={input} />
+      <CustomNumberInput handleQuantity={handleQuantity} />
       <input type="submit" value="Sepete ekle" />
     </form>
   );

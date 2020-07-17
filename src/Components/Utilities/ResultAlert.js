@@ -20,7 +20,9 @@ const ResultAlert = ({ resultMessage, isError, isSuccess }) => {
     <section className="alert-wrapper" ref={alert}>
       <p className="alert">
         {resultMessage}
-        {resultMessage.length > 1 ? <div className="alert-timer"></div> : null}
+        {resultMessage.length > 1 ? (
+          <span className="alert-timer"></span>
+        ) : null}
       </p>
     </section>
   );

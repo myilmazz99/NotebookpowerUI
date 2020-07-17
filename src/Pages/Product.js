@@ -17,20 +17,11 @@ import { getFavorites } from "../Redux/Actions/userActions";
 import Comments from "../Components/Product/Comments";
 import numberFormat from "../Components/Tools/numberFormat";
 import ProductPageSkeleton from "../Components/Skeletons/ProductPageSkeleton";
+import Tns from "../Components/Tns";
 
 const Product = ({ products, getProduct, userId, getFavorites, favorites }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState({});
-
-  useEffect(() => {
-    tns({
-      container: ".product-slider-wrapper",
-      items: 1,
-      controlsText: ["<", ">"],
-      navContainer: "#customize-thumbnails",
-      navAsThumbnails: true,
-    });
-  }, []);
 
   useEffect(() => {
     let product = products.find((i) => Number(i.id) === Number(productId));
@@ -53,28 +44,36 @@ const Product = ({ products, getProduct, userId, getFavorites, favorites }) => {
         <>
           <div className="product-slider">
             <div className="product-slider-container">
-              <div className="product-slider-wrapper">
-                <div className="product-slider-img-container">
-                  <img src="https://via.placeholder.com/500x500" alt="" />
-                </div>
-                <div className="product-slider-img-container">
-                  <img src="https://via.placeholder.com/500x500" alt="" />
-                </div>
-                <div className="product-slider-img-container">
-                  <img src="https://via.placeholder.com/500x500" alt="" />
-                </div>
-              </div>
-              <ul className="thumbnails" id="customize-thumbnails">
-                <li>
-                  <img src="https://via.placeholder.com/500x500" alt="" />
-                </li>
-                <li>
-                  <img src="https://via.placeholder.com/500x500" alt="" />
-                </li>
-                <li>
-                  <img src="https://via.placeholder.com/500x500" alt="" />
-                </li>
-              </ul>
+              <Tns
+                container="product-slider-wrapper"
+                isCarousel={true}
+                products={
+                  <>
+                    <div className="product-slider-wrapper">
+                      <div className="product-slider-img-container">
+                        <img src="https://via.placeholder.com/500x500" alt="" />
+                      </div>
+                      <div className="product-slider-img-container">
+                        <img src="https://via.placeholder.com/500x500" alt="" />
+                      </div>
+                      <div className="product-slider-img-container">
+                        <img src="https://via.placeholder.com/500x500" alt="" />
+                      </div>
+                    </div>
+                    <ul className="thumbnails" id="customize-thumbnails">
+                      <li>
+                        <img src="https://via.placeholder.com/500x500" alt="" />
+                      </li>
+                      <li>
+                        <img src="https://via.placeholder.com/500x500" alt="" />
+                      </li>
+                      <li>
+                        <img src="https://via.placeholder.com/500x500" alt="" />
+                      </li>
+                    </ul>
+                  </>
+                }
+              />
             </div>
           </div>
           <div className="product-details">

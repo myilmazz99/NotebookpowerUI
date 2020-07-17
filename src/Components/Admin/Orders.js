@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 //Router
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { getOrders } from "../../Redux/Actions/orderActions";
+import displayOrderStatus from "../Tools/displayOrderStatus";
 
-const Orders = () => {
+const Orders = ({ orders, getOrders }) => {
+  useEffect(() => {
+    getOrders();
+  }, [orders]);
+
   return (
     <div id="admin-order-list">
       <h1>Siparişler</h1>
@@ -20,42 +28,31 @@ const Orders = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>108</td>
-            <td>Mustafa Yılmaz</td>
-            <td>
-              499 <FontAwesomeIcon icon="lira-sign" />
-            </td>
-            <td>04/12/2011</td>
-            <td>Onay Bekliyor</td>
-            <td>
-              <button className="btn btn-danger btn-sm w-100 mb-1">Sil</button>
-              <Link
-                to="/admin/orders/108"
-                className="btn btn-warning btn-sm w-100"
-              >
-                Detaylar
-              </Link>
-            </td>
-          </tr>
-          <tr>
-            <td>108</td>
-            <td>Mustafa Yılmaz</td>
-            <td>
-              499 <FontAwesomeIcon icon="lira-sign" />
-            </td>
-            <td>04/12/2011</td>
-            <td>Onay Bekliyor</td>
-            <td>
-              <button className="btn btn-danger btn-sm w-100 mb-1">Sil</button>
-              <Link
-                to="/admin/orders/108"
-                className="btn btn-warning btn-sm w-100"
-              >
-                Detaylar
-              </Link>
-            </td>
-          </tr>
+          {orders &&
+            orders
+              .filter((i) => i.status !== 0)
+              .map((i) => (
+                <tr>
+                  <td>{i.id}</td>
+                  <td>{i.fullName}</td>
+                  <td>
+                    {i.totalPrice} <FontAwesomeIcon icon="lira-sign" />
+                  </td>
+                  <td>{i.shortDate}</td>
+                  <td>{displayOrderStatus(i.status)}</td>
+                  <td>
+                    <button className="btn btn-danger btn-sm w-100 mb-1">
+                      Sil
+                    </button>
+                    <Link
+                      to={`/admin/orders/${i.id}`}
+                      className="btn btn-warning btn-sm w-100"
+                    >
+                      Detaylar
+                    </Link>
+                  </td>
+                </tr>
+              ))}
         </tbody>
       </table>
 
@@ -72,46 +69,43 @@ const Orders = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>108</td>
-            <td>Mustafa Yılmaz</td>
-            <td>
-              499 <FontAwesomeIcon icon="lira-sign" />
-            </td>
-            <td>04/12/2011</td>
-            <td>Onay Bekliyor</td>
-            <td>
-              <button className="btn btn-danger btn-sm w-100 mb-1">Sil</button>
-              <Link
-                to="/admin/orders/108"
-                className="btn btn-warning btn-sm w-100"
-              >
-                Detaylar
-              </Link>
-            </td>
-          </tr>
-          <tr>
-            <td>108</td>
-            <td>Mustafa Yılmaz</td>
-            <td>
-              499 <FontAwesomeIcon icon="lira-sign" />
-            </td>
-            <td>04/12/2011</td>
-            <td>Onay Bekliyor</td>
-            <td>
-              <button className="btn btn-danger btn-sm w-100 mb-1">Sil</button>
-              <Link
-                to="/admin/orders/108"
-                className="btn btn-warning btn-sm w-100"
-              >
-                Detaylar
-              </Link>
-            </td>
-          </tr>
+          {orders &&
+            orders
+              .filter((i) => i.status === 0)
+              .map((i) => (
+                <tr>
+                  <td>{i.id}</td>
+                  <td>{i.fullName}</td>
+                  <td>
+                    {i.totalPrice} <FontAwesomeIcon icon="lira-sign" />
+                  </td>
+                  <td>{i.shortDate}</td>
+                  <td>{displayOrderStatus(i.status)}</td>
+                  <td>
+                    <button className="btn btn-danger btn-sm w-100 mb-1">
+                      Sil
+                    </button>
+                    <Link
+                      to={`/admin/orders/${i.id}`}
+                      className="btn btn-warning btn-sm w-100"
+                    >
+                      Detaylar
+                    </Link>
+                  </td>
+                </tr>
+              ))}
         </tbody>
       </table>
     </div>
   );
 };
 
-export default Orders;
+const mapStateToProps = (state) => ({
+  orders: state.orderReducer.orders,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getOrders: bindActionCreators(getOrders, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);

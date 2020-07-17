@@ -8,16 +8,26 @@ const CustomNumberInput = ({ refe, defValue, handleQuantity }) => {
   }, [orderCount]);
 
   useEffect(() => {
-    setOrderCount(defValue);
+    handleChange(defValue);
   }, [defValue]);
 
   const incrementOrderCount = (e) => {
-    setOrderCount(Number(e.target.previousSibling.value) + 1);
+    handleChange(Number(e.target.previousSibling.value) + 1);
   };
 
   const decrementOrderCount = (e) => {
     if (Number(e.target.nextSibling.value) <= 1) return;
-    setOrderCount(Number(e.target.nextSibling.value) - 1);
+    handleChange(Number(e.target.nextSibling.value) - 1);
+  };
+
+  const handleChange = (e) => {
+    if (e) {
+      if (typeof e === "number") {
+        setOrderCount(e);
+      } else {
+        setOrderCount(e.target.value);
+      }
+    }
   };
 
   const buttonStyling = {
@@ -52,13 +62,12 @@ const CustomNumberInput = ({ refe, defValue, handleQuantity }) => {
         -
       </span>
       <input
-        ref={refe}
         name="custom-number-input"
         style={inputStyling}
         className="order-count"
         type="text"
+        onChange={handleChange}
         value={orderCount}
-        readOnly={true}
       />
       <span
         style={buttonStyling}

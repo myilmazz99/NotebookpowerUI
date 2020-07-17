@@ -8,7 +8,7 @@ const dispatchActionResult = (dispatch, isSuccess, payload) => {
     });
     setTimeout(() => {
       dispatch({ type: actionTypes.CLEAR_SUCCESS });
-    }, 5000);
+    }, 3000);
   } else {
     dispatch({
       type: actionTypes.SET_ERROR,
@@ -16,7 +16,7 @@ const dispatchActionResult = (dispatch, isSuccess, payload) => {
     });
     setTimeout(() => {
       dispatch({ type: actionTypes.CLEAR_ERROR });
-    }, 5000);
+    }, 3000);
   }
 };
 

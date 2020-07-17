@@ -274,6 +274,7 @@ main {
     }
 
     .alert-timer {
+      display: block;
       position: absolute;
       bottom: 0;
       left: 50%;
@@ -282,7 +283,7 @@ main {
       width: 96%;
       background-color: #fff;
       border-radius: 10px;
-      animation: alertTimer 5s;
+      animation: alertTimer 3s;
     }
   }
 }
@@ -400,6 +401,13 @@ nav.top-bar {
   }
 
   .search {
+    flex-basis: 20%;
+    display: flex;
+    justify-content: flex-end;
+    .nav-user-actions {
+      display: flex;
+    }
+
     @media (min-width: $viewport-md) {
       display: none;
     }
@@ -408,7 +416,7 @@ nav.top-bar {
   .search-form {
     display: flex;
     position: absolute;
-    bottom: 0;
+    bottom: -100%;
     right: -500px;
     opacity: 0;
     transform: translateY(100%);
@@ -438,6 +446,7 @@ nav.top-bar {
   }
 
   .nav-brand {
+    flex-basis: 60%;
     max-width: 50px;
     height: auto;
 
@@ -460,6 +469,7 @@ nav.top-bar {
   }
 
   .nav-expand-btn {
+    flex-basis: 20%;
     cursor: pointer;
 
     .line {
@@ -497,11 +507,16 @@ nav.top-bar {
       .user-window {
         display: none;
         position: absolute;
-        top: 100%;
+        bottom: -100%;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translate(-50%, 100%);
         border: 2px solid $secondary-color;
         background-color: #fff;
+        text-align: center;
+
+        &.open {
+          display: block;
+        }
 
         li {
           border-top: 1px solid $secondary-color;
@@ -518,10 +533,6 @@ nav.top-bar {
             }
           }
         }
-      }
-
-      &:hover .user-window {
-        display: block;
       }
     }
 
@@ -653,6 +664,24 @@ nav.top-bar {
 
   @media (min-width: $viewport-md) {
     display: none;
+  }
+}
+
+.cart-icon-wrapper {
+  position: relative;
+
+  .cart-item-count {
+    display: flex;
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+    width: 18px;
+    height: 18px;
+    background-color: rgba(0, 128, 0, 0.548);
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    color: white;
   }
 }
 
@@ -1785,7 +1814,7 @@ nav.top-bar {
   .product-preview-list {
     grid-area: product-list;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 2rem;
     justify-items: center;
   }

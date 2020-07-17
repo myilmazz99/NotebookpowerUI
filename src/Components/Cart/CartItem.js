@@ -31,7 +31,7 @@ const CartItem = ({
     if (quantity !== 0.0)
       collectCartItemPrice({
         cartItemId: cartItem.id,
-        totalPrice: quantity * cartItem.product.newPrice,
+        quantity: quantity,
       });
   }, [quantity]);
 

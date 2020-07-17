@@ -6,6 +6,7 @@ let initialState = {
   dailydeals: [],
   similiar: [],
   specifications: [],
+  errors: [],
 };
 
 const productReducer = (state = initialState, action) => {
@@ -57,16 +58,18 @@ const productReducer = (state = initialState, action) => {
       return { ...state, products: [...state.products, action.payload] };
     case actionTypes.GET_SPECIFICATIONS_SUCCESS:
       return { ...state, specifications: action.payload };
+    case actionTypes.ADD_PRODUCT_SUCCESS:
+      return { ...state, errors: [] };
     case actionTypes.UPDATE_PRODUCT_SUCCESS:
       return {
         ...state,
+        errors: [],
         products: [
           ...state.products.filter((i) => i.id !== action.payload.id),
           action.payload,
         ],
       };
     case actionTypes.REMOVE_SPECIFICATION_SUCCESS:
-      console.log("yo");
       return {
         ...state,
         products: state.products.map((i) =>
@@ -95,6 +98,8 @@ const productReducer = (state = initialState, action) => {
         ...state,
         products: [...newState],
       };
+    case actionTypes.SET_PRODUCT_VALIDATION_ERROR:
+      return { ...state, errors: action.payload };
 
     default:
       return state;

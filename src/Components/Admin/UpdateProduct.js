@@ -12,12 +12,14 @@ import {
   updateProduct,
   removeSpecification,
 } from "../../Redux/Actions/productActions";
+import lowerCaseFirstChar from "../Tools/lowerCaseFirstChar";
 
 const UpdateProduct = ({
   products,
   getProduct,
   updateProduct,
   removeSpecification,
+  validationErrors,
 }) => {
   let {
     handleChange,
@@ -26,6 +28,7 @@ const UpdateProduct = ({
     handleUpload,
     errors,
     updateValues,
+    updateErrors,
   } = useForm(update, ProductValidation);
   let {
     setSpecRowCount,
@@ -47,6 +50,17 @@ const UpdateProduct = ({
       }
     }
   }, [products]);
+
+  useEffect(() => {
+    if (validationErrors.length > 0) {
+      let newErr = {};
+      validationErrors.forEach((i) => {
+        let propName = lowerCaseFirstChar(i.PropertyName);
+        newErr[propName] = i.ErrorMessage;
+      });
+      updateErrors(newErr);
+    }
+  }, [validationErrors]);
 
   const retrieveMissingInputValuesAndSubmit = (e) => {
     e.preventDefault();
@@ -75,7 +89,7 @@ const UpdateProduct = ({
 
   function update() {
     updateProduct(values);
-    history.goBack();
+    //history.goBack();
   }
 
   return (
@@ -205,6 +219,7 @@ const UpdateProduct = ({
 
 const mapState = (state) => ({
   products: state.productReducer.products,
+  validationErrors: state.productReducer.errors,
 });
 
 const mapDispatch = (dispatch) => ({

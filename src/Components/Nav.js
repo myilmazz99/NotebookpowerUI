@@ -1,16 +1,15 @@
 import React, { useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Contact from "./Contact";
 import logo from "../img/logo.png";
 import { Link } from "react-router-dom";
-import { toggleModal } from "./Utilities/Modal";
-import Search from "./Search";
 import AccountModal from "./AccountModal";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getCategories } from "../Redux/Actions/categoryActions";
+import UserActionGroup from "./Nav/UserActionGroup";
+import Sidenav from "./Nav/Sidenav";
 
-const Nav = ({ categories, getCategories }) => {
+const Nav = ({ categories, getCategories, authenticated }) => {
   const sideNav = useRef(null);
 
   useEffect(() => {
@@ -44,97 +43,18 @@ const Nav = ({ categories, getCategories }) => {
             ))}
         </ul>
         <img src={logo} alt="notebookpower brand logo" className="nav-brand" />
-        <ul className="nav-user-actions">
-          <li className="user-action">
-            <Link to="/cart/1">
-              <FontAwesomeIcon icon="shopping-cart" />
-            </Link>
-          </li>
-          <li className="user-action">
-            <FontAwesomeIcon
-              icon="user-circle"
-              onClick={() => toggleModal("account-modal")}
-            />
-            <ul className="user-window">
-              <li>
-                <Link to="/user/1/favorites">Favorilerim</Link>
-              </li>
-              <li>
-                <Link to="/user/1/orders">Siparişlerim</Link>
-              </li>
-            </ul>
-          </li>
-          <li className="user-action">
-            <Search />
-          </li>
-        </ul>
+        <UserActionGroup authenticated={authenticated} />
         <div className="search">
-          <Search />
+          <UserActionGroup authenticated={authenticated} />
         </div>
       </nav>
 
-      <nav ref={sideNav} className="nav-expand-panel">
-        <button className="nav-shrink-btn" onClick={toggleSideNav}>
-          <FontAwesomeIcon icon="times" />
-        </button>
-        <ul className="links">
-          <li>
-            <Link to="/" className="nav-link" onClick={toggleSideNav}>
-              Ana Sayfa
-              <FontAwesomeIcon icon="chevron-right" size="xs" />
-            </Link>
-          </li>
-          {categories &&
-            categories.map((i) => (
-              <li key={i.id}>
-                <Link
-                  to={`/products?category=${i.categoryName}`}
-                  className="nav-link"
-                  onClick={toggleSideNav}
-                >
-                  {i.categoryName}
-                  <FontAwesomeIcon icon="chevron-right" size="xs" />
-                </Link>
-              </li>
-            ))}
-          <li>
-            <Link to="/products" className="nav-link" onClick={toggleSideNav}>
-              Tüm Ürünler
-              <FontAwesomeIcon icon="chevron-right" size="xs" />
-            </Link>
-          </li>
-        </ul>
-
-        <ul className="account">
-          <li className="account-link">
-            <Link to="/cart/1" onClick={toggleSideNav}>
-              <FontAwesomeIcon icon="shopping-cart" /> Sepetim
-            </Link>
-          </li>
-          <li className="account-link">
-            <span
-              onClick={() => {
-                toggleSideNav();
-                toggleModal("account-modal");
-              }}
-            >
-              <FontAwesomeIcon icon="user-circle" /> Giriş Yap / Üye Ol
-            </span>
-          </li>
-          <li className="account-link">
-            <Link to="/user/1/favorites" onClick={toggleSideNav}>
-              <FontAwesomeIcon icon="heart" /> Favorilerim
-            </Link>
-          </li>
-          <li className="account-link">
-            <Link to="/user/1/orders" onClick={toggleSideNav}>
-              <FontAwesomeIcon icon="dollar-sign" /> Siparişlerim
-            </Link>
-          </li>
-        </ul>
-        <hr />
-        <Contact />
-      </nav>
+      <Sidenav
+        refe={sideNav}
+        categories={categories}
+        toggleSideNav={toggleSideNav}
+        authenticated={authenticated}
+      />
 
       <AccountModal />
     </header>
@@ -143,6 +63,7 @@ const Nav = ({ categories, getCategories }) => {
 
 const mapState = (state) => ({
   categories: state.categoryReducer.categories,
+  authenticated: state.userReducer.authenticated,
 });
 
 const mapDispatch = (dispatch) => ({

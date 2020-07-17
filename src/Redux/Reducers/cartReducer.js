@@ -32,6 +32,21 @@ const cartReducer = (state = initialState, action) => {
       } else {
         return { ...state, cartItems: [...state.cartItems, action.payload] };
       }
+    case actionTypes.COLLECT_CART_ITEM_PRICE:
+      let cartItemToModify = state.cartItems.find(
+        (i) => i.id === action.payload.cartItemId
+      );
+      let newState = state.cartItems.map((i) => {
+        if (i.id === action.payload.cartItemId) {
+          return Object.assign({}, cartItemToModify, {
+            productQuantity: action.payload.quantity,
+          });
+        } else {
+          return i;
+        }
+      });
+
+      return { ...state, cartItems: newState };
 
     default:
       return state;

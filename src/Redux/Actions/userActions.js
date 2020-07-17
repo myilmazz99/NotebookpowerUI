@@ -29,17 +29,17 @@ export const login = (user) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   localStorage.removeItem("token");
   dispatchActionResult(dispatch, true, "Oturum başarıyla sonlandırıldı.");
-  return { type: actionTypes.LOGOUT_SUCCESS };
+  dispatch({ type: actionTypes.LOGOUT_SUCCESS });
 };
 
-export const authenticate = (username) => (dispatch) => {
+export const authenticate = () => (dispatch) => {
   let userCredentials = decodeToken();
   dispatchActionResult(
     dispatch,
     true,
     `Tekrar hoşgeldin, ${userCredentials.fullname}! İyi alışverişler.`
   );
-  return { type: actionTypes.LOGIN_SUCCESS, payload: userCredentials };
+  dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: userCredentials });
 };
 
 const decodeToken = () => {
@@ -60,20 +60,6 @@ export const getFavorites = (id) => async (dispatch) => {
     );
     dispatch({
       type: actionTypes.GET_FAVORITES_SUCCESS,
-      payload: response.data,
-    });
-  } catch (error) {
-    console.log(error.response);
-  }
-};
-
-export const getPastOrders = (id) => async (dispatch) => {
-  try {
-    let response = await Axios.get(
-      `http://localhost:61361/api/orders/${id}/orders`
-    );
-    dispatch({
-      type: actionTypes.GET_PAST_ORDERS_SUCCESS,
       payload: response.data,
     });
   } catch (error) {
@@ -130,5 +116,19 @@ export const removeFromFavorites = (productId, userId) => async (dispatch) => {
       false,
       "Ürün favorilerinizden çıkarılamadı. Lütfen daha sonra tekrar deneyiniz."
     );
+  }
+};
+
+export const getOrdersByUserId = (id) => async (dispatch) => {
+  try {
+    let response = await Axios.get(
+      `http://localhost:61361/api/orders/${id}/orders`
+    );
+    dispatch({
+      type: actionTypes.GET_PAST_ORDERS_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.log(error.response);
   }
 };

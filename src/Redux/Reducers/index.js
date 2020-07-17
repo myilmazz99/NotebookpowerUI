@@ -4,6 +4,7 @@ import cartReducer from "./cartReducer";
 import userReducer from "./userReducer";
 import adminReducer from "./adminReducer";
 import uiReducer from "./uiReducer";
+import orderReducer from "./orderReducer";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   userReducer,
   adminReducer,
   uiReducer,
+  orderReducer,
 });
 
 export default rootReducer;

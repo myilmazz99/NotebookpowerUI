@@ -7,16 +7,16 @@ const User = () => {
   return (
     <main id="user-page">
       <Switch>
-        <Route exact path="/user/:id/favorites" component={Favorites} />
-        <Route exact path="/user/:id/orders" component={OrderHistory} />
+        <Route exact path="/user/favorites" component={Favorites} />
+        <Route exact path="/user/orders" component={OrderHistory} />
       </Switch>
 
       <ul className="user-nav">
         <li>
-          <Link to="/user/1/favorites">Favorilerim</Link>
+          <Link to="/user/favorites">Favorilerim</Link>
         </li>
         <li>
-          <Link to="/user/1/orders">Siparişlerim</Link>
+          <Link to="/user/orders">Siparişlerim</Link>
         </li>
       </ul>
     </main>

@@ -56,9 +56,6 @@ const ProductPreviewList = ({ container, products, favorites, userId }) => {
           <ProductPreviewSkeleton />
           <ProductPreviewSkeleton />
           <ProductPreviewSkeleton />
-          <ProductPreviewSkeleton />
-          <ProductPreviewSkeleton />
-          <ProductPreviewSkeleton />
         </>
       )}
     </div>
