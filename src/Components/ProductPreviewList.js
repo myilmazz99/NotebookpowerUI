@@ -8,7 +8,13 @@ import AddToCart from "./AddToCart";
 import numberFormat from "./Tools/numberFormat";
 import ProductPreviewSkeleton from "./Skeletons/ProductPreviewSkeleton";
 
-const ProductPreviewList = ({ container, products, favorites, userId }) => {
+const ProductPreviewList = ({
+  container,
+  products,
+  favorites,
+  userId,
+  authenticated,
+}) => {
   return (
     <div className={`product-preview-list ${container || ""}`}>
       {products && products.length !== 0 ? (
@@ -42,21 +48,19 @@ const ProductPreviewList = ({ container, products, favorites, userId }) => {
                 <AddToCart productId={data.id} userId={userId} />
               </div>
               <div className="add-to-fav">
-                <AddToFav
-                  productId={data.id}
-                  favorites={favorites}
-                  userId={userId}
-                />
+                {authenticated ? (
+                  <AddToFav
+                    productId={data.id}
+                    favorites={favorites}
+                    userId={userId}
+                  />
+                ) : null}
               </div>
             </div>
           </div>
         ))
       ) : (
-        <>
-          <ProductPreviewSkeleton />
-          <ProductPreviewSkeleton />
-          <ProductPreviewSkeleton />
-        </>
+        <p>Aradığınız kriterlerde ürün bulunamadı.</p>
       )}
     </div>
   );
@@ -64,6 +68,7 @@ const ProductPreviewList = ({ container, products, favorites, userId }) => {
 
 const mapState = (state) => ({
   userId: state.userReducer.userCredentials.userId,
+  authenticated: state.userReducer.authenticated,
   favorites: state.userReducer.favorites,
 });
 

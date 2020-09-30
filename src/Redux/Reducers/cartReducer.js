@@ -7,11 +7,17 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.CREATE_CART_SUCCESS:
+      return {
+        ...state,
+        cartId: action.payload.id,
+        cartItems: action.payload.cartItems,
+      };
     case actionTypes.GET_CART_SUCCESS:
       return {
         ...state,
         cartId: action.payload.id,
-        cartItems: [...action.payload.cartItems],
+        cartItems: action.payload.cartItems,
       };
     case actionTypes.REMOVE_FROM_CART:
       return {

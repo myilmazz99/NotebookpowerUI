@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { logout } from "../../Redux/Actions/userActions";
 
-const UserActionGroup = ({ cartItemLength, authenticated, logout }) => {
+const UserActionGroup = ({ cartItems, authenticated, logout }) => {
   let userWindow = useRef(null);
 
   const toggleUserWindow = () => {
@@ -21,7 +21,9 @@ const UserActionGroup = ({ cartItemLength, authenticated, logout }) => {
           <Link to="/cart">
             <span className="cart-icon-wrapper">
               <FontAwesomeIcon icon="shopping-cart" />
-              <small className="cart-item-count">{cartItemLength}</small>
+              <small className="cart-item-count">
+                {cartItems ? cartItems.length || 0 : 0}
+              </small>
             </span>
           </Link>
         </li>
@@ -56,7 +58,7 @@ const UserActionGroup = ({ cartItemLength, authenticated, logout }) => {
 };
 
 const mapState = (state) => ({
-  cartItemLength: state.cartReducer.cartItems.length,
+  cartItems: state.cartReducer.cartItems,
 });
 
 const mapDispatch = (dispatch) => ({

@@ -4,7 +4,7 @@ import dispatchActionResult from "./dispatchActionResult";
 
 export const fulfillOrder = (order) => async (dispatch) => {
   try {
-    await Axios.post("http://localhost:61361/api/orders", order);
+    await Axios.post("api/orders", order);
     dispatch({ type: actionTypes.COMPLETE_ORDER_SUCCESS, payload: order });
   } catch (error) {
     if (error.response.data.ErrorType.toLowerCase().includes("payment")) {
@@ -32,7 +32,7 @@ export const fulfillOrder = (order) => async (dispatch) => {
 
 export const getOrders = () => async (dispatch) => {
   try {
-    let response = await Axios.get("http://localhost:61361/api/orders");
+    let response = await Axios.get("api/orders");
     dispatch({ type: actionTypes.GET_ORDERS_SUCCESS, payload: response.data });
   } catch (error) {
     dispatchActionResult(
@@ -45,7 +45,7 @@ export const getOrders = () => async (dispatch) => {
 
 export const getOrderById = (id) => async (dispatch) => {
   try {
-    let response = await Axios.get(`http://localhost:61361/api/orders/${id}`);
+    let response = await Axios.get(`api/orders/${id}`);
     dispatch({ type: actionTypes.GET_ORDER_SUCCESS, payload: response.data });
   } catch (error) {
     dispatchActionResult(
@@ -58,9 +58,7 @@ export const getOrderById = (id) => async (dispatch) => {
 
 export const confirmOrder = (orderId) => async (dispatch) => {
   try {
-    let response = await Axios.put(
-      `http://localhost:61361/api/orders/${orderId}`
-    );
+    let response = await Axios.put(`api/orders/${orderId}`);
     dispatch({
       type: actionTypes.CONFIRM_ORDER_SUCCESS,
       payload: response.data,

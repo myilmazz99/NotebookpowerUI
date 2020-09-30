@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addToCart } from "../Redux/Actions/cartActions";
 
-const AddToCart = ({ add, productId, cartId, cartItems }) => {
+const AddToCart = ({ add, productId, cartId, cartItems, authenticated }) => {
   const [quantity, setQuantity] = useState(0);
 
   const handleSubmit = (e) => {
@@ -22,16 +22,23 @@ const AddToCart = ({ add, productId, cartId, cartItems }) => {
   };
 
   return (
-    <form className="add-to-cart" onSubmit={handleSubmit}>
-      <CustomNumberInput handleQuantity={handleQuantity} />
-      <input type="submit" value="Sepete ekle" />
-    </form>
+    <>
+      <form className="add-to-cart" onSubmit={handleSubmit}>
+        <CustomNumberInput handleQuantity={handleQuantity} />
+        <input
+          type="submit"
+          value="Sepete Ekle"
+          disabled={authenticated ? false : true}
+        />
+      </form>
+    </>
   );
 };
 
 const mapState = (state) => ({
   cartId: state.cartReducer.cartId,
   cartItems: state.cartReducer.cartItems,
+  authenticated: state.userReducer.authenticated,
 });
 
 const mapDispatch = (dispatch) => ({

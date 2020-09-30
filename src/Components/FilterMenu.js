@@ -67,12 +67,7 @@ const FilterMenu = ({ specifications, getSpecifications }) => {
           collectFilters={collectFilters}
           name="orderby"
           defaultValue="Sırala"
-          options={[
-            "En Düşük Fiyat",
-            "En Yüksek Fiyat",
-            "En Çok Yorum",
-            "En Çok Puan",
-          ]}
+          options={["En Düşük Fiyat", "En Yüksek Fiyat", "En Çok Yorum"]}
         />
       </div>
       <div className="filter-menu-btn btn" onClick={toggleFilterMenu}>

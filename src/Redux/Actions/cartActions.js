@@ -6,7 +6,7 @@ export const addToCart = (id, productId, quantity, productExists) => async (
   dispatch
 ) => {
   try {
-    let response = await Axios.put("http://localhost:61361/api/carts", {
+    let response = await Axios.put("http://localhost:61361api/carts", {
       productId,
       id,
       quantity,
@@ -26,11 +26,18 @@ export const addToCart = (id, productId, quantity, productExists) => async (
   }
 };
 
+export const createCart = (userId) => async (dispatch) => {
+  try {
+    let response = await Axios.post("api/carts/create", {
+      userId,
+    });
+    dispatch({ type: actionTypes.CREATE_CART_SUCCESS, payload: response.data });
+  } catch (error) {}
+};
+
 export const removeFromCart = (cartId, cartItemId) => async (dispatch) => {
   try {
-    await Axios.delete(
-      `http://localhost:61361/api/carts/${cartId}/${cartItemId}`
-    );
+    await Axios.delete(`api/carts/${cartId}/${cartItemId}`);
     dispatch({ type: actionTypes.REMOVE_FROM_CART, payload: cartItemId });
     dispatchActionResult(dispatch, false, "Ürün sepetinizden çıkarıldı.");
   } catch (error) {
@@ -44,12 +51,11 @@ export const removeFromCart = (cartId, cartItemId) => async (dispatch) => {
 
 export const getCart = (userId) => async (dispatch) => {
   try {
-    let response = await Axios.get(
-      `http://localhost:61361/api/carts/${userId}`
-    );
+    let response = await Axios.get(`api/carts/${userId}`);
     dispatch({ type: actionTypes.GET_CART_SUCCESS, payload: response.data });
   } catch (error) {
     console.log(error.response);
+    console.log(error);
   }
 };
 

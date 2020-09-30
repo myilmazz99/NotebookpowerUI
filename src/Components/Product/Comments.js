@@ -114,6 +114,8 @@ const Comments = ({
             <button>Gönder</button>
           </div>
         </form>
+      ) : !authenticated ? (
+        <p>Yorum yapabilmek için üye olmalısınız.</p>
       ) : null}
 
       <ul className="comment-list">
@@ -123,9 +125,14 @@ const Comments = ({
               <p className="username">{i.username}</p>
               <time>02.02.2020</time>
               <p className="rating">
-                {Array(i.rating)
-                  .fill(<FontAwesomeIcon icon="star" />)
-                  .map((i) => i)}
+                {
+                  <>
+                    {Array(i.rating).fill(<FontAwesomeIcon icon="star" />)}
+                    {Array(5 - i.rating).fill(
+                      <FontAwesomeIcon icon={["far", "star"]} />
+                    )}
+                  </>
+                }
               </p>
               <p className="comment-text">{i.commentText}</p>
             </li>

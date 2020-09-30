@@ -2,32 +2,70 @@ import * as actionTypes from "./actionTypes";
 import Axios from "axios";
 import jwt_decode from "jwt-decode";
 import dispatchActionResult from "./dispatchActionResult";
+import { createCart } from "./cartActions";
 
-export const register = (user) => async (dispatch) => {
+export const register = (user, history) => async (dispatch) => {
   try {
-    await Axios.post("http://localhost:61361/api/accounts/register", user);
+    let response = await Axios.post("api/accounts/register", user);
     dispatch({ type: actionTypes.REGISTER_SUCCESS });
+
+    localStorage.setItem("token", JSON.stringify(response.data));
+    let decodedToken = decodeToken();
+    dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: decodedToken });
+
+    dispatch(createCart(decodedToken.userId));
+
+    dispatchActionResult(dispatch, true, "Kullanıcı kaydı başarılı.");
+    history.push("/");
   } catch (error) {
     console.log(error.response);
+    let {
+      response: {
+        status,
+        data: { ErrorType, ErrorMessage },
+      },
+    } = error;
+
+    if (
+      ErrorType &&
+      error.response.data.ErrorType.toLowerCase().includes("validation")
+    ) {
+      let errorMessages = JSON.parse(ErrorMessage);
+      dispatch({
+        type: actionTypes.SET_USER_VALIDATION_ERROR,
+        payload: errorMessages,
+      });
+    } else if (status && status === 500) {
+      dispatchActionResult(
+        dispatch,
+        false,
+        "Kullanıcı kayıt edilirken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz."
+      );
+    }
   }
 };
 
 export const login = (user) => async (dispatch) => {
   try {
-    let response = await Axios.post(
-      "http://localhost:61361/api/accounts/login",
-      user
-    );
+    let response = await Axios.post("api/accounts/login", user);
     localStorage.setItem("token", JSON.stringify(response.data));
     dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: decodeToken() });
-    dispatchActionResult(dispatch, true, "Giriş başarılı.");
+    console.log(response.data.token);
+    Axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${response.data.token}`;
   } catch (error) {
-    console.log(error.response);
+    if (error.response && error.response.status === 401)
+      dispatch({
+        type: actionTypes.SET_AUTH_ERROR,
+        payload: error.response.data,
+      });
   }
 };
 
 export const logout = () => (dispatch) => {
   localStorage.removeItem("token");
+  delete Axios.defaults.headers.common["Authorization"];
   dispatchActionResult(dispatch, true, "Oturum başarıyla sonlandırıldı.");
   dispatch({ type: actionTypes.LOGOUT_SUCCESS });
 };
@@ -40,6 +78,11 @@ export const authenticate = () => (dispatch) => {
     `Tekrar hoşgeldin, ${userCredentials.fullname}! İyi alışverişler.`
   );
   dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: userCredentials });
+  let token = localStorage.getItem("token");
+  let parsedToken = JSON.parse(token);
+  Axios.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${parsedToken.token}`;
 };
 
 const decodeToken = () => {
@@ -55,9 +98,7 @@ const decodeToken = () => {
 
 export const getFavorites = (id) => async (dispatch) => {
   try {
-    let response = await Axios.get(
-      `http://localhost:61361/api/accounts/${id}/favorites`
-    );
+    let response = await Axios.get(`api/accounts/${id}/favorites`);
     dispatch({
       type: actionTypes.GET_FAVORITES_SUCCESS,
       payload: response.data,
@@ -69,13 +110,10 @@ export const getFavorites = (id) => async (dispatch) => {
 
 export const addToFavorites = (productId, userId) => async (dispatch) => {
   try {
-    let response = await Axios.post(
-      "http://localhost:61361/api/accounts/addtofav",
-      {
-        productId: Number(productId),
-        userId,
-      }
-    );
+    let response = await Axios.post("api/accounts/addtofav", {
+      productId: Number(productId),
+      userId,
+    });
     dispatch({
       type: actionTypes.ADD_TO_FAV_SUCCESS,
       payload: response.data,
@@ -86,6 +124,7 @@ export const addToFavorites = (productId, userId) => async (dispatch) => {
       "Ürün başarıyla favorilerine eklendi."
     );
   } catch (error) {
+    console.log(error.response);
     dispatchActionResult(
       dispatch,
       true,
@@ -97,9 +136,7 @@ export const addToFavorites = (productId, userId) => async (dispatch) => {
 export const removeFromFavorites = (productId, userId) => async (dispatch) => {
   try {
     await Axios.delete(
-      `http://localhost:61361/api/accounts/${userId}/removefromfav/${Number(
-        productId
-      )}`
+      `api/accounts/${userId}/removefromfav/${Number(productId)}`
     );
     dispatch({
       type: actionTypes.REMOVE_FROM_FAV_SUCCESS,
@@ -121,9 +158,7 @@ export const removeFromFavorites = (productId, userId) => async (dispatch) => {
 
 export const getOrdersByUserId = (id) => async (dispatch) => {
   try {
-    let response = await Axios.get(
-      `http://localhost:61361/api/orders/${id}/orders`
-    );
+    let response = await Axios.get(`api/orders/${id}/orders`);
     dispatch({
       type: actionTypes.GET_PAST_ORDERS_SUCCESS,
       payload: response.data,

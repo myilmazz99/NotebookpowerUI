@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BestSelling from "../Components/BestSelling";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import CartSummary from "../Components/CartSummary";
 import CartItem from "../Components/Cart/CartItem";
 import { connect } from "react-redux";
 
-const Cart = ({ cartItems }) => {
+const Cart = ({ cartItems, authenticated }) => {
+  let his = useHistory();
+
+  useEffect(() => {}, []);
+
   return (
     <main id="cart">
       <section className="cart-wrapper">
@@ -36,6 +40,7 @@ const Cart = ({ cartItems }) => {
 
 const mapState = (state) => ({
   cartItems: state.cartReducer.cartItems,
+  authenticated: state.userReducer.authenticated,
 });
 
 export default connect(mapState)(Cart);

@@ -2324,3 +2324,26 @@ footer {
   flex-basis: 48%;
   height: 380px;
 }
+
+#notfound-page {
+  .error {
+    grid-column: 2/3;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+
+    .error-code {
+      flex-basis: 48%;
+      font-weight: bold;
+      font-size: 10rem;
+      color: red;
+    }
+
+    .error-text {
+      flex-basis: 48%;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+}

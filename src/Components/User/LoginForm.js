@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Input from "../Utilities/Input";
 import useForm from "../Utilities/useForm";
 import { loginValidation } from "../Utilities/ValidationRules/AccountValidation";
@@ -6,11 +6,15 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { login } from "../../Redux/Actions/userActions";
 
-const LoginForm = ({ login }) => {
-  const { handleChange, handleSubmit, values, errors } = useForm(
+const LoginForm = ({ login, authError }) => {
+  const { handleChange, handleSubmit, values, errors, updateErrors } = useForm(
     loginUser,
     loginValidation
   );
+
+  useEffect(() => {
+    if (Object.keys(values).length > 0) updateErrors({ authError });
+  }, [authError]);
 
   function loginUser() {
     login(values);
@@ -19,6 +23,9 @@ const LoginForm = ({ login }) => {
   return (
     <form className="signUp-form" onSubmit={handleSubmit}>
       <h4>Giriş Yap</h4>
+      {errors.authError && (
+        <div style={{ color: "red" }}>** {errors.authError}</div>
+      )}
       <Input
         name="email"
         type="text"
@@ -35,13 +42,17 @@ const LoginForm = ({ login }) => {
         value={values.password}
         error={errors.password}
       />
-      <Input type="submit" value="Kayıt Ol" />
+      <Input type="submit" value="Giriş Yap" />
     </form>
   );
 };
+
+const mapStateToProps = (state) => ({
+  authError: state.userReducer.authError,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   login: bindActionCreators(login, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

@@ -13,17 +13,11 @@ export const addProduct = (product) => {
 
       delete product.productImages;
 
-      let response = await axios.post(
-        "http://localhost:61361/api/products/add",
-        product
-      );
+      let response = await axios.post("api/products/add", product);
 
       formData.append("productId", parseInt(response.data));
 
-      await axios.post(
-        "http://localhost:61361/api/products/addImages",
-        formData
-      );
+      await axios.post("api/products/addImages", formData);
 
       dispatch({
         type: actionTypes.ADD_PRODUCT_SUCCESS,
@@ -58,9 +52,9 @@ export const updateProduct = (product) => async (dispatch) => {
       delete product.productImages;
     }
 
-    await axios.put("http://localhost:61361/api/products", product);
+    await axios.put("api/products", product);
 
-    await axios.post("http://localhost:61361/api/products/addImages", formData);
+    await axios.post("api/products/addImages", formData);
 
     dispatch({ type: actionTypes.UPDATE_PRODUCT_SUCCESS, payload: product });
     dispatchActionResult(dispatch, true, "Ürün başarıyla güncellendi.");
@@ -83,7 +77,7 @@ export const updateProduct = (product) => async (dispatch) => {
 
 export const deleteProduct = (id) => async (dispatch) => {
   try {
-    await axios.delete(`http://localhost:61361/api/products/${id}`);
+    await axios.delete(`api/products/${id}`);
     dispatch({ type: actionTypes.DELETE_PRODUCT_SUCCESS, payload: id });
     dispatchActionResult(dispatch, true, "Ürün başarıyla silindi.");
   } catch (error) {
@@ -97,7 +91,7 @@ export const deleteProduct = (id) => async (dispatch) => {
 
 export const getProducts = () => async (dispatch) => {
   try {
-    let response = await axios.get("http://localhost:61361/api/products");
+    let response = await axios.get("api/products");
     dispatch({
       type: actionTypes.GET_ALL_PRODUCTS_SUCCESS,
       payload: response.data,
@@ -109,9 +103,7 @@ export const getProducts = () => async (dispatch) => {
 
 export const getBestSeller = () => async (dispatch) => {
   try {
-    let response = await axios.get(
-      "http://localhost:61361/api/products/bestseller"
-    );
+    let response = await axios.get("api/products/bestseller");
     dispatch({
       type: actionTypes.GET_BEST_SELLER_SUCCESS,
       payload: response.data,
@@ -123,9 +115,7 @@ export const getBestSeller = () => async (dispatch) => {
 
 export const getDailyDeals = () => async (dispatch) => {
   try {
-    let response = await axios.get(
-      "http://localhost:61361/api/products/dailydeals"
-    );
+    let response = await axios.get("api/products/dailydeals");
     dispatch({
       type: actionTypes.GET_DAILY_DEALS_SUCCESS,
       payload: response.data,
@@ -137,9 +127,7 @@ export const getDailyDeals = () => async (dispatch) => {
 
 export const getSimiliar = (categoryId) => async (dispatch) => {
   try {
-    let response = await axios.get(
-      `http://localhost:61361/api/products/similiar/${categoryId}`
-    );
+    let response = await axios.get(`api/products/similiar/${categoryId}`);
     dispatch({
       type: actionTypes.GET_SIMILIAR_SUCCESS,
       payload: response.data,
@@ -151,7 +139,7 @@ export const getSimiliar = (categoryId) => async (dispatch) => {
 
 export const getProduct = (id) => async (dispatch) => {
   try {
-    let response = await axios.get(`http://localhost:61361/api/products/${id}`);
+    let response = await axios.get(`api/products/${id}`);
     dispatch({ type: actionTypes.GET_PRODUCT_SUCCESS, payload: response.data });
   } catch (error) {
     console.log(error);
@@ -160,9 +148,7 @@ export const getProduct = (id) => async (dispatch) => {
 
 export const getSpecifications = () => async (dispatch) => {
   try {
-    let response = await axios.get(
-      `http://localhost:61361/api/products/specifications`
-    );
+    let response = await axios.get(`api/products/specifications`);
     dispatch({
       type: actionTypes.GET_SPECIFICATIONS_SUCCESS,
       payload: response.data,
@@ -174,9 +160,7 @@ export const getSpecifications = () => async (dispatch) => {
 
 export const removeSpecification = (productId, specId) => async (dispatch) => {
   try {
-    await axios.delete(
-      `http://localhost:61361/api/products/${productId}/${specId}`
-    );
+    await axios.delete(`api/products/${productId}/${specId}`);
     dispatch({
       type: actionTypes.REMOVE_SPECIFICATION_SUCCESS,
       payload: specId,
@@ -195,7 +179,7 @@ export const addComment = (productId, userId, username, comment) => async (
   dispatch
 ) => {
   try {
-    await axios.post("http://localhost:61361/api/comments/add", {
+    await axios.post("api/comments/add", {
       productId,
       userId,
       rating: comment.rating,

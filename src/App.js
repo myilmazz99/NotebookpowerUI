@@ -18,15 +18,16 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getCart } from "./Redux/Actions/cartActions";
 import ResultAlert from "./Components/Utilities/ResultAlert";
+import NotFound from "./Pages/NotFound";
 
-const App = ({ logout, authenticate, userState, getCart }) => {
+const App = ({ logout, authenticate, userState, getCart, authenticated }) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
     var token = localStorage.getItem("token");
     if (token) {
       var parsedToken = JSON.parse(token);
-      if (parsedToken.Expiration < Date.now()) {
+      if (parsedToken.expiration < Date.now()) {
         logout();
       } else {
         authenticate();
@@ -52,11 +53,23 @@ const App = ({ logout, authenticate, userState, getCart }) => {
           <Nav />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/user/:id" component={User} />
+            <Route
+              path="/user/:id"
+              component={authenticated ? User : NotFound}
+            />
             <Route exact path="/product/:productId" component={Product} />
             <Route exact path="/products" component={ProductList} />
-            <Route exact path="/cart" component={Cart} />
-            <Route exact path="/order" component={Order} />
+            <Route
+              exact
+              path="/cart"
+              component={authenticated ? Cart : NotFound}
+            />
+            <Route
+              exact
+              path="/order"
+              component={authenticated ? Order : NotFound}
+            />
+            <Route component={NotFound} />
           </Switch>
           <Footer />
         </>
@@ -73,13 +86,14 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   userState: state.userReducer,
+  authenticated: state.userReducer.authenticated,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 /*
-  - notebookpower.com
 
-  - payment api
+  General refactors
+  Authorization
 
 */

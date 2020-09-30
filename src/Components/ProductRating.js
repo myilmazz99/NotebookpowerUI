@@ -19,9 +19,14 @@ const ProductRating = ({ comments }) => {
 
   return (
     <section className="product-rating">
-      {averageRating > 0
-        ? Array(averageRating).fill(<FontAwesomeIcon icon="star" />)
-        : null}{" "}
+      {averageRating > 0 ? (
+        <>
+          {Array(averageRating).fill(<FontAwesomeIcon icon="star" />)}
+          {Array(5 - averageRating).fill(
+            <FontAwesomeIcon icon={["far", "star"]} />
+          )}
+        </>
+      ) : null}{" "}
       <span className="review-count">{commentCount} yorum</span>
     </section>
   );

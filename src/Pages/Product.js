@@ -19,7 +19,14 @@ import numberFormat from "../Components/Tools/numberFormat";
 import ProductPageSkeleton from "../Components/Skeletons/ProductPageSkeleton";
 import Tns from "../Components/Tns";
 
-const Product = ({ products, getProduct, userId, getFavorites, favorites }) => {
+const Product = ({
+  products,
+  getProduct,
+  userId,
+  getFavorites,
+  favorites,
+  authenticated,
+}) => {
   const { productId } = useParams();
   const [product, setProduct] = useState({});
 
@@ -79,11 +86,13 @@ const Product = ({ products, getProduct, userId, getFavorites, favorites }) => {
           <div className="product-details">
             <h1>
               <span>{product && product.productName}</span>{" "}
-              <AddToFav
-                productId={product && product.id}
-                userId={userId && userId}
-                favorites={favorites && favorites}
-              />
+              {authenticated ? (
+                <AddToFav
+                  productId={product && product.id}
+                  userId={userId && userId}
+                  favorites={favorites && favorites}
+                />
+              ) : null}
             </h1>
             {product ? (
               10 > product.stock ? (
@@ -165,6 +174,7 @@ const mapStateToProps = (state) => ({
   products: state.productReducer.products,
   userId: state.userReducer.userCredentials.userId,
   favorites: state.userReducer.favorites,
+  authenticated: state.userReducer.authenticated,
 });
 
 const mapDispatchToProps = (dispatch) => ({

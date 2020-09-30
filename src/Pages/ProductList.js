@@ -31,6 +31,24 @@ const ProductList = ({ products, getProducts }) => {
     }
   }, [queries]);
 
+  const filterByOrder = (filter) => {
+    switch (filter) {
+      case "En Düşük Fiyat":
+        return [...products.sort((i, j) => i.newPrice - j.newPrice)];
+      case "En Yüksek Fiyat":
+        return [...products.sort((i, j) => i.newPrice - j.newPrice).reverse()];
+      case "En Çok Yorum":
+        return [
+          ...products
+            .sort((i, j) => (i.comments.length || 0) - (j.comments.length || 0))
+            .reverse(),
+        ];
+
+      default:
+        break;
+    }
+  };
+
   const getProductsByFilter = () => {
     parsedQueries.s &&
       setFilteredProducts(
@@ -38,6 +56,9 @@ const ProductList = ({ products, getProducts }) => {
           i.productName.toLowerCase().includes(parsedQueries.s.toLowerCase())
         )
       );
+
+    parsedQueries.orderby &&
+      setFilteredProducts(filterByOrder(parsedQueries.orderby));
 
     parsedQueries.brand &&
       setFilteredProducts((prev) =>

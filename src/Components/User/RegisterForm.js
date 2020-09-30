@@ -1,24 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Input from "../Utilities/Input";
 import useForm from "../Utilities/useForm";
 import { registerValidation } from "../Utilities/ValidationRules/AccountValidation";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { register } from "../../Redux/Actions/userActions";
+import lowerCaseFirstChar from "../Tools/lowerCaseFirstChar";
+import { useHistory } from "react-router-dom";
 
-const RegisterForm = ({ register }) => {
-  const { handleChange, handleSubmit, values, errors } = useForm(
+const RegisterForm = ({ register, authError, validationErrors }) => {
+  let history = useHistory();
+  const { handleChange, handleSubmit, values, errors, updateErrors } = useForm(
     registerUser,
     registerValidation
   );
 
+  useEffect(() => {
+    if (Object.keys(values).length > 0) updateErrors({ authError });
+  }, [authError]);
+
+  useEffect(() => {
+    if (validationErrors.length > 0) {
+      let newErr = {};
+      validationErrors.forEach((i) => {
+        let propName = lowerCaseFirstChar(i.PropertyName);
+        newErr[propName] = i.ErrorMessage;
+      });
+      updateErrors(newErr);
+    }
+  }, [validationErrors]);
+
   function registerUser() {
-    register(values);
+    register(values, history);
   }
 
   return (
     <form className="signUp-form" onSubmit={handleSubmit}>
       <h4>Üye Ol</h4>
+      {errors.authError && (
+        <div style={{ color: "red" }}>** {errors.authError}</div>
+      )}
       <Input
         name="fullName"
         type="text"
@@ -56,8 +77,13 @@ const RegisterForm = ({ register }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  authError: state.userReducer.authError,
+  validationErrors: state.userReducer.validationErrors,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   register: bindActionCreators(register, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(RegisterForm);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
