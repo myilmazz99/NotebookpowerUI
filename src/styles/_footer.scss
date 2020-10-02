@@ -1,0 +1,77 @@
+@import "_variables";
+
+footer {
+  grid-area: footer;
+  background-color: #1a1a1a;
+
+  .contact-ways {
+    @extend %container-y;
+    @extend %container-x;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    @media (min-width: $viewport-md) {
+      flex-direction: row-reverse;
+    }
+  }
+
+  .contact {
+    color: $secondary-color;
+    @media (min-width: $viewport-md) {
+      padding: 0;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .brand-logo {
+        margin-bottom: 1.4rem;
+      }
+
+      .contact-detail-wrapper {
+        flex-basis: 0;
+      }
+    }
+  }
+
+  .contact,
+  .contact-form {
+    @media (min-width: $viewport-md) {
+      margin-top: 0;
+      padding-top: 0;
+      flex-basis: 48%;
+
+      input,
+      textarea {
+        width: 90%;
+      }
+    }
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+
+    .input-wrapper {
+      margin: 0.4rem 0;
+      text-align: center;
+    }
+
+    input,
+    textarea {
+      border-radius: 10px;
+
+      @media (min-width: $viewport-sm) {
+        width: 70%;
+      }
+    }
+  }
+
+  .copyright {
+    color: $secondary-color;
+    padding: 0.8rem 0;
+    background-color: $light-grey;
+    text-align: center;
+  }
+}

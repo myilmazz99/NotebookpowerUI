@@ -1,0 +1,86 @@
+@import "_variables";
+
+/*ORDER*/
+
+#order {
+  grid-template-rows: 1px;
+  grid-template-areas: ". . ." ". ow .";
+  row-gap: 2rem;
+  color: $secondary-color;
+
+  input,
+  textarea {
+    border-bottom: 1px solid $tertiary-color !important;
+    border-radius: 0 !important;
+    padding-left: 0.6rem !important;
+  }
+
+  .address {
+    @extend %container-xy;
+    grid-area: address;
+
+    .saved-addresses {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: lighten($color: $secondary-color, $amount: 12);
+      padding: 1rem 0;
+      border-radius: 10px;
+    }
+
+    .address-form {
+      input {
+        @extend %input;
+        width: 100%;
+        display: block;
+      }
+
+      textarea {
+        @extend %textarea;
+      }
+
+      input[type="submit"] {
+        @extend %input-submit;
+      }
+    }
+  }
+
+  .credit-card {
+    @extend %container-xy;
+    grid-area: card;
+
+    input {
+      @extend %input;
+      display: block;
+    }
+
+    .credit-card-details {
+      @media (min-width: $viewport-md) {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .card-input-wrapper {
+        flex-basis: 48%;
+      }
+
+      .rccs {
+        margin: 0 !important;
+        flex-basis: 48%;
+      }
+    }
+  }
+
+  .order-wrapper {
+    grid-area: ow;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 8fr 300px;
+    grid-template-areas: "address address" "card card" "sum sum";
+
+    @media (min-width: $viewport-lg) {
+      grid-template-areas: "address sum" "card sum";
+    }
+  }
+}

@@ -1,0 +1,238 @@
+@import "_variables";
+
+#product-page {
+  grid-template-areas:
+    "product-slider product-slider product-slider"
+    ". product-details ."
+    "tabs tabs tabs"
+    ". specs ."
+    "similiar-products similiar-products similiar-products";
+
+  .product-slider {
+    grid-area: product-slider;
+
+    .product-slider-container {
+      position: relative;
+      margin: 0 auto;
+      max-width: 450px;
+    }
+
+    .product-slider-img-container {
+      img {
+        @extend %responsive-img;
+      }
+    }
+
+    @media (min-width: $viewport-lg) {
+      background-color: transparent;
+    }
+  }
+
+  .product-details {
+    grid-area: product-details;
+    color: $secondary-color;
+
+    h1 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .price-and-rating {
+      @media (min-width: $viewport-sm) {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+      }
+    }
+
+    .low-stock-number {
+      color: red;
+    }
+
+    .discount-amount {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      background-color: red;
+      width: 5rem;
+      height: 5rem;
+    }
+
+    div,
+    h3,
+    form {
+      margin-top: 1rem;
+    }
+
+    .product-rating {
+      color: gold;
+
+      .review-count {
+        color: $secondary-color;
+      }
+    }
+
+    .product-price {
+      display: flex;
+
+      .prices {
+        padding-left: 1.2rem;
+      }
+
+      div {
+        margin: 0;
+      }
+
+      .old-price {
+        color: darken($color: $secondary-color, $amount: 30);
+        text-decoration: line-through;
+        padding-right: 0.6rem;
+        font-size: 1.3rem;
+      }
+
+      .new-price {
+        font-size: 2rem;
+      }
+    }
+
+    .trust-imgs {
+      margin-top: 2rem;
+      img {
+        margin-top: 2rem;
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 490px;
+
+        &:first-child {
+          max-width: 150px;
+        }
+      }
+    }
+  }
+
+  .comments {
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      .ratings {
+        flex-basis: 30%;
+        li {
+          display: flex;
+          align-items: center;
+          margin: 1rem 0;
+        }
+
+        input {
+          width: auto;
+          margin-right: 1rem;
+        }
+      }
+
+      div {
+        flex-basis: 100%;
+
+        .input-wrapper {
+          margin-bottom: 0;
+
+          textarea {
+            border: 1px solid $secondary-color;
+            width: 100% !important;
+            margin-bottom: 0;
+            height: 85px;
+          }
+        }
+
+        button {
+          @extend %input-submit;
+          width: auto;
+          margin-left: auto;
+        }
+
+        @media (min-width: $viewport-sm) {
+          flex-basis: 70%;
+        }
+      }
+    }
+
+    .comment-list {
+      .comment {
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid $secondary-color;
+        padding-bottom: 1rem;
+        margin-top: 1rem;
+
+        .username {
+          font-weight: bold;
+          flex-basis: 50%;
+        }
+
+        time {
+          color: $light-grey;
+          text-align: right;
+          flex-basis: 50%;
+        }
+
+        .rating {
+          flex-basis: 100%;
+        }
+
+        .comment-text {
+          margin-top: 1rem;
+        }
+      }
+    }
+  }
+
+  .specification-list {
+    grid-area: specs;
+    display: flex;
+    flex-wrap: wrap;
+
+    h2 {
+      flex-basis: 100%;
+    }
+
+    dt {
+      flex-basis: 25%;
+      font-weight: bolder;
+      padding: 0.6rem;
+      background-color: $secondary-color;
+      color: $primary-color;
+
+      &:nth-of-type(even) {
+        background-color: $primary-color;
+        color: $secondary-color;
+      }
+    }
+
+    dd {
+      flex-basis: 75%;
+      padding: 0.6rem;
+      background-color: $secondary-color;
+      color: $primary-color;
+
+      &:nth-of-type(even) {
+        background-color: $primary-color;
+        color: $secondary-color;
+      }
+    }
+  }
+
+  @media (min-width: $viewport-lg) {
+    grid-template-columns: 1fr 5fr 5fr 1fr;
+    grid-template-rows: 1px;
+    column-gap: 2rem;
+    grid-template-areas:
+      ". . . ."
+      ". product-slider product-details ."
+      "tabs tabs tabs tabs"
+      ". specs specs ."
+      "similiar-products similiar-products similiar-products similiar-products";
+  }
+}

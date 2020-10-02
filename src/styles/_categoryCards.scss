@@ -1,0 +1,45 @@
+@import "_variables";
+
+.category-cards-container {
+  grid-area: categorycards;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .category-card {
+    flex-basis: 100%;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(to right bottom, #1a1a1a, #262626);
+    width: 100%;
+    max-width: 370px;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+
+    &:hover .category-card-image {
+      transform: scale(1.1);
+    }
+
+    .category-card-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.4s;
+    }
+
+    @media (min-width: $viewport-sm) {
+      flex-basis: 48%;
+    }
+
+    @media (min-width: $viewport-md) {
+      flex-basis: 32%;
+    }
+
+    @media (min-width: $viewport-xl) {
+      height: 300px;
+    }
+  }
+}
