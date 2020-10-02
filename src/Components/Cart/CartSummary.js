@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import Input from "./Utilities/Input";
-import numberFormat from "./Tools/numberFormat";
+import Input from "../Utilities/Input";
+import numberFormat from "../Tools/numberFormat";
 
 const CartSummary = ({ buttonText, cartItems, getTotalPrice }) => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -32,22 +32,16 @@ const CartSummary = ({ buttonText, cartItems, getTotalPrice }) => {
       </li>
       <li className="cart-summary-item">
         <span>Ödenecek Tutar</span>
-        <span>
-          {numberFormat(totalPrice)} <FontAwesomeIcon icon="lira-sign" />
-        </span>
+        <span>{numberFormat(totalPrice)}</span>
       </li>
       <li className="cart-summary-item">
         <span>Kargo Tutarı</span>
-        <span>
-          0 <FontAwesomeIcon icon="lira-sign" />
-        </span>
+        <span>{numberFormat(0)}</span>
       </li>
       <hr />
       <li className="cart-summary-item">
         <span>Toplam</span>
-        <span>
-          {numberFormat(totalPrice)} <FontAwesomeIcon icon="lira-sign" />
-        </span>
+        <span>{numberFormat(totalPrice)}</span>
       </li>
       <li>
         {buttonText === "Ödeme Yap" ? (

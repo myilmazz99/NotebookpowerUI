@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import CategorySelectBox from "../Utilities/CategorySelectBox";
 import useForm from "../Utilities/useForm";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useSpecRows from "../Utilities/useSpecRows";
 //Validation
 import ProductValidation from "../Utilities/ValidationRules/ProductValidation";
@@ -37,7 +37,6 @@ const UpdateProduct = ({
     getSpecifications,
   } = useSpecRows(removeSpec);
   const { id } = useParams();
-  const history = useHistory();
 
   useEffect(() => {
     if (products) {

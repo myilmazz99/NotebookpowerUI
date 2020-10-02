@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import ProductPreviewList from "../Components/ProductPreviewList";
+import ProductPreviewList from "../Components/Product/ProductPreviewList";
 import Jumbotron from "../Components/Jumbotron";
-import FilterMenu from "../Components/FilterMenu";
+import FilterMenu from "../Components/Product/FilterMenu";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import { connect } from "react-redux";

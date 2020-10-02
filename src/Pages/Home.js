@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Slider from "../Components/Slider";
 import CategoryCards from "../Components/CategoryCards";
-import BestSelling from "../Components/BestSelling";
-import DailyDeals from "../Components/DailyDeals";
+import BestSelling from "../Components/Product/BestSelling";
+import DailyDeals from "../Components/Product/DailyDeals";
 import Mailing from "../Components/Mailing";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";

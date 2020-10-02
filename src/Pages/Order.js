@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import CartSummary from "../Components/CartSummary";
+import CartSummary from "../Components/Cart/CartSummary";
 import AddressForm from "../Components/Order/AddressForm";
 import Input from "../Components/Utilities/Input";
 import Cards from "react-credit-cards";
@@ -9,14 +9,16 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fulfillOrder } from "../Redux/Actions/orderActions";
 import lowerCaseFirstChar from "../Components/Tools/lowerCaseFirstChar";
+import { useHistory } from "react-router-dom";
 
 const Order = ({
-  cartItems,
+  cartReducer: { cartId, cartItems },
   userCredentials: { userId, email },
   fulfillOrder,
   validationErrors,
   paymentError,
 }) => {
+  const history = useHistory();
   let { handleChange, handleSubmit, values, errors, updateErrors } = useForm(
     checkout,
     OrderValidation
@@ -44,7 +46,7 @@ const Order = ({
     values.userId = userId;
     values.email = email;
 
-    fulfillOrder(values);
+    fulfillOrder(values, cartId, history);
   }
 
   const getTotalPrice = (price) => {
@@ -134,7 +136,7 @@ const Order = ({
 };
 
 const mapStateToProps = (state) => ({
-  cartItems: state.cartReducer.cartItems,
+  cartReducer: state.cartReducer,
   userCredentials: state.userReducer.userCredentials,
   validationErrors: state.orderReducer.errors,
   paymentError: state.orderReducer.paymentError,

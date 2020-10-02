@@ -1,12 +1,12 @@
 import * as actionTypes from "./actionTypes";
-import Axios from "axios";
+import webAPI from "../../Axios/webAPI";
 import jwt_decode from "jwt-decode";
 import dispatchActionResult from "./dispatchActionResult";
 import { createCart } from "./cartActions";
 
 export const register = (user, history) => async (dispatch) => {
   try {
-    let response = await Axios.post("api/accounts/register", user);
+    let response = await webAPI.post("api/accounts/register", user);
     dispatch({ type: actionTypes.REGISTER_SUCCESS });
 
     localStorage.setItem("token", JSON.stringify(response.data));
@@ -47,11 +47,11 @@ export const register = (user, history) => async (dispatch) => {
 
 export const login = (user) => async (dispatch) => {
   try {
-    let response = await Axios.post("api/accounts/login", user);
+    let response = await webAPI.post("api/accounts/login", user);
     localStorage.setItem("token", JSON.stringify(response.data));
     dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: decodeToken() });
     console.log(response.data.token);
-    Axios.defaults.headers.common[
+    webAPI.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${response.data.token}`;
   } catch (error) {
@@ -65,7 +65,7 @@ export const login = (user) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
   localStorage.removeItem("token");
-  delete Axios.defaults.headers.common["Authorization"];
+  delete webAPI.defaults.headers.common["Authorization"];
   dispatchActionResult(dispatch, true, "Oturum başarıyla sonlandırıldı.");
   dispatch({ type: actionTypes.LOGOUT_SUCCESS });
 };
@@ -80,7 +80,7 @@ export const authenticate = () => (dispatch) => {
   dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: userCredentials });
   let token = localStorage.getItem("token");
   let parsedToken = JSON.parse(token);
-  Axios.defaults.headers.common[
+  webAPI.defaults.headers.common[
     "Authorization"
   ] = `Bearer ${parsedToken.token}`;
 };
@@ -98,7 +98,7 @@ const decodeToken = () => {
 
 export const getFavorites = (id) => async (dispatch) => {
   try {
-    let response = await Axios.get(`api/accounts/${id}/favorites`);
+    let response = await webAPI.get(`api/accounts/${id}/favorites`);
     dispatch({
       type: actionTypes.GET_FAVORITES_SUCCESS,
       payload: response.data,
@@ -110,7 +110,7 @@ export const getFavorites = (id) => async (dispatch) => {
 
 export const addToFavorites = (productId, userId) => async (dispatch) => {
   try {
-    let response = await Axios.post("api/accounts/addtofav", {
+    let response = await webAPI.post("api/accounts/addtofav", {
       productId: Number(productId),
       userId,
     });
@@ -135,7 +135,7 @@ export const addToFavorites = (productId, userId) => async (dispatch) => {
 
 export const removeFromFavorites = (productId, userId) => async (dispatch) => {
   try {
-    await Axios.delete(
+    await webAPI.delete(
       `api/accounts/${userId}/removefromfav/${Number(productId)}`
     );
     dispatch({
@@ -158,7 +158,7 @@ export const removeFromFavorites = (productId, userId) => async (dispatch) => {
 
 export const getOrdersByUserId = (id) => async (dispatch) => {
   try {
-    let response = await Axios.get(`api/orders/${id}/orders`);
+    let response = await webAPI.get(`api/orders/${id}/orders`);
     dispatch({
       type: actionTypes.GET_PAST_ORDERS_SUCCESS,
       payload: response.data,

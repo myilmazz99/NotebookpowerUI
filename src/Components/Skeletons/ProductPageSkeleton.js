@@ -3,7 +3,7 @@ import FullLine from "./FullLine";
 import ImageSkeleton from "./ImageSkeleton";
 import SmallLine from "./SmallLine";
 import SkeletonBlock from "./SkeletonBlock";
-import Tabs from "../Tabs";
+import Tabs from "../Utilities/Tabs";
 
 const ProductPageSkeleton = () => {
   return (

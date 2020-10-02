@@ -4,29 +4,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const ProductRating = ({ comments }) => {
   const [commentCount, setCommentCount] = useState(0);
   const [averageRating, setAverageRating] = useState(0);
+  const [stars, setStars] = useState([]);
 
   useEffect(() => {
-    setAverageRating(0);
-    setCommentCount(0);
-
     if (comments && comments.length > 0) {
       setCommentCount(comments.length);
       setAverageRating(
-        Math.floor(comments.map((i) => i.rating).reduce((i, j) => i + j))
+        Math.floor(
+          comments.map((i) => i.rating).reduce((i, j) => i + j) /
+            comments.length
+        )
       );
     }
   }, [comments]);
 
+  useEffect(() => {
+    setStars(Array(averageRating).fill(<FontAwesomeIcon icon="star" />));
+    if (averageRating !== 0 && averageRating < 5)
+      setStars((prev) => [
+        ...prev,
+        ...Array(5 - averageRating).fill(
+          <FontAwesomeIcon icon={["far", "star"]} />
+        ),
+      ]);
+  }, [averageRating]);
+
   return (
     <section className="product-rating">
-      {averageRating > 0 ? (
-        <>
-          {Array(averageRating).fill(<FontAwesomeIcon icon="star" />)}
-          {Array(5 - averageRating).fill(
-            <FontAwesomeIcon icon={["far", "star"]} />
-          )}
-        </>
-      ) : null}{" "}
+      {stars.length > 0 ? <>{stars.map((i) => i)}</> : null}{" "}
       <span className="review-count">{commentCount} yorum</span>
     </section>
   );

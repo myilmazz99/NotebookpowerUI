@@ -12,6 +12,8 @@
 @import "_order";
 @import "_product";
 @import "_addToCart";
+@import "_modal";
+@import "_skeleton";
 
 * {
   padding: 0;
@@ -198,10 +200,6 @@ svg {
   }
 }
 
-.modal-open {
-  display: block !important;
-}
-
 form {
   .input-wrapper {
     margin: 1rem 0;
@@ -373,25 +371,6 @@ main {
   }
 }
 
-.account-modal .modal {
-  min-width: 280px;
-  max-width: 350px;
-}
-
-.modal {
-  border: 5px solid $secondary-color;
-
-  .tabs-data {
-    border: 1px solid $secondary-color;
-    input {
-      border-bottom: 1px solid $secondary-color;
-    }
-    h4 {
-      text-align: center;
-    }
-  }
-}
-
 #home {
   grid-template-areas:
     "carousel carousel carousel"
@@ -403,7 +382,7 @@ main {
   .carousel {
     grid-area: carousel;
     justify-self: center;
-    height: 100%;
+    height: 40vh;
     width: 100%;
     max-width: 1200px;
     position: relative;
@@ -443,7 +422,7 @@ main {
         display: block;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         object-position: center;
 
         @media (min-width: $viewport-xl) {
@@ -679,6 +658,7 @@ main {
       top: 50%;
       transform: translateY(-50%);
       z-index: 1;
+      color: $secondary-color;
 
       &:focus {
         outline: none;
@@ -734,6 +714,7 @@ main {
 }
 
 .product-list-header {
+  color: $secondary-color;
   padding-left: 2rem;
   padding-bottom: 1rem;
 }
@@ -1116,64 +1097,6 @@ main {
     top: 6rem;
     align-self: flex-start;
   }
-}
-
-/*SKELETON*/
-
-@keyframes skeletonAnimation {
-  50% {
-    background-color: rgba(0, 0, 0, 0.15);
-  }
-
-  100% {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-}
-
-.skeleton {
-  background-color: rgba(0, 0, 0, 0.1);
-  margin-top: 1rem;
-  animation-name: skeletonAnimation;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
-.skeleton-block {
-  flex-basis: 94%;
-  height: 200px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.small-line {
-  width: 60%;
-  height: 20px;
-  flex-basis: 48%;
-}
-
-.full-line {
-  height: 20px;
-  width: 100%;
-  flex-basis: 100%;
-}
-
-.product-preview-skeleton {
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  width: 240px !important;
-  height: 430px;
-  display: flex !important;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-
-  .skeleton {
-    margin-top: 0;
-  }
-}
-
-.image-skeleton {
-  flex-basis: 48%;
-  height: 380px;
 }
 
 #notfound-page {

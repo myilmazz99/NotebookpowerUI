@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import Tns from "./Tns";
+import Tns from "../Utilities/Tns";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getBestSeller } from "../Redux/Actions/productActions";
+import { getBestSeller } from "../../Redux/Actions/productActions";
 
 const BestSelling = ({ bestseller, getBestSeller }) => {
   let container = "best-selling-slider";

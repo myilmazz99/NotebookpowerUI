@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-const Tabs = ({ tabs, tabName }) => {
+const Tabs = ({ tabs }) => {
   const tab = useRef(null);
   const tabData = useRef(null);
 

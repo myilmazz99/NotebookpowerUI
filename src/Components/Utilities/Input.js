@@ -2,7 +2,7 @@ import React from "react";
 
 const Input = ({ value, handleChange, name, type, placeholder, error }) => {
   const errorStyles = {
-    backgroundColor: "#ffcccc",
+    backgroundColor: "red",
     borderColor: "red",
   };
 

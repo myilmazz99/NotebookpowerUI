@@ -1,11 +1,20 @@
 import * as actionTypes from "../Actions/actionTypes";
-import Axios from "axios";
+
+import webAPI from "../../Axios/webAPI";
 import dispatchActionResult from "./dispatchActionResult";
 
-export const fulfillOrder = (order) => async (dispatch) => {
+export const fulfillOrder = (order, cartId, history) => async (dispatch) => {
   try {
-    await Axios.post("api/orders", order);
+    await webAPI.post("api/orders", order);
     dispatch({ type: actionTypes.COMPLETE_ORDER_SUCCESS, payload: order });
+    await webAPI.put(`api/carts/${cartId}`);
+    dispatch({ type: actionTypes.CLEAR_CART });
+    history.push("/user/orders");
+    dispatchActionResult(
+      dispatch,
+      true,
+      "Ödemeniz alındı. En kısa sürede siparişinizi onaylayacağız İyi alışverişler."
+    );
   } catch (error) {
     if (error.response.data.ErrorType.toLowerCase().includes("payment")) {
       dispatch({
@@ -32,7 +41,7 @@ export const fulfillOrder = (order) => async (dispatch) => {
 
 export const getOrders = () => async (dispatch) => {
   try {
-    let response = await Axios.get("api/orders");
+    let response = await webAPI.get("api/orders");
     dispatch({ type: actionTypes.GET_ORDERS_SUCCESS, payload: response.data });
   } catch (error) {
     dispatchActionResult(
@@ -45,7 +54,7 @@ export const getOrders = () => async (dispatch) => {
 
 export const getOrderById = (id) => async (dispatch) => {
   try {
-    let response = await Axios.get(`api/orders/${id}`);
+    let response = await webAPI.get(`api/orders/${id}`);
     dispatch({ type: actionTypes.GET_ORDER_SUCCESS, payload: response.data });
   } catch (error) {
     dispatchActionResult(
@@ -58,7 +67,7 @@ export const getOrderById = (id) => async (dispatch) => {
 
 export const confirmOrder = (orderId) => async (dispatch) => {
   try {
-    let response = await Axios.put(`api/orders/${orderId}`);
+    let response = await webAPI.put(`api/orders/${orderId}`);
     dispatch({
       type: actionTypes.CONFIRM_ORDER_SUCCESS,
       payload: response.data,

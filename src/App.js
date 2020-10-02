@@ -1,26 +1,29 @@
 import React, { useEffect } from "react";
 //Components
-import Nav from "./Components/Nav";
+import Nav from "./Components/Nav/Nav";
 import Footer from "./Components/Footer";
 import ScrollToTop from "./Components/Utilities/ScrollToTop";
 //Pages
-import Admin from "./Pages/Admin";
-import Home from "./Pages/Home";
-import Product from "./Pages/Product";
-import ProductList from "./Pages/ProductList";
-import Cart from "./Pages/Cart";
-import Order from "./Pages/Order";
-//Router
-import { Switch, Route, useLocation } from "react-router-dom";
-import User from "./Pages/User";
 import { authenticate, logout } from "./Redux/Actions/userActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getCart } from "./Redux/Actions/cartActions";
 import ResultAlert from "./Components/Utilities/ResultAlert";
 import NotFound from "./Pages/NotFound";
+import { Helmet } from "react-helmet";
+import PageLoading from "./Components/Utilities/PageLoading";
+import loadable from "@loadable/component";
+import { Switch, Route, useLocation } from "react-router-dom";
 
-const App = ({ logout, authenticate, userState, getCart, authenticated }) => {
+const App = ({
+  logout,
+  authenticate,
+  userState: {
+    authenticated,
+    userCredentials: { role, userId },
+  },
+  getCart,
+}) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -36,15 +39,39 @@ const App = ({ logout, authenticate, userState, getCart, authenticated }) => {
   }, []);
 
   useEffect(() => {
-    if (userState.userCredentials.userId)
-      getCart(userState.userCredentials.userId);
-  }, [userState.userCredentials.userId]);
+    if (userId) getCart(userId);
+  }, [userId]);
+
+  const Admin = loadable(() => import("./Pages/Admin"), {
+    fallback: <PageLoading />,
+  });
+  const Home = loadable(() => import("./Pages/Home"), {
+    fallback: <PageLoading />,
+  });
+  const Product = loadable(() => import("./Pages/Product"), {
+    fallback: <PageLoading />,
+  });
+  const ProductList = loadable(() => import("./Pages/ProductList"), {
+    fallback: <PageLoading />,
+  });
+  const Cart = loadable(() => import("./Pages/Cart"), {
+    fallback: <PageLoading />,
+  });
+  const Order = loadable(() => import("./Pages/Order"), {
+    fallback: <PageLoading />,
+  });
+  const User = loadable(() => import("./Pages/User"), {
+    fallback: <PageLoading />,
+  });
 
   return (
     <>
+      <Helmet>
+        <title>Notebook Power</title>
+      </Helmet>
       <ResultAlert />
       <ScrollToTop />
-      {pathname.includes("admin") && userState.authenticated ? (
+      {pathname.includes("admin") && authenticated && role.includes("admin") ? (
         <Switch>
           <Route path="/admin" component={Admin} />
         </Switch>
@@ -86,7 +113,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   userState: state.userReducer,
-  authenticated: state.userReducer.authenticated,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { tns } from "tiny-slider/src/tiny-slider";
-import ProductPreviewList from "./ProductPreviewList";
+import ProductPreviewList from "../Product/ProductPreviewList";
 
 const Tns = ({ container, products, isCarousel }) => {
   useEffect(() => {

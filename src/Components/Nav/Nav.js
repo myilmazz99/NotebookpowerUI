@@ -1,13 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from "../img/logo.png";
+import logo from "../../img/logo.png";
 import { Link } from "react-router-dom";
-import AccountModal from "./AccountModal";
+import AccountModal from "../User/AccountModal";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getCategories } from "../Redux/Actions/categoryActions";
-import UserActionGroup from "./Nav/UserActionGroup";
-import Sidenav from "./Nav/Sidenav";
+import { getCategories } from "../../Redux/Actions/categoryActions";
+import UserActionGroup from "./UserActionGroup";
+import Sidenav from "./Sidenav";
 
 const Nav = ({ categories, getCategories, authenticated }) => {
   const sideNav = useRef(null);
@@ -44,9 +44,6 @@ const Nav = ({ categories, getCategories, authenticated }) => {
         </ul>
         <img src={logo} alt="notebookpower brand logo" className="nav-brand" />
         <UserActionGroup authenticated={authenticated} />
-        <div className="search">
-          <UserActionGroup authenticated={authenticated} />
-        </div>
       </nav>
 
       <Sidenav

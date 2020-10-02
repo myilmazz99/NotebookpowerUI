@@ -15,13 +15,6 @@ const ContactForm = ({ addFeedback }) => {
 
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
-      <Textarea
-        handleChange={handleChange}
-        placeholder="Bize görüşünüzü bildirin..."
-        name="feedbackText"
-        value={values.feedback}
-        error={errors.feedback}
-      />
       <Input
         handleChange={handleChange}
         type="text"
@@ -37,6 +30,13 @@ const ContactForm = ({ addFeedback }) => {
         name="email"
         value={values.email}
         error={errors.email}
+      />
+      <Textarea
+        handleChange={handleChange}
+        placeholder="Bize görüşünüzü bildirin..."
+        name="feedbackText"
+        value={values.feedback}
+        error={errors.feedback}
       />
       <Input type="submit" value="Gönder" />
     </form>

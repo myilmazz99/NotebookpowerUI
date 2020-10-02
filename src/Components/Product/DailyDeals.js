@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import Tns from "./Tns";
+import Tns from "../Utilities/Tns";
 import { connect } from "react-redux";
-import { getDailyDeals } from "../Redux/Actions/productActions";
+import { getDailyDeals } from "../../Redux/Actions/productActions";
 import { bindActionCreators } from "redux";
 
 const DailyDeals = ({ dailydeals, getDailyDeals }) => {

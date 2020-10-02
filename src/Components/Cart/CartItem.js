@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CustomNumberInput from "../CustomNumberInput";
+import CustomNumberInput from "../Utilities/CustomNumberInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import gaming from "../img/gamingnotebook.png";
-import casual from "../img/casualnotebook.png";
-import accessory from "../img/accessories.png";
+import gaming from "../img/category_gaming.jpg";
+import casual from "../img/category_casual.jpg";
+import accessory from "../img/category_accessories.jpg";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -26,6 +26,7 @@ const CategoryCards = ({ getCategories, categories }) => {
                 alt="gaming notebook category"
               />
             </Link>
+            <div className="category-tag">{i.categoryName}</div>
           </li>
         ))}
     </ul>

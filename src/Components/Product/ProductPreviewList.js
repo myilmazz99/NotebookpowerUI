@@ -1,12 +1,11 @@
 import React from "react";
-import productImg from "../img/productimg.jpg";
+import productImg from "../../img/productimg.png";
 import { Link } from "react-router-dom";
 import ProductRating from "./ProductRating";
-import AddToFav from "./Utilities/AddToFav";
+import AddToFav from "../Utilities/AddToFav";
 import { connect } from "react-redux";
 import AddToCart from "./AddToCart";
-import numberFormat from "./Tools/numberFormat";
-import ProductPreviewSkeleton from "./Skeletons/ProductPreviewSkeleton";
+import numberFormat from "../Tools/numberFormat";
 
 const ProductPreviewList = ({
   container,

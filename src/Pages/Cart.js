@@ -1,16 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import BestSelling from "../Components/BestSelling";
-import { Link, useHistory } from "react-router-dom";
-import CartSummary from "../Components/CartSummary";
+import BestSelling from "../Components/Product/BestSelling";
+import { Link } from "react-router-dom";
+import CartSummary from "../Components/Cart/CartSummary";
 import CartItem from "../Components/Cart/CartItem";
 import { connect } from "react-redux";
 
-const Cart = ({ cartItems, authenticated }) => {
-  let his = useHistory();
-
-  useEffect(() => {}, []);
-
+const Cart = ({ cartItems }) => {
   return (
     <main id="cart">
       <section className="cart-wrapper">

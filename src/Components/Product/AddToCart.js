@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import CustomNumberInput from "./CustomNumberInput";
+import CustomNumberInput from "../Utilities/CustomNumberInput";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { addToCart } from "../Redux/Actions/cartActions";
+import { addToCart } from "../../Redux/Actions/cartActions";
 
 const AddToCart = ({ add, productId, cartId, cartItems, authenticated }) => {
   const [quantity, setQuantity] = useState(0);

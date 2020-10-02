@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { tns } from "tiny-slider/src/tiny-slider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import payment from "../img/safe-payment.png";
 import cargo from "../img/free-cargo.png";
-import AddToCart from "../Components/AddToCart";
-import Tabs from "../Components/Tabs";
-import SimiliarProducts from "../Components/SimiliarProducts";
-import ProductRating from "../Components/ProductRating";
-import SpecificationList from "../Components/SpecificationList";
+import AddToCart from "../Components/Product/AddToCart";
+import Tabs from "../Components/Utilities/Tabs";
+import SimiliarProducts from "../Components/Product/SimiliarProducts";
+import ProductRating from "../Components/Product/ProductRating";
+import SpecificationList from "../Components/Product/SpecificationList";
 import AddToFav from "../Components/Utilities/AddToFav";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -17,7 +16,7 @@ import { getFavorites } from "../Redux/Actions/userActions";
 import Comments from "../Components/Product/Comments";
 import numberFormat from "../Components/Tools/numberFormat";
 import ProductPageSkeleton from "../Components/Skeletons/ProductPageSkeleton";
-import Tns from "../Components/Tns";
+import Tns from "../Components/Utilities/Tns";
 
 const Product = ({
   products,

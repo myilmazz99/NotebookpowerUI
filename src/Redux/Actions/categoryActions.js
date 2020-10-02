@@ -1,9 +1,10 @@
 import * as actionTypes from "./actionTypes";
-import Axios from "axios";
+
+import webAPI from "../../Axios/webAPI";
 
 export const getCategories = () => async (dispatch) => {
   try {
-    let response = await Axios.get("api/categories/get");
+    let response = await webAPI.get("api/categories/get");
     dispatch({
       type: actionTypes.GET_CATEGORIES_SUCCESS,
       payload: response.data,

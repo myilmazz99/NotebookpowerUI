@@ -40,16 +40,20 @@
   }
 
   small {
-    color: $light-grey;
+    color: $tertiary-color;
+    cursor: pointer;
   }
 
   .order-history {
     .list-item {
       flex-direction: column;
       padding: 1rem;
-      background-color: lighten($color: $light-grey, $amount: 40);
-      border: 1px solid $light-grey;
+      background-color: $light-grey;
       border-radius: 10px;
+
+      dt {
+        color: $tertiary-color;
+      }
     }
 
     .inner-list-item {

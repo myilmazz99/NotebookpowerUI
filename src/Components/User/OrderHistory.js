@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { getOrdersByUserId } from "../../Redux/Actions/userActions";
@@ -37,7 +36,6 @@ const OrderHistory = ({
                         <dt>Fiyat:</dt>
                         <dd>
                           {numberFormat(j.productQuantity * j.productPrice)}{" "}
-                          <FontAwesomeIcon icon="lira-sign" />
                         </dd>
                       </dl>
                     </div>
@@ -55,9 +53,7 @@ const OrderHistory = ({
                   <dt>Durum:</dt>
                   <dd>{displayOrderStatus(i.status)}</dd>
                   <dt>Tutar:</dt>
-                  <dd>
-                    {i.totalPrice} <FontAwesomeIcon icon="lira-sign" />
-                  </dd>
+                  <dd>{numberFormat(i.totalPrice)}</dd>
                 </dl>
               </div>
             </li>

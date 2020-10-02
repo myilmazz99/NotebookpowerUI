@@ -1,0 +1,55 @@
+@keyframes skeletonAnimation {
+  50% {
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  100% {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.skeleton {
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+  animation-name: skeletonAnimation;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.skeleton-block {
+  flex-basis: 94%;
+  height: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.small-line {
+  width: 60%;
+  height: 20px;
+  flex-basis: 48%;
+}
+
+.full-line {
+  height: 20px;
+  width: 100%;
+  flex-basis: 100%;
+}
+
+.product-preview-skeleton {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 240px !important;
+  height: 430px;
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  .skeleton {
+    margin-top: 0;
+  }
+}
+
+.image-skeleton {
+  flex-basis: 48%;
+  height: 380px;
+}

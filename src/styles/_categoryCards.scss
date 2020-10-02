@@ -7,6 +7,7 @@
   justify-content: space-between;
 
   .category-card {
+    position: relative;
     flex-basis: 100%;
     margin-bottom: 1rem;
     margin-left: auto;
@@ -18,6 +19,19 @@
     border-radius: 10px;
     overflow: hidden;
 
+    .category-tag {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: $secondary-color;
+      width: 100%;
+      background-color: $primary-color;
+      text-align: center;
+      padding: 0.2rem 0;
+      font-size: 1.2rem;
+    }
+
     &:hover .category-card-image {
       transform: scale(1.1);
     }
@@ -27,6 +41,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       transition: all 0.4s;
     }
 

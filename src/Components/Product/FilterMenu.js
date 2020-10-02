@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SelectBox from "../Components/SelectBox";
+import SelectBox from "../SelectBox";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getSpecifications } from "../Redux/Actions/productActions";
+import { getSpecifications } from "../../Redux/Actions/productActions";
 
 const FilterMenu = ({ specifications, getSpecifications }) => {
   const [clearFilter, setClearFilter] = useState(false);
