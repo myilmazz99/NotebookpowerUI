@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, Switch, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, Switch, Route, useHistory } from "react-router-dom";
 import AddProduct from "../Components/Admin/AddProduct";
 import UpdateProduct from "../Components/Admin/UpdateProduct";
 import Products from "../Components/Admin/Products";
@@ -7,8 +7,15 @@ import Orders from "../Components/Admin/Orders";
 import OrderDetails from "../Components/Admin/OrderDetails";
 import EmailList from "../Components/Admin/EmailList";
 import Feedbacks from "../Components/Admin/Feedbacks";
+import { connect } from "react-redux";
 
-const Admin = () => {
+const Admin = ({ role }) => {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!role.includes("admin")) history.push("/404");
+  }, []);
+
   return (
     <main id="admin" className="bootstrapiso">
       <nav>
@@ -46,4 +53,8 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+const mapStateToProps = (state) => ({
+  role: state.userReducer.userCredentials.role,
+});
+
+export default connect(mapStateToProps)(Admin);

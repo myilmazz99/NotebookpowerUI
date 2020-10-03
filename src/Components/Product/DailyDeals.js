@@ -8,8 +8,10 @@ const DailyDeals = ({ dailydeals, getDailyDeals }) => {
   let container = "daily-deal-slider";
 
   useEffect(() => {
-    if (dailydeals && dailydeals.length === 0) getDailyDeals();
-  }, []);
+    if (dailydeals.length === 0) {
+      getDailyDeals();
+    }
+  }, [dailydeals.length]);
 
   return (
     <div className="daily-deal-products">

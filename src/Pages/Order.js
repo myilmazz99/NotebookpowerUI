@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 
 const Order = ({
   cartReducer: { cartId, cartItems },
+  authenticated,
   userCredentials: { userId, email },
   fulfillOrder,
   validationErrors,
@@ -23,6 +24,11 @@ const Order = ({
     checkout,
     OrderValidation
   );
+
+  useEffect(() => {
+    if (authenticated === false) history.push("/404");
+    if (cartItems.length === 0) history.push("/cart");
+  }, []);
 
   useEffect(() => {
     document.querySelector(".rccs__expiry__valid").innerText =
@@ -138,6 +144,7 @@ const Order = ({
 const mapStateToProps = (state) => ({
   cartReducer: state.cartReducer,
   userCredentials: state.userReducer.userCredentials,
+  authenticated: state.userReducer.authenticated,
   validationErrors: state.orderReducer.errors,
   paymentError: state.orderReducer.paymentError,
 });

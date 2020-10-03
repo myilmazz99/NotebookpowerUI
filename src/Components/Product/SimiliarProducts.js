@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getSimiliar } from "../../Redux/Actions/productActions";
 import { bindActionCreators } from "redux";
 
-const SimiliarProducts = ({ similiarProducts, getSimiliar, categoryId }) => {
+const SimiliarProducts = ({ similiarProducts, getSimiliar }) => {
   let container = "similiar-products-slider";
 
   useEffect(() => {

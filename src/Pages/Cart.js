@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BestSelling from "../Components/Product/BestSelling";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import CartSummary from "../Components/Cart/CartSummary";
 import CartItem from "../Components/Cart/CartItem";
 import { connect } from "react-redux";
 
-const Cart = ({ cartItems }) => {
+const Cart = ({ cartItems, authenticated }) => {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (authenticated === false) history.push("/404");
+  }, []);
+
   return (
     <main id="cart">
       <section className="cart-wrapper">

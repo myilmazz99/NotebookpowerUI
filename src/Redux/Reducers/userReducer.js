@@ -22,7 +22,7 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.REGISTER_SUCCESS:
       return { ...state, validationErrors: [], authError: "" };
     case actionTypes.LOGOUT_SUCCESS:
-      return { ...state, authenticated: false, userCredentials: {} };
+      return initialState;
     case actionTypes.GET_FAVORITES_SUCCESS:
       return { ...state, favorites: action.payload };
     case actionTypes.GET_PAST_ORDERS_SUCCESS:

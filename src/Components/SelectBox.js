@@ -21,13 +21,7 @@ const SelectBox = ({ defaultValue, name, options, reset, collectFilters }) => {
   };
 
   const handleOption = (e) => {
-    if (e.target.tagName.includes("A")) {
-      setSelected(e.target.innerText);
-    } else if (name !== "orderby" && e.target.tagName.includes("LI")) {
-      setSelected(e.target.innerText);
-    } else {
-      setSelected(e.target.children[0].innerText);
-    }
+    setSelected(e.target.innerText);
   };
 
   return (
@@ -38,9 +32,11 @@ const SelectBox = ({ defaultValue, name, options, reset, collectFilters }) => {
       <ul className="options closed" ref={optionsList}>
         {options
           ? options.map((i, j) => (
-              <li key={j} className="option" onClick={handleOption}>
+              <li key={j} className="option">
                 {name === "orderby" ? (
-                  <Link to={`/products?${name}=${i}`}>{i}</Link>
+                  <Link onClick={handleOption} to={`/products?${name}=${i}`}>
+                    {i}
+                  </Link>
                 ) : (
                   i
                 )}

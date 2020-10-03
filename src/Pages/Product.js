@@ -12,20 +12,12 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getProduct } from "../Redux/Actions/productActions";
 import { useParams } from "react-router-dom";
-import { getFavorites } from "../Redux/Actions/userActions";
 import Comments from "../Components/Product/Comments";
 import numberFormat from "../Components/Tools/numberFormat";
 import ProductPageSkeleton from "../Components/Skeletons/ProductPageSkeleton";
 import Tns from "../Components/Utilities/Tns";
 
-const Product = ({
-  products,
-  getProduct,
-  userId,
-  getFavorites,
-  favorites,
-  authenticated,
-}) => {
+const Product = ({ products, getProduct, authenticated }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState({});
 
@@ -37,12 +29,6 @@ const Product = ({
 
     setProduct(product);
   }, [products, productId]);
-
-  useEffect(() => {
-    if (favorites && userId && favorites.length === 0) {
-      getFavorites(userId);
-    }
-  }, [userId]);
 
   return (
     <main id="product-page">
@@ -86,11 +72,7 @@ const Product = ({
             <h1>
               <span>{product && product.productName}</span>{" "}
               {authenticated ? (
-                <AddToFav
-                  productId={product && product.id}
-                  userId={userId && userId}
-                  favorites={favorites && favorites}
-                />
+                <AddToFav productId={product && product.id} />
               ) : null}
             </h1>
             {product ? (
@@ -171,14 +153,11 @@ const Product = ({
 
 const mapStateToProps = (state) => ({
   products: state.productReducer.products,
-  userId: state.userReducer.userCredentials.userId,
-  favorites: state.userReducer.favorites,
   authenticated: state.userReducer.authenticated,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getProduct: bindActionCreators(getProduct, dispatch),
-  getFavorites: bindActionCreators(getFavorites, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);

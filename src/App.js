@@ -7,7 +7,6 @@ import ScrollToTop from "./Components/Utilities/ScrollToTop";
 import { authenticate, logout } from "./Redux/Actions/userActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getCart } from "./Redux/Actions/cartActions";
 import ResultAlert from "./Components/Utilities/ResultAlert";
 import NotFound from "./Pages/NotFound";
 import { Helmet } from "react-helmet";
@@ -15,15 +14,7 @@ import PageLoading from "./Components/Utilities/PageLoading";
 import loadable from "@loadable/component";
 import { Switch, Route, useLocation } from "react-router-dom";
 
-const App = ({
-  logout,
-  authenticate,
-  userState: {
-    authenticated,
-    userCredentials: { role, userId },
-  },
-  getCart,
-}) => {
+const App = ({ logout, authenticate }) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -37,10 +28,6 @@ const App = ({
       }
     }
   }, []);
-
-  useEffect(() => {
-    if (userId) getCart(userId);
-  }, [userId]);
 
   const Admin = loadable(() => import("./Pages/Admin"), {
     fallback: <PageLoading />,
@@ -71,7 +58,7 @@ const App = ({
       </Helmet>
       <ResultAlert />
       <ScrollToTop />
-      {pathname.includes("admin") && authenticated && role.includes("admin") ? (
+      {pathname.includes("admin") ? (
         <Switch>
           <Route path="/admin" component={Admin} />
         </Switch>
@@ -80,22 +67,11 @@ const App = ({
           <Nav />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route
-              path="/user/:id"
-              component={authenticated ? User : NotFound}
-            />
+            <Route path="/user/:id" component={User} />
             <Route exact path="/product/:productId" component={Product} />
             <Route exact path="/products" component={ProductList} />
-            <Route
-              exact
-              path="/cart"
-              component={authenticated ? Cart : NotFound}
-            />
-            <Route
-              exact
-              path="/order"
-              component={authenticated ? Order : NotFound}
-            />
+            <Route exact path="/cart" component={Cart} />
+            <Route exact path="/order" component={Order} />
             <Route component={NotFound} />
           </Switch>
           <Footer />
@@ -108,18 +84,6 @@ const App = ({
 const mapDispatchToProps = (dispatch) => ({
   authenticate: bindActionCreators(authenticate, dispatch),
   logout: bindActionCreators(logout, dispatch),
-  getCart: bindActionCreators(getCart, dispatch),
 });
 
-const mapStateToProps = (state) => ({
-  userState: state.userReducer,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-/*
-
-  General refactors
-  Authorization
-
-*/
+export default connect(null, mapDispatchToProps)(App);

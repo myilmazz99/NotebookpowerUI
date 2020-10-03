@@ -1,19 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import {
-  getFavorites,
-  removeFromFavorites,
-} from "../../Redux/Actions/userActions";
+import { removeFromFavorites } from "../../Redux/Actions/userActions";
 import shortenNames from "../Utilities/shortenNames";
 
-const Favorites = ({ getFavorites, userId, favorites, remove }) => {
-  useEffect(() => {
-    if (userId && favorites && favorites.length === 0) getFavorites(userId);
-  }, [userId]);
-
+const Favorites = ({ userId, favorites, remove }) => {
   const removeFromFav = (productId) => {
     remove(productId, userId);
   };
@@ -62,7 +55,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getFavorites: bindActionCreators(getFavorites, dispatch),
   remove: bindActionCreators(removeFromFavorites, dispatch),
 });
 

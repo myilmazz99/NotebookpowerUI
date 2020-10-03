@@ -7,18 +7,28 @@ import {
   removeFromFavorites,
 } from "../../Redux/Actions/userActions";
 
-const AddToFav = ({ productId, userId, favorites, add, remove }) => {
+const AddToFav = ({
+  productId,
+  add,
+  remove,
+  userState: {
+    favorites,
+    userCredentials: { userId },
+  },
+}) => {
   const [iconS, setIconS] = useState(["far", "heart"]);
 
   useEffect(() => {
     if (
+      productId &&
+      userId &&
       favorites.find(
         (i) => i.userId === userId && i.productId === Number(productId)
       )
     ) {
       setIconS("heart");
     }
-  }, [favorites, productId]);
+  }, [favorites, productId, userId]);
 
   const toggleFavs = (productId, userId) => {
     if (iconS !== "heart") {
@@ -38,9 +48,13 @@ const AddToFav = ({ productId, userId, favorites, add, remove }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  userState: state.userReducer,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   add: bindActionCreators(addToFavorites, dispatch),
   remove: bindActionCreators(removeFromFavorites, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(AddToFav);
+export default connect(mapStateToProps, mapDispatchToProps)(AddToFav);

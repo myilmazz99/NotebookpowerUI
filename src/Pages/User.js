@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Favorites from "../Components/User/Favorites";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, useHistory } from "react-router-dom";
 import OrderHistory from "../Components/User/OrderHistory";
+import { connect } from "react-redux";
 
-const User = () => {
+const User = ({ authenticated }) => {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (authenticated === false) history.push("/404");
+  }, []);
+
   return (
     <main id="user-page">
       <Switch>
@@ -23,4 +30,8 @@ const User = () => {
   );
 };
 
-export default User;
+const mapStateToProps = (state) => ({
+  authenticated: state.userReducer.authenticated,
+});
+
+export default connect(mapStateToProps)(User);

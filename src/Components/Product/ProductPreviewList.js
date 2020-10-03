@@ -10,9 +10,10 @@ import numberFormat from "../Tools/numberFormat";
 const ProductPreviewList = ({
   container,
   products,
-  favorites,
-  userId,
-  authenticated,
+  userState: {
+    authenticated,
+    userCredentials: { userId },
+  },
 }) => {
   return (
     <div className={`product-preview-list ${container || ""}`}>
@@ -47,13 +48,7 @@ const ProductPreviewList = ({
                 <AddToCart productId={data.id} userId={userId} />
               </div>
               <div className="add-to-fav">
-                {authenticated ? (
-                  <AddToFav
-                    productId={data.id}
-                    favorites={favorites}
-                    userId={userId}
-                  />
-                ) : null}
+                {authenticated ? <AddToFav productId={data.id} /> : null}
               </div>
             </div>
           </div>
@@ -66,9 +61,7 @@ const ProductPreviewList = ({
 };
 
 const mapState = (state) => ({
-  userId: state.userReducer.userCredentials.userId,
-  authenticated: state.userReducer.authenticated,
-  favorites: state.userReducer.favorites,
+  userState: state.userReducer,
 });
 
 export default connect(mapState)(ProductPreviewList);

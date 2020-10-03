@@ -2,7 +2,7 @@ import * as actionTypes from "./actionTypes";
 import webAPI from "../../Axios/webAPI";
 import jwt_decode from "jwt-decode";
 import dispatchActionResult from "./dispatchActionResult";
-import { createCart } from "./cartActions";
+import { createCart, getCart } from "./cartActions";
 
 export const register = (user, history) => async (dispatch) => {
   try {
@@ -11,6 +11,7 @@ export const register = (user, history) => async (dispatch) => {
 
     localStorage.setItem("token", JSON.stringify(response.data));
     let decodedToken = decodeToken();
+    console.log(decodedToken);
     dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: decodedToken });
 
     dispatch(createCart(decodedToken.userId));
@@ -83,6 +84,8 @@ export const authenticate = () => (dispatch) => {
   webAPI.defaults.headers.common[
     "Authorization"
   ] = `Bearer ${parsedToken.token}`;
+  dispatch(getCart(userCredentials.userId));
+  dispatch(getFavorites(userCredentials.userId));
 };
 
 const decodeToken = () => {
