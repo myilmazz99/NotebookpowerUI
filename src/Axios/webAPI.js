@@ -1,4 +1,3 @@
-import axios from "axios";
 import Axios from "axios";
 
 const webAPI = Axios.create({
