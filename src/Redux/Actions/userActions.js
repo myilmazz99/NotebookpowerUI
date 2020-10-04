@@ -51,10 +51,14 @@ export const login = (user) => async (dispatch) => {
     let response = await webAPI.post("api/accounts/login", user);
     localStorage.setItem("token", JSON.stringify(response.data));
     dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: decodeToken() });
-    console.log(response.data.token);
     webAPI.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${response.data.token}`;
+    dispatchActionResult(
+      dispatch,
+      true,
+      "Giriş başarılı. Hoşgeldin, " + response.data.fullName
+    );
   } catch (error) {
     if (error.response && error.response.status === 401)
       dispatch({

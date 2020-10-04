@@ -2,7 +2,7 @@ import axios from "axios";
 import Axios from "axios";
 
 const webAPI = Axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: "https://notebookpowerapi.azurewebsites.net/",
 });
 
 export default webAPI;
