@@ -217,6 +217,10 @@ form {
   color: red;
 }
 
+.loading-spinner {
+  grid-column: 2/3;
+}
+
 /*ROOT*/
 
 #root {
@@ -323,7 +327,8 @@ main {
     z-index: 11;
 
     .option {
-      a {
+      a,
+      span {
         display: block;
         height: 100%;
         width: 100%;
@@ -538,8 +543,8 @@ main {
       display: inline-block;
       width: 20px;
       height: 20px;
-      border-bottom: 2px solid $secondary-color;
-      border-left: 2px solid $secondary-color;
+      border-bottom: 3px solid $secondary-color;
+      border-left: 3px solid $secondary-color;
     }
 
     .carousel-control-prev-icon {
@@ -547,7 +552,7 @@ main {
     }
 
     .carousel-control-next-icon {
-      transform: rotate(-90deg);
+      transform: rotate(-135deg);
     }
 
     .carousel-indicators {

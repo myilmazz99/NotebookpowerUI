@@ -3,6 +3,10 @@
 .product-preview-list {
   display: flex;
 
+  .product-not-found {
+    color: $tertiary-color;
+  }
+
   .product-preview-wrapper {
     position: relative;
     box-shadow: $shadow-md;
