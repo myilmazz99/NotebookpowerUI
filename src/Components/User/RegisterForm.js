@@ -8,7 +8,11 @@ import { register } from "../../Redux/Actions/userActions";
 import lowerCaseFirstChar from "../Tools/lowerCaseFirstChar";
 import { useHistory } from "react-router-dom";
 
-const RegisterForm = ({ register, authError, validationErrors }) => {
+const RegisterForm = ({
+  register,
+  userState: { authError },
+  validationErrors,
+}) => {
   let history = useHistory();
   const { handleChange, handleSubmit, values, errors, updateErrors } = useForm(
     registerUser,
@@ -78,7 +82,7 @@ const RegisterForm = ({ register, authError, validationErrors }) => {
 };
 
 const mapStateToProps = (state) => ({
-  authError: state.userReducer.authError,
+  userState: state.userReducer,
   validationErrors: state.userReducer.validationErrors,
 });
 

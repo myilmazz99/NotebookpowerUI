@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { login } from "../../Redux/Actions/userActions";
 
-const LoginForm = ({ login, authError }) => {
+const LoginForm = ({ login, userState: { authError } }) => {
   const { handleChange, handleSubmit, values, errors, updateErrors } = useForm(
     loginUser,
     loginValidation
@@ -48,7 +48,7 @@ const LoginForm = ({ login, authError }) => {
 };
 
 const mapStateToProps = (state) => ({
-  authError: state.userReducer.authError,
+  userState: state.userReducer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
