@@ -7,9 +7,11 @@ import queryString from "query-string";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getProducts } from "../Redux/Actions/productActions";
+import LoadingSpinner from "../Components/Utilities/LoadingSpinner";
 
 const ProductList = ({ products, getProducts }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   let queries = useLocation().search;
   let parsedQueries = queryString.parse(queries);
 
@@ -20,6 +22,7 @@ const ProductList = ({ products, getProducts }) => {
   useEffect(() => {
     setFilteredProducts(products);
     getProductsByFilter();
+    if (products.length !== 0) setLoading(false);
   }, [products]);
 
   useEffect(() => {
@@ -119,7 +122,11 @@ const ProductList = ({ products, getProducts }) => {
     <main id="product-list-page">
       <Jumbotron category={parsedQueries.category} s={parsedQueries.s} />
       <FilterMenu applyFilter={getProductsByFilter} />
-      <ProductPreviewList products={filteredProducts} />
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <ProductPreviewList products={filteredProducts} />
+      )}
     </main>
   );
 };

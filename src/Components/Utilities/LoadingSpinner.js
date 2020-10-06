@@ -7,6 +7,8 @@ const styles = {
   margin: "0 auto",
 };
 
-const LoadingSpinner = () => <img src={loadingSpinner} alt="" style={styles} />;
+const LoadingSpinner = () => (
+  <img className="loading-spinner" src={loadingSpinner} alt="" style={styles} />
+);
 
 export default LoadingSpinner;
