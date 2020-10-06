@@ -54,7 +54,9 @@ const ProductPreviewList = ({
           </div>
         ))
       ) : (
-        <p>Aradığınız kriterlerde ürün bulunamadı.</p>
+        <p className="product-not-found">
+          Aradığınız kriterlerde ürün bulunamadı.
+        </p>
       )}
     </div>
   );
