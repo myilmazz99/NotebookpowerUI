@@ -10,7 +10,7 @@ import displayOrderStatus from "../Tools/displayOrderStatus";
 const Orders = ({ orders, getOrders }) => {
   useEffect(() => {
     getOrders();
-  }, [orders]);
+  }, []);
 
   return (
     <div id="admin-order-list">
