@@ -55,6 +55,8 @@ export const login = (user) => async (dispatch) => {
     webAPI.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${response.data.token}`;
+    dispatch(getCart(userCredentials.userId));
+    dispatch(getFavorites(userCredentials.userId));
     dispatchActionResult(
       dispatch,
       true,
