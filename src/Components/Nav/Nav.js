@@ -43,7 +43,7 @@ const Nav = ({ categories, getCategories, authenticated }) => {
             ))}
         </ul>
         <img src={logo} alt="notebookpower brand logo" className="nav-brand" />
-        <UserActionGroup authenticated={authenticated} />
+        <UserActionGroup />
       </nav>
 
       <Sidenav

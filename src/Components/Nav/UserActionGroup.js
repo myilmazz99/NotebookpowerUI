@@ -7,7 +7,14 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { logout } from "../../Redux/Actions/userActions";
 
-const UserActionGroup = ({ cartItems, authenticated, logout }) => {
+const UserActionGroup = ({
+  cartItems,
+  userState: {
+    authenticated,
+    userCredentials: { role },
+  },
+  logout,
+}) => {
   let userWindow = useRef(null);
   const form = useRef(null);
 
@@ -55,8 +62,18 @@ const UserActionGroup = ({ cartItems, authenticated, logout }) => {
               <li onClick={toggleUserWindow}>
                 <Link to="/user/orders">Siparişlerim</Link>
               </li>
-              <li onClick={logout}>
-                <a href="/">Çıkış Yap</a>
+              {role.includes("admin") ? (
+                <li onClick={toggleUserWindow}>
+                  <Link to="/admin">Yönetici Paneli</Link>
+                </li>
+              ) : null}
+              <li
+                onClick={() => {
+                  logout();
+                  toggleUserWindow();
+                }}
+              >
+                <Link to="/">Çıkış Yap</Link>
               </li>
             </ul>
           ) : null}
@@ -74,6 +91,7 @@ const UserActionGroup = ({ cartItems, authenticated, logout }) => {
 
 const mapState = (state) => ({
   cartItems: state.cartReducer.cartItems,
+  userState: state.userReducer,
 });
 
 const mapDispatch = (dispatch) => ({
