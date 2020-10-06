@@ -41,3 +41,8 @@ export const toggleModal = (modalName) => {
     }
   }
 };
+
+export const closeModal = (modalName) => {
+  let modal = document.querySelector("." + modalName);
+  if (modal) modal.style.display = "none";
+};
