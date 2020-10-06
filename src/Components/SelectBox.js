@@ -38,7 +38,7 @@ const SelectBox = ({ defaultValue, name, options, reset, collectFilters }) => {
                     {i}
                   </Link>
                 ) : (
-                  i
+                  <span onClick={handleOption}>{i}</span>
                 )}
               </li>
             ))
