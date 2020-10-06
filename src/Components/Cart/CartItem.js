@@ -40,10 +40,7 @@ const CartItem = ({
       <li className="cart-item">
         <Link to={`/product/${cartItem.product.id}`}>
           <figure className="cart-item-img">
-            <img
-              src="https://productimages.hepsiburada.net/s/36/80/10512087220274.jpg"
-              alt=""
-            />
+            <img src={cartItem.product.productImages[0].imageUrl} alt="" />
           </figure>
         </Link>
         <div className="cart-item-details">

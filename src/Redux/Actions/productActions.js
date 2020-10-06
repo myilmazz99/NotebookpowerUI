@@ -54,6 +54,8 @@ export const updateProduct = (product) => async (dispatch) => {
 
     await webAPI.put("api/products", product);
 
+    formData.append("productId", parseInt(product.id));
+
     await webAPI.post("api/products/addImages", formData);
 
     dispatch({ type: actionTypes.UPDATE_PRODUCT_SUCCESS, payload: product });

@@ -26,7 +26,7 @@ const OrderHistory = ({
                 {i.orderItems.map((j) => (
                   <li className="inner-list-item">
                     <figure>
-                      <img src="https://via.placeholder.com/200x200" alt="" />
+                      <img src={j.productImages[0].imageUrl} alt="" />
                     </figure>
                     <div className="product-details">
                       <h4>{j.productName}</h4>

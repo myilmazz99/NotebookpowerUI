@@ -1,11 +1,11 @@
 import React from "react";
-import productImg from "../../img/productimg.png";
 import { Link } from "react-router-dom";
 import ProductRating from "./ProductRating";
 import AddToFav from "../Utilities/AddToFav";
 import { connect } from "react-redux";
 import AddToCart from "./AddToCart";
 import numberFormat from "../Tools/numberFormat";
+import shortenNames from "../Utilities/shortenNames";
 
 const ProductPreviewList = ({
   container,
@@ -23,15 +23,13 @@ const ProductPreviewList = ({
             <div className="product-preview">
               <img
                 className="preview-image"
-                src={productImg}
+                src={data.productImages[0].imageUrl}
                 alt={data.productName}
               />
               <Link to={"/product/" + data.id}>
                 <div className="preview-product-details">
                   <h3 className="preview-product-name">
-                    {data.productName.length > 32
-                      ? data.productName.slice(0, 32) + "..."
-                      : data.productName}
+                    {shortenNames(data.productName)}
                   </h3>
                   <ProductRating comments={data.comments} />
                   <div className="preview-product-price">

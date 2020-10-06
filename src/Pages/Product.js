@@ -32,7 +32,7 @@ const Product = ({ products, getProduct, authenticated }) => {
 
   return (
     <main id="product-page">
-      {product ? (
+      {product && Object.keys(product).length > 0 ? (
         <>
           <div className="product-slider">
             <div className="product-slider-container">
@@ -42,26 +42,18 @@ const Product = ({ products, getProduct, authenticated }) => {
                 products={
                   <>
                     <div className="product-slider-wrapper">
-                      <div className="product-slider-img-container">
-                        <img src="https://via.placeholder.com/500x500" alt="" />
-                      </div>
-                      <div className="product-slider-img-container">
-                        <img src="https://via.placeholder.com/500x500" alt="" />
-                      </div>
-                      <div className="product-slider-img-container">
-                        <img src="https://via.placeholder.com/500x500" alt="" />
-                      </div>
+                      {product.productImages.map((i, j) => (
+                        <div key={j} className="product-slider-img-container">
+                          <img src={i.imageUrl} alt={product.productName} />
+                        </div>
+                      ))}
                     </div>
                     <ul className="thumbnails" id="customize-thumbnails">
-                      <li>
-                        <img src="https://via.placeholder.com/500x500" alt="" />
-                      </li>
-                      <li>
-                        <img src="https://via.placeholder.com/500x500" alt="" />
-                      </li>
-                      <li>
-                        <img src="https://via.placeholder.com/500x500" alt="" />
-                      </li>
+                      {product.productImages.map((i, j) => (
+                        <li key={j}>
+                          <img src={i.imageUrl} alt={product.productName} />
+                        </li>
+                      ))}
                     </ul>
                   </>
                 }
@@ -70,50 +62,41 @@ const Product = ({ products, getProduct, authenticated }) => {
           </div>
           <div className="product-details">
             <h1>
-              <span>{product && product.productName}</span>{" "}
-              {authenticated ? (
-                <AddToFav productId={product && product.id} />
-              ) : null}
+              <span>{product.productName}</span>{" "}
+              {authenticated ? <AddToFav productId={product.id} /> : null}
             </h1>
-            {product ? (
-              10 > product.stock ? (
-                <div className="low-stock-number">
-                  Son {product.stock} ürün!
-                </div>
-              ) : (
-                ""
-              )
+            {10 > product.stock ? (
+              <div className="low-stock-number">Son {product.stock} ürün!</div>
             ) : (
               ""
             )}
             <div className="price-and-rating">
-              <ProductRating comments={product && product.comments} />
+              <ProductRating comments={product.comments} />
               <div className="product-price">
                 <span className="discount-amount">
                   <span>
-                    {product &&
-                      "%" +
-                        Math.floor(
-                          ((product.oldPrice - product.newPrice) * 100) /
-                            product.oldPrice
-                        )}
+                    {"%" +
+                      Math.floor(
+                        ((product.oldPrice - product.newPrice) * 100) /
+                          product.oldPrice
+                      )}
                   </span>
                   <span>indirim</span>
                 </span>
                 <div className="prices">
                   <div className="old-price">
-                    {product && numberFormat(product.oldPrice)}{" "}
+                    {numberFormat(product.oldPrice)}{" "}
                     <FontAwesomeIcon icon="lira-sign" />
                   </div>
                   <div className="new-price">
-                    {product && numberFormat(product.newPrice)}{" "}
+                    {numberFormat(product.newPrice)}{" "}
                     <FontAwesomeIcon icon="lira-sign" />
                   </div>
                 </div>
               </div>
             </div>
 
-            <AddToCart productId={product && product.id} />
+            <AddToCart productId={product.id} />
 
             <div className="trust-imgs">
               <img src={cargo} alt="" />
@@ -125,22 +108,17 @@ const Product = ({ products, getProduct, authenticated }) => {
             tabName="product-tab"
             tabs={[
               {
-                Açıklama: product && product.productDescription,
+                Açıklama: product.productDescription,
               },
               {
                 Yorumlar: (
-                  <Comments
-                    productId={productId}
-                    comments={product && product.comments}
-                  />
+                  <Comments productId={productId} comments={product.comments} />
                 ),
               },
             ]}
           />
 
-          <SpecificationList
-            specifications={product && product.specifications}
-          />
+          <SpecificationList specifications={product.specifications} />
         </>
       ) : (
         <ProductPageSkeleton />
