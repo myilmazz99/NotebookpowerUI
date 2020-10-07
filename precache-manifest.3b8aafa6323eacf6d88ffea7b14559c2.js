@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "fe0a9059d32419e0e671824cb039f2c3",
+    "revision": "0e871347fd6b6279274248cc6d493b93",
     "url": "/NotebookpowerUI/index.html"
   },
   {
-    "revision": "69a9ab0766722075ef2b",
-    "url": "/NotebookpowerUI/static/css/main.e19db83f.chunk.css"
+    "revision": "5f5e434c8e4820f508ad",
+    "url": "/NotebookpowerUI/static/css/main.1b4d9c96.chunk.css"
   },
   {
     "revision": "210dc5a36f1eb14ce921",
@@ -60,7 +60,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/NotebookpowerUI/static/js/9.d30195ee.chunk.js"
   },
   {
-    "revision": "69a9ab0766722075ef2b",
+    "revision": "5f5e434c8e4820f508ad",
     "url": "/NotebookpowerUI/static/js/main.2adb68c1.chunk.js"
   },
   {
