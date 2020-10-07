@@ -55,7 +55,7 @@ library.add(
 const store = configureStore();
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter basename="/NotebookpowerUI">
     <Provider store={store}>
       <App />
     </Provider>
