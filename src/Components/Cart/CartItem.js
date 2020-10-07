@@ -48,28 +48,21 @@ const CartItem = ({
               alt=""
             />
           </figure>
+          <h3 className="product-name">{cartItem.product.productName}</h3>
         </Link>
-        <div className="cart-item-details">
-          <Link to={`/product/${cartItem.product.id}`}>
-            <h3 className="product-name">{cartItem.product.productName}</h3>
-          </Link>
-          <div className="product-prices">
-            <CustomNumberInput
-              defValue={cartItem.productQuantity}
-              handleQuantity={handleQuantity}
-            />
-            <span>
-              {numberFormat(quantity * cartItem.product.newPrice)}{" "}
-              <FontAwesomeIcon icon="lira-sign" />
-            </span>
-          </div>
-          <button
-            className="remove-cart-item"
-            onClick={(e) => deleteCartItem(e, cartItem.id)}
-          >
-            Sil
-          </button>
+        <div className="product-prices">
+          <CustomNumberInput
+            defValue={cartItem.productQuantity}
+            handleQuantity={handleQuantity}
+          />
+          <span>{numberFormat(quantity * cartItem.product.newPrice)} </span>
         </div>
+        <button
+          className="remove-cart-item"
+          onClick={(e) => deleteCartItem(e, cartItem.id)}
+        >
+          Sepetten Çıkar
+        </button>
       </li>
     </>
   );
