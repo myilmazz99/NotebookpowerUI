@@ -11,7 +11,7 @@ import AddToFav from "../Components/Utilities/AddToFav";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getProduct } from "../Redux/Actions/productActions";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Comments from "../Components/Product/Comments";
 import numberFormat from "../Components/Tools/numberFormat";
 import ProductPageSkeleton from "../Components/Skeletons/ProductPageSkeleton";
@@ -19,12 +19,13 @@ import Tns from "../Components/Utilities/Tns";
 
 const Product = ({ products, getProduct, authenticated }) => {
   const { productId } = useParams();
+  const history = useHistory();
   const [product, setProduct] = useState({});
 
   useEffect(() => {
     let product = products.find((i) => Number(i.id) === Number(productId));
     if (!product) {
-      getProduct(productId);
+      getProduct(productId, history);
     }
 
     setProduct(product);

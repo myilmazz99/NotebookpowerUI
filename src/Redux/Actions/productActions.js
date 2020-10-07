@@ -139,12 +139,14 @@ export const getSimiliar = (categoryId) => async (dispatch) => {
   }
 };
 
-export const getProduct = (id) => async (dispatch) => {
+export const getProduct = (id, history) => async (dispatch) => {
   try {
     let response = await webAPI.get(`api/products/${id}`);
+    if (response.data === "") throw new Error();
     dispatch({ type: actionTypes.GET_PRODUCT_SUCCESS, payload: response.data });
   } catch (error) {
     console.log(error);
+    history.push("/notfound");
   }
 };
 
