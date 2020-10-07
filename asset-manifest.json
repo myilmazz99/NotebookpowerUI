@@ -2,7 +2,7 @@
   "files": {
     "static/js/0.0ee051c4.chunk.js": "/NotebookpowerUI/static/js/0.0ee051c4.chunk.js",
     "static/js/0.0ee051c4.chunk.js.map": "/NotebookpowerUI/static/js/0.0ee051c4.chunk.js.map",
-    "main.css": "/NotebookpowerUI/static/css/main.75c568c9.chunk.css",
+    "main.css": "/NotebookpowerUI/static/css/main.751228a9.chunk.css",
     "main.js": "/NotebookpowerUI/static/js/main.2adb68c1.chunk.js",
     "main.js.map": "/NotebookpowerUI/static/js/main.2adb68c1.chunk.js.map",
     "runtime-main.js": "/NotebookpowerUI/static/js/runtime-main.fd9ba316.js",
@@ -28,9 +28,9 @@
     "static/js/12.eed76b41.chunk.js": "/NotebookpowerUI/static/js/12.eed76b41.chunk.js",
     "static/js/12.eed76b41.chunk.js.map": "/NotebookpowerUI/static/js/12.eed76b41.chunk.js.map",
     "index.html": "/NotebookpowerUI/index.html",
-    "precache-manifest.0d614e08fa1caad49104ad5380475c30.js": "/NotebookpowerUI/precache-manifest.0d614e08fa1caad49104ad5380475c30.js",
+    "precache-manifest.d1395b79f7084da69e2374d04b42481b.js": "/NotebookpowerUI/precache-manifest.d1395b79f7084da69e2374d04b42481b.js",
     "service-worker.js": "/NotebookpowerUI/service-worker.js",
-    "static/css/main.75c568c9.chunk.css.map": "/NotebookpowerUI/static/css/main.75c568c9.chunk.css.map",
+    "static/css/main.751228a9.chunk.css.map": "/NotebookpowerUI/static/css/main.751228a9.chunk.css.map",
     "static/js/11.a7f72d69.chunk.js.LICENSE.txt": "/NotebookpowerUI/static/js/11.a7f72d69.chunk.js.LICENSE.txt",
     "static/js/3.c130dc4b.chunk.js.LICENSE.txt": "/NotebookpowerUI/static/js/3.c130dc4b.chunk.js.LICENSE.txt",
     "static/media/Code404.svg": "/NotebookpowerUI/static/media/Code404.3f9e2988.svg",
@@ -50,7 +50,7 @@
   "entrypoints": [
     "static/js/runtime-main.fd9ba316.js",
     "static/js/3.c130dc4b.chunk.js",
-    "static/css/main.75c568c9.chunk.css",
+    "static/css/main.751228a9.chunk.css",
     "static/js/main.2adb68c1.chunk.js"
   ]
 }
