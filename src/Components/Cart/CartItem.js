@@ -40,7 +40,13 @@ const CartItem = ({
       <li className="cart-item">
         <Link to={`/product/${cartItem.product.id}`}>
           <figure className="cart-item-img">
-            <img src={cartItem.product.productImages[0].imageUrl} alt="" />
+            <img
+              src={
+                process.env.REACT_APP_API_URL +
+                cartItem.product.productImages[0].imageUrl
+              }
+              alt=""
+            />
           </figure>
         </Link>
         <div className="cart-item-details">

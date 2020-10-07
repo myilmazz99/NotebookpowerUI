@@ -23,7 +23,9 @@ const ProductPreviewList = ({
             <div className="product-preview">
               <img
                 className="preview-image"
-                src={data.productImages[0].imageUrl}
+                src={
+                  process.env.REACT_APP_API_URL + data.productImages[0].imageUrl
+                }
                 alt={data.productName}
               />
               <Link to={"/product/" + data.id}>

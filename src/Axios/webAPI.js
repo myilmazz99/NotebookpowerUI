@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 const webAPI = Axios.create({
-  baseURL: "https://notebookpowerapi.azurewebsites.net/",
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 export default webAPI;

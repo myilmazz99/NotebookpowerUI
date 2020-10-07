@@ -45,14 +45,20 @@ const Product = ({ products, getProduct, authenticated }) => {
                     <div className="product-slider-wrapper">
                       {product.productImages.map((i, j) => (
                         <div key={j} className="product-slider-img-container">
-                          <img src={i.imageUrl} alt={product.productName} />
+                          <img
+                            src={process.env.REACT_APP_API_URL + i.imageUrl}
+                            alt={product.productName}
+                          />
                         </div>
                       ))}
                     </div>
                     <ul className="thumbnails" id="customize-thumbnails">
                       {product.productImages.map((i, j) => (
                         <li key={j}>
-                          <img src={i.imageUrl} alt={product.productName} />
+                          <img
+                            src={process.env.REACT_APP_API_URL + i.imageUrl}
+                            alt={product.productName}
+                          />
                         </li>
                       ))}
                     </ul>
