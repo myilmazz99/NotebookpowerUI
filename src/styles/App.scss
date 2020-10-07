@@ -242,7 +242,10 @@ main {
   grid-template-columns: 1fr 10fr 1fr;
   row-gap: 5rem;
   max-width: 1600px;
-  justify-self: center;
+
+  @media (min-width: 1600px) {
+    justify-self: center;
+  }
 }
 
 .custom-number-input {
