@@ -17,6 +17,9 @@ export const register = (user, history) => async (dispatch) => {
     dispatch(createCart(decodedToken.userId));
 
     dispatchActionResult(dispatch, true, "Kullanıcı kaydı başarılı.");
+    webAPI.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${response.data.token}`;
     history.push("/");
   } catch (error) {
     console.log(error.response);
