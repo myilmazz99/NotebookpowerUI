@@ -23,14 +23,16 @@ const AddToCart = ({ add, productId, cartId, cartItems, authenticated }) => {
 
   return (
     <>
-      <form className="add-to-cart" onSubmit={handleSubmit}>
-        <CustomNumberInput handleQuantity={handleQuantity} />
-        <input
-          type="submit"
-          value="Sepete Ekle"
-          disabled={authenticated ? false : true}
-        />
-      </form>
+      {authenticated ? (
+        <form className="add-to-cart" onSubmit={handleSubmit}>
+          <CustomNumberInput handleQuantity={handleQuantity} />
+          <input type="submit" value="Sepete Ekle" />
+        </form>
+      ) : (
+        <p style={{ color: "gray", fontSize: "0.8rem", marginTop: "0.4rem" }}>
+          Sepet ve Sipariş işlemleri için giriş yapmalısınız.
+        </p>
+      )}
     </>
   );
 };
