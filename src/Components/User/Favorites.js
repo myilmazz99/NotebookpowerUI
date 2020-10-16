@@ -21,7 +21,13 @@ const Favorites = ({ userId, favorites, remove }) => {
           favorites.map((i) => (
             <li className="list-item">
               <figure>
-                <img src={i.productImage} alt="" />
+                <img
+                  src={
+                    process.env.REACT_APP_API_URL +
+                    i.product.productImages[0].imageUrl
+                  }
+                  alt=""
+                />
               </figure>
               <div className="product-details">
                 <Link to={`/product/${i.productId}`}>
