@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import ProductRating from "./ProductRating";
 import AddToFav from "../Utilities/AddToFav";
 import { connect } from "react-redux";
-import AddToCart from "./AddToCart";
 import numberFormat from "../Tools/numberFormat";
 import shortenNames from "../Utilities/shortenNames";
 
@@ -21,31 +20,31 @@ const ProductPreviewList = ({
         products.map((data) => (
           <div key={data.id} className="product-preview-wrapper">
             <div className="product-preview">
-              <img
-                className="preview-image"
-                src={
-                  process.env.REACT_APP_API_URL + data.productImages[0].imageUrl
-                }
-                alt={data.productName}
-              />
               <Link to={"/product/" + data.id}>
-                <div className="preview-product-details">
-                  <h3 className="preview-product-name">
-                    {shortenNames(data.productName)}
-                  </h3>
-                  <ProductRating comments={data.comments} />
-                  <div className="preview-product-price">
-                    <span className="old-price">
-                      {numberFormat(data.oldPrice)}
-                    </span>
-                    <span className="new-price">
-                      {numberFormat(data.newPrice)}
-                    </span>
-                  </div>
-                </div>
+                <figure className="preview-image">
+                  <img
+                    src={
+                      process.env.REACT_APP_API_URL +
+                      data.productImages[0].imageUrl
+                    }
+                    alt={data.productName}
+                  />
+                  <div></div>
+                </figure>
+                <h3 className="preview-product-name">
+                  {shortenNames(data.productName)}
+                </h3>
               </Link>
-              <div className="product-menu">
-                <AddToCart productId={data.id} userId={userId} />
+              <div className="preview-product-details">
+                <ProductRating comments={data.comments} />
+                <div className="preview-product-price">
+                  <span className="old-price">
+                    {numberFormat(data.oldPrice)}
+                  </span>
+                  <span className="new-price">
+                    {numberFormat(data.newPrice)}
+                  </span>
+                </div>
               </div>
               <div className="add-to-fav">
                 {authenticated ? <AddToFav productId={data.id} /> : null}
