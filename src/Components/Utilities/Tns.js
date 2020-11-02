@@ -21,21 +21,22 @@ const Tns = ({ container, products, isCarousel }) => {
       } else {
         var slider = tns({
           container: "." + container,
-          items: 1.2,
+          items: 1,
+          center: true,
           mouseDrag: true,
           controlsText: ["<", ">"],
           responsive: {
-            768: {
-              items: 2.2,
+            600: {
+              items: 2,
             },
             992: {
-              items: 3.2,
+              items: 3,
             },
             1200: {
-              items: 4.2,
+              items: 4,
             },
           },
-          loop: false,
+          loop: true,
         });
       }
     }
