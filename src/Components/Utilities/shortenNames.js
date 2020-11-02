@@ -1,6 +1,6 @@
 const shortenNames = (name) => {
-  if (name.length > 32) {
-    return name.slice(0, 32) + "...";
+  if (name.length > 50) {
+    return name.slice(0, 50) + "...";
   } else {
     return name;
   }
