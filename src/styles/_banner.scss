@@ -1,0 +1,30 @@
+@import "_variables";
+
+.banner {
+  grid-area: banner;
+  display: flex;
+  height: 50vh;
+  color: $tertiary-color;
+  display: flex;
+  align-items: flex-end;
+
+  .text-card {
+    margin: 2rem;
+    padding: 1rem;
+    background-color: $primary-color;
+    max-width: 600px;
+    min-width: 250px;
+    border-radius: 10px;
+
+    h1 {
+      font-weight: lighter;
+      background-color: $primary-color;
+    }
+
+    p {
+      margin-top: 1rem;
+      font-weight: bold;
+      background-color: $primary-color;
+    }
+  }
+}
