@@ -2,14 +2,7 @@
 
 .mailing {
   grid-area: mailing;
-  background-image: linear-gradient(
-      to right,
-      rgba(38, 38, 38, 0.2),
-      rgba(38, 38, 38, 0.9)
-    ),
-    url("/notebookpowerui/mailing.jpg");
-  background-size: cover;
-  background-position: center;
+  background-image: url("/notebookpowerui/mailing.jpg");
   padding: 5rem 0;
   text-align: center;
   @extend %container-x;
