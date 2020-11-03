@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "94b97f57931c032059bf0648adee1c36",
+    "revision": "4a37fb1da08607f60b0bda27218d0660",
     "url": "/NotebookpowerUI/index.html"
   },
   {
-    "revision": "8895ce2dd1af4b7295e7",
-    "url": "/NotebookpowerUI/static/css/main.44c2807d.chunk.css"
+    "revision": "ba4386e8689c251f24e4",
+    "url": "/NotebookpowerUI/static/css/main.7ac701be.chunk.css"
   },
   {
     "revision": "c4b532e001f736001a0f",
@@ -32,8 +32,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/NotebookpowerUI/static/js/4.0c143804.chunk.js"
   },
   {
-    "revision": "74dda38f381825da6e6d",
-    "url": "/NotebookpowerUI/static/js/5.3dd7ea52.chunk.js"
+    "revision": "53dbb64bddf81e1bfc01",
+    "url": "/NotebookpowerUI/static/js/5.b8e07c1f.chunk.js"
   },
   {
     "revision": "fbcf1e4d503dd92566c6",
@@ -52,12 +52,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/NotebookpowerUI/static/js/9.d0d5a038.chunk.js"
   },
   {
-    "revision": "8895ce2dd1af4b7295e7",
+    "revision": "ba4386e8689c251f24e4",
     "url": "/NotebookpowerUI/static/js/main.6e0a754e.chunk.js"
   },
   {
-    "revision": "8514a1b367104f197d38",
-    "url": "/NotebookpowerUI/static/js/runtime-main.84238709.js"
+    "revision": "79a667ced2de1cf0091b",
+    "url": "/NotebookpowerUI/static/js/runtime-main.b30e2439.js"
   },
   {
     "revision": "3f9e298816a709f0b91f6e931bc8e1f1",

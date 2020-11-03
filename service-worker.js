@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/NotebookpowerUI/precache-manifest.be337e8a369d554db5ab47b57f1c92f1.js"
+  "/NotebookpowerUI/precache-manifest.fdefd5d8488d34f9b640a85443852585.js"
 );
 
 self.addEventListener('message', (event) => {
