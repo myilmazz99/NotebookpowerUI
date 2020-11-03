@@ -473,17 +473,19 @@ main {
 
   .tns-controls {
     button {
-      background-color: transparent;
+      background-color: #fff;
       border: none;
       opacity: 0.4;
-      font-weight: bold;
-      font-size: 3rem;
+      font-size: 25px;
       transition: opacity 0.4s;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       z-index: 1;
-      color: $secondary-color;
+      color: $primary-color;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
 
       &:focus {
         outline: none;

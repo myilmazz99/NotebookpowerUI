@@ -22,11 +22,11 @@ const Tns = ({ container, products, isCarousel }) => {
         var slider = tns({
           container: "." + container,
           items: 1,
-          center: true,
           mouseDrag: true,
+          fixedWidth: 320,
           controlsText: ["<", ">"],
           responsive: {
-            600: {
+            768: {
               items: 2,
             },
             992: {
@@ -36,7 +36,7 @@ const Tns = ({ container, products, isCarousel }) => {
               items: 4,
             },
           },
-          loop: true,
+          rewind: true,
         });
       }
     }
