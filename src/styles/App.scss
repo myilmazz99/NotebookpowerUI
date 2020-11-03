@@ -1,6 +1,7 @@
 @import "react-credit-cards/lib/styles.scss";
 @import "_variables";
 
+@import "_banner";
 @import "_productPreview";
 @import "_categoryCards";
 @import "_mailing";
@@ -15,7 +16,6 @@
 @import "_modal";
 @import "_skeleton";
 @import "_admin";
-@import "_banner";
 
 * {
   padding: 0;

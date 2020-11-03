@@ -2,14 +2,7 @@ import React from "react";
 
 const Banner = () => {
   return (
-    <section
-      className="banner"
-      style={{
-        backgroundImage: "url(/NotebookPowerUI/banner.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "top",
-      }}
-    >
+    <section className="banner">
       <div className="text-card">
         <h1>
           Hoşgeldiniz. İhtiyacınıza uygun ürünlerle, cömert fiyatlarla ve
