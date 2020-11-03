@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "28ec11ee0f733c36e20bbe7512645e46",
+    "revision": "94b97f57931c032059bf0648adee1c36",
     "url": "/NotebookpowerUI/index.html"
   },
   {
-    "revision": "7f9382caac4085f49cd4",
-    "url": "/NotebookpowerUI/static/css/main.7b467260.chunk.css"
+    "revision": "8895ce2dd1af4b7295e7",
+    "url": "/NotebookpowerUI/static/css/main.44c2807d.chunk.css"
   },
   {
     "revision": "c4b532e001f736001a0f",
@@ -32,16 +32,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/NotebookpowerUI/static/js/4.0c143804.chunk.js"
   },
   {
-    "revision": "56143484cdd5b2ecb23e",
-    "url": "/NotebookpowerUI/static/js/5.1ce967a5.chunk.js"
+    "revision": "74dda38f381825da6e6d",
+    "url": "/NotebookpowerUI/static/js/5.3dd7ea52.chunk.js"
   },
   {
-    "revision": "f6b18fa61bd66aee492d",
-    "url": "/NotebookpowerUI/static/js/6.020625de.chunk.js"
+    "revision": "fbcf1e4d503dd92566c6",
+    "url": "/NotebookpowerUI/static/js/6.848d4bc0.chunk.js"
   },
   {
-    "revision": "23e6cee722ea8bc8898f",
-    "url": "/NotebookpowerUI/static/js/7.45d4ac8c.chunk.js"
+    "revision": "028131226ea181cbe297",
+    "url": "/NotebookpowerUI/static/js/7.1310bdd7.chunk.js"
   },
   {
     "revision": "9c1c3d6321cc23c92b1e",
@@ -52,12 +52,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/NotebookpowerUI/static/js/9.d0d5a038.chunk.js"
   },
   {
-    "revision": "7f9382caac4085f49cd4",
+    "revision": "8895ce2dd1af4b7295e7",
     "url": "/NotebookpowerUI/static/js/main.6e0a754e.chunk.js"
   },
   {
-    "revision": "6fb60400b9664a0ba3f3",
-    "url": "/NotebookpowerUI/static/js/runtime-main.f5cc72dc.js"
+    "revision": "8514a1b367104f197d38",
+    "url": "/NotebookpowerUI/static/js/runtime-main.84238709.js"
   },
   {
     "revision": "3f9e298816a709f0b91f6e931bc8e1f1",
