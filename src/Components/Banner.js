@@ -5,7 +5,7 @@ const Banner = () => {
     <section
       className="banner"
       style={{
-        backgroundImage: "url(/notebookpowerui/banner.jpg)",
+        backgroundImage: "url(/banner.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "top",
       }}
