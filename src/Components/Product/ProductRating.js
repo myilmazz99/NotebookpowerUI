@@ -19,19 +19,23 @@ const ProductRating = ({ comments }) => {
   }, [comments]);
 
   useEffect(() => {
-    setStars(Array(averageRating).fill(<FontAwesomeIcon icon="star" />));
+    setStars(Array(averageRating).fill("star"));
     if (averageRating !== 0 && averageRating < 5)
       setStars((prev) => [
         ...prev,
-        ...Array(5 - averageRating).fill(
-          <FontAwesomeIcon icon={["far", "star"]} />
-        ),
+        ...Array(5 - averageRating).fill(["far", "star"]),
       ]);
   }, [averageRating]);
 
   return (
     <section className="product-rating">
-      {stars.length > 0 ? <>{stars.map((i) => i)}</> : null}{" "}
+      {stars.length > 0 ? (
+        <>
+          {stars.map((i, j) => (
+            <FontAwesomeIcon key={j} icon={i} />
+          ))}
+        </>
+      ) : null}{" "}
       <span className="review-count">{commentCount} yorum</span>
     </section>
   );
