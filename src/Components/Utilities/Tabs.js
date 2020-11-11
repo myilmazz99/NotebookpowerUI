@@ -42,7 +42,10 @@ const Tabs = ({ tabs }) => {
       >
         {tabs.map((i, j) => {
           return (
-            <li key={j} className={`tab tab-${j}`}>
+            <li
+              key={Object.getOwnPropertyNames(i)[0]}
+              className={`tab tab-${j}`}
+            >
               {Object.getOwnPropertyNames(i)}
             </li>
           );
@@ -54,7 +57,7 @@ const Tabs = ({ tabs }) => {
             if (typeof Object.values(i)[0] === "string") {
               return (
                 <div
-                  key={j}
+                  key={Object.getOwnPropertyNames(i)[0] + j}
                   dangerouslySetInnerHTML={{ __html: Object.values(i) }}
                   className={`tab-data tab-${j}`}
                 ></div>
