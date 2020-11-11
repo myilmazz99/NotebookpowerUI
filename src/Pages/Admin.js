@@ -13,7 +13,7 @@ const Admin = ({ role }) => {
   const history = useHistory();
 
   useEffect(() => {
-    if (!role.includes("admin")) history.push("/404");
+    if (!role || !role.includes("admin")) history.push("/404");
   }, []);
 
   return (
