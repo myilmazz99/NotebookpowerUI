@@ -6,18 +6,18 @@ export const addProduct = (product) => {
   return async (dispatch) => {
     try {
       let formData = new FormData();
-      if (product.productImages)
-        for (const i of product.productImages) {
-          formData.append("productImages", i);
-        }
 
-      delete product.productImages;
+      for (const key in product) {
+        if (key === "specifications")
+          formData.append(key, JSON.stringify(product[key]));
+        else if (key === "productImages")
+          for (const i of product.productImages) {
+            formData.append(key, i);
+          }
+        formData.append(key, product[key]);
+      }
 
-      let response = await webAPI.post("api/products/add", product);
-
-      formData.append("productId", parseInt(response.data));
-
-      await webAPI.post("api/products/addImages", formData);
+      const response = await webAPI.post("api/products/add", formData);
 
       dispatch({
         type: actionTypes.ADD_PRODUCT_SUCCESS,
@@ -25,10 +25,9 @@ export const addProduct = (product) => {
       });
       dispatchActionResult(dispatch, true, "Ürün başarıyla eklendi.");
     } catch (err) {
-      let errorMessages = JSON.parse(err.response.data.ErrorMessage);
       dispatch({
         type: actionTypes.SET_PRODUCT_VALIDATION_ERROR,
-        payload: errorMessages,
+        payload: err.response.data.ErrorMessage,
       });
 
       dispatchActionResult(
