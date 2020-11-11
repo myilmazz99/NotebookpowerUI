@@ -21,7 +21,7 @@ const App = ({ logout, authenticate }) => {
     var token = localStorage.getItem("token");
     if (token) {
       var parsedToken = JSON.parse(token);
-      if (parsedToken.expiration < Date.now()) {
+      if (Date.parse(parsedToken.expiration) < Date.now()) {
         logout();
       } else {
         authenticate();
