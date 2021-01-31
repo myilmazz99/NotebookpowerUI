@@ -1,14 +1,14 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "49485503aefed415e81333ffa70e0729",
+    "revision": "ca2e0b8608ed812cf690da359a90b709",
     "url": "/NotebookpowerUI/index.html"
   },
   {
-    "revision": "595b4f61ae60b06f9ac6",
+    "revision": "0ce3d14abbec384d775c",
     "url": "/NotebookpowerUI/static/css/8.a57601be.chunk.css"
   },
   {
-    "revision": "8d2c0fabd10ffbc2657a",
+    "revision": "032a762e722bc30dc43e",
     "url": "/NotebookpowerUI/static/css/main.defd5c3b.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/NotebookpowerUI/static/js/0.69c6d7a7.chunk.js"
   },
   {
-    "revision": "b4eea2382863e6dcda08",
-    "url": "/NotebookpowerUI/static/js/10.2c283510.chunk.js"
+    "revision": "d3b174f756f97463b2d0",
+    "url": "/NotebookpowerUI/static/js/10.cdce96a4.chunk.js"
   },
   {
     "revision": "25ea354e3f746a689dd1",
@@ -32,36 +32,36 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/NotebookpowerUI/static/js/3.1ec9e49b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d55cc7f2f0cfa65b9a34",
-    "url": "/NotebookpowerUI/static/js/4.57c19c6e.chunk.js"
+    "revision": "cf63d56e236473f488f1",
+    "url": "/NotebookpowerUI/static/js/4.e6ca8c17.chunk.js"
   },
   {
-    "revision": "8d86049137616314e027",
-    "url": "/NotebookpowerUI/static/js/5.06bf5359.chunk.js"
+    "revision": "524afb41b57bb97445f4",
+    "url": "/NotebookpowerUI/static/js/5.32bd111b.chunk.js"
   },
   {
-    "revision": "c6bc6264cdc1662a4f84",
-    "url": "/NotebookpowerUI/static/js/6.d24ed2c0.chunk.js"
+    "revision": "1673def545dd23e7f703",
+    "url": "/NotebookpowerUI/static/js/6.5085d7d1.chunk.js"
   },
   {
-    "revision": "d711045f211a6c327188",
-    "url": "/NotebookpowerUI/static/js/7.707bad55.chunk.js"
+    "revision": "8fc14a319cf613b66960",
+    "url": "/NotebookpowerUI/static/js/7.a8b4891d.chunk.js"
   },
   {
-    "revision": "595b4f61ae60b06f9ac6",
-    "url": "/NotebookpowerUI/static/js/8.3cd4c078.chunk.js"
+    "revision": "0ce3d14abbec384d775c",
+    "url": "/NotebookpowerUI/static/js/8.b34ac027.chunk.js"
   },
   {
     "revision": "d3acbf1e8f16d54b227c",
     "url": "/NotebookpowerUI/static/js/9.af978c4d.chunk.js"
   },
   {
-    "revision": "8d2c0fabd10ffbc2657a",
-    "url": "/NotebookpowerUI/static/js/main.c0629ea0.chunk.js"
+    "revision": "032a762e722bc30dc43e",
+    "url": "/NotebookpowerUI/static/js/main.717f0cb8.chunk.js"
   },
   {
-    "revision": "38a17a909d6efa62359d",
-    "url": "/NotebookpowerUI/static/js/runtime-main.cbe487b3.js"
+    "revision": "fca6028f7ba67d2e396b",
+    "url": "/NotebookpowerUI/static/js/runtime-main.9c79c890.js"
   },
   {
     "revision": "3f9e298816a709f0b91f6e931bc8e1f1",
