@@ -26,51 +26,53 @@ const OrderDetails = ({ getOrder, orders, confirmOrder }) => {
   return (
     <>
       {order && (
-        <div id="admin-order-details">
-          <h2 className="mb-5">Sipariş Detayları</h2>
-          <dl className="row">
-            <dt className="col-3">Sipariş Tarihi</dt>
-            <dd className="col-9 border rounded">{order.shortDate}</dd>
+        <>
+          <h1 className="bg-primary shadow p-4 text-white">
+            Sipariş Detayları
+          </h1>
+          <div className="p-4">
+            <dl>
+              <dt className="mb-1">Sipariş Tarihi</dt>
+              <dd className="mb-1 ">{order.shortDate}</dd>
 
-            <dt className="col-3">Sipariş Durumu</dt>
-            <dd className="col-9 border rounded">
-              {displayOrderStatus(order.status)}
-            </dd>
+              <dt className="mb-1">Sipariş Durumu</dt>
+              <dd className="mb-1 ">{displayOrderStatus(order.status)}</dd>
 
-            <dt className="col-3">Sipariş Veren</dt>
-            <dd className="col-9 border rounded">{order.fullName}</dd>
+              <dt className="mb-1">Sipariş Veren</dt>
+              <dd className="mb-1 ">{order.fullName}</dd>
 
-            <dt className="col-3">Sipariş Adresi</dt>
-            <dd className="col-9 border rounded">{order.addressDescription}</dd>
+              <dt className="mb-1">Sipariş Adresi</dt>
+              <dd className="mb-1 ">{order.addressDescription}</dd>
 
-            <dt className="col-3">Sipariş Tutarı</dt>
-            <dd className="col-9 border rounded">
-              {order.totalPrice} <FontAwesomeIcon icon="lira-sign" />
-            </dd>
+              <dt className="mb-1">Sipariş Tutarı</dt>
+              <dd className="mb-1 ">
+                {order.totalPrice} <FontAwesomeIcon icon="lira-sign" />
+              </dd>
 
-            <dt className="col-3">Satın Alınan Ürünler</dt>
-            <dd className="col-9 border rounded">
-              {order.orderItems.map((i) => (
-                <dl className="row">
-                  <dt className="col-3">Ürün Adı</dt>
-                  <dd className="col-9 border rounded">{i.productName}</dd>
+              <dt className="mb-1">Satın Alınan Ürünler</dt>
+              <dd className="mb-1 ">
+                {order.orderItems.map((i, j) => (
+                  <dl key={j}>
+                    <dt className="mb-1">Ürün Adı</dt>
+                    <dd className="mb-1 ">{i.productName}</dd>
 
-                  <dt className="col-3">Ürün Adedi</dt>
-                  <dd className="col-9 border rounded">{i.productQuantity}</dd>
+                    <dt className="mb-1">Ürün Adedi</dt>
+                    <dd className="mb-1 ">{i.productQuantity}</dd>
 
-                  <dt className="col-3">Toplam Tutar</dt>
-                  <dd className="col-9 border rounded">
-                    {numberFormat(i.productQuantity * i.productPrice)}{" "}
-                    <FontAwesomeIcon icon="lira-sign" />
-                  </dd>
-                </dl>
-              ))}
-            </dd>
-          </dl>
-          <button className="btn btn-primary w-100" onClick={handleClick}>
-            Siparişi Onayla
-          </button>
-        </div>
+                    <dt className="mb-1">Toplam Tutar</dt>
+                    <dd className="mb-1 ">
+                      {numberFormat(i.productQuantity * i.productPrice)}{" "}
+                      <FontAwesomeIcon icon="lira-sign" />
+                    </dd>
+                  </dl>
+                ))}
+              </dd>
+            </dl>
+            <button className="btn btn-primary w-100" onClick={handleClick}>
+              Siparişi Onayla
+            </button>
+          </div>
+        </>
       )}
     </>
   );

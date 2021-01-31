@@ -16,6 +16,11 @@ const LoginForm = ({ login, userState: { authError } }) => {
     if (Object.keys(values).length > 0) updateErrors({ authError });
   }, [authError]);
 
+  useEffect(() => {
+    if (!values.email) values.email = "admin@notebookpower.com";
+    if (!values.password) values.password = "Notebookpoweradmin1";
+  }, []);
+
   function loginUser() {
     login(values);
   }
@@ -31,7 +36,7 @@ const LoginForm = ({ login, userState: { authError } }) => {
         type="text"
         placeholder="E Mailiniz"
         handleChange={handleChange}
-        value={values.email}
+        value={values.email || "admin@notebookpower.com"}
         error={errors.email}
       />
       <Input
@@ -39,7 +44,7 @@ const LoginForm = ({ login, userState: { authError } }) => {
         type="password"
         placeholder="Şifre belirleyiniz"
         handleChange={handleChange}
-        value={values.password}
+        value={values.password || "Notebookpoweradmin1"}
         error={errors.password}
       />
       <Input type="submit" value="Giriş Yap" />

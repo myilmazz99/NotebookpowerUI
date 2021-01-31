@@ -34,13 +34,19 @@ const useForm = (callback, validate) => {
       ...prev,
       [name]: value,
     }));
+    console.log(e.target.value);
   };
 
-  const handleUpload = (e) => {
-    let { name, files } = e.target;
+  const handleUpload = (e, input) => {
+    let element;
+    if (e) {
+      element = e.target;
+    } else {
+      element = input;
+    }
     setValues((prev) => ({
       ...prev,
-      [name]: [...files],
+      [element.name]: [...element.files],
     }));
   };
 

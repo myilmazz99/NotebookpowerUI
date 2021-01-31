@@ -9,27 +9,29 @@ const Feedbacks = ({ feedbacks, getFeedbacks }) => {
   }, []);
 
   return (
-    <div id="feedbacks">
-      <h1 className="mb-5">Müşteri Mesajları</h1>
-      <div className="row">
+    <>
+      <div className="bg-primary shadow p-4 text-white">
+        <h1>Müşteri Mesajları</h1>
+      </div>
+      <div className="p-4">
         {feedbacks &&
           feedbacks.map((i, j) => (
             <dl
-              key={i.id}
-              className={`col-10 mx-auto p-3 alert alert-${
-                j % 2 === 0 ? "success" : "warning"
-              }`}
+              key={j}
+              className={`mp-info mb-1 ${j % 2 === 0 ? "success" : "warning"}`}
             >
-              <dt>Müşteri Adı :</dt>
-              <dd>{i.name}</dd>
-              <dt>Müşteri Emaili :</dt>
-              <dd>{i.email}</dd>
-              <dt>Mesajı :</dt>
-              <dd>{i.feedbackText}</dd>
+              <div className="mp-info-body">
+                <dt>Müşteri Adı :</dt>
+                <dd>{i.name}</dd>
+                <dt>Müşteri Emaili :</dt>
+                <dd>{i.email}</dd>
+                <dt>Mesajı :</dt>
+                <dd>{i.feedbackText}</dd>
+              </div>
             </dl>
           ))}
       </div>
-    </div>
+    </>
   );
 };
 

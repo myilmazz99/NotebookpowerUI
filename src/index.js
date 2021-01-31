@@ -23,6 +23,8 @@ import {
   faFilter,
   faHome,
   faDollarSign,
+  faChevronDown,
+  faCloudUploadAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -49,7 +51,9 @@ library.add(
   faFilter,
   faShoppingCart,
   faHome,
-  faDollarSign
+  faDollarSign,
+  faChevronDown,
+  faCloudUploadAlt
 );
 
 const store = configureStore();

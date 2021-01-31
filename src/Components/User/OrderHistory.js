@@ -25,15 +25,6 @@ const OrderHistory = ({
               <ul>
                 {i.orderItems.map((j) => (
                   <li className="inner-list-item">
-                    <figure>
-                      <img
-                        src={
-                          process.env.REACT_APP_API_URL +
-                          j.productImages[0].imageUrl
-                        }
-                        alt=""
-                      />
-                    </figure>
                     <div className="product-details">
                       <h4>{j.productName}</h4>
                       <dl>

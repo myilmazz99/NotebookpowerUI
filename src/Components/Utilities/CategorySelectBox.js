@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getCategories } from "../../Redux/Actions/categoryActions";
+import Selectbox from "./Selectbox";
 
 const CategorySelectBox = ({
   getCategories,
@@ -15,19 +16,13 @@ const CategorySelectBox = ({
   }, []);
 
   return (
-    <select
+    <Selectbox
       name="categoryId"
-      className="custom-select"
-      onChange={handleChange}
-      value={categoryId || "Kategori Seç..."}
-    >
-      {categories &&
-        categories.map((i) => (
-          <option key={i.id} value={i.id}>
-            {i.categoryName}
-          </option>
-        ))}
-    </select>
+      placeholder="Kategori Seç..."
+      data={categories}
+      handleChange={handleChange}
+      value={categoryId}
+    />
   );
 };
 

@@ -8,11 +8,12 @@ import { addProduct } from "../../Redux/Actions/productActions";
 import useSpecRows from "../Utilities/useSpecRows";
 //Validation
 import ProductValidation from "../Utilities/ValidationRules/ProductValidation";
-import { useHistory } from "react-router-dom";
 import lowerCaseFirstChar from "../Tools/lowerCaseFirstChar";
+import SlidingInput from "./SlidingInput";
+import TextEditor from "./TextEditor";
+import { useHistory } from "react-router-dom";
 
 const AddProduct = ({ addProduct, validationErrors }) => {
-  const history = useHistory();
   let {
     handleSubmit,
     handleChange,
@@ -22,6 +23,7 @@ const AddProduct = ({ addProduct, validationErrors }) => {
     updateErrors,
   } = useForm(add, ProductValidation);
   let { setSpecRowCount, displaySpecRow, getRowValues } = useSpecRows();
+  const history = useHistory();
 
   const retrieveMissingInputValuesAndSubmit = (e) => {
     e.preventDefault();
@@ -53,95 +55,72 @@ const AddProduct = ({ addProduct, validationErrors }) => {
   }, [validationErrors]);
 
   function add() {
-    addProduct(values);
-    //history.goBack();
+    addProduct(values, history);
   }
 
   return (
-    <div id="admin-add-product">
-      <h1>Ürün Ekle</h1>
+    <>
+      <div className="bg-primary shadow p-4">
+        <h1 className="text-white">Ürün Ekle</h1>
+      </div>
       <form
+        className="p-4"
         onSubmit={(e) => retrieveMissingInputValuesAndSubmit(e)}
         encType="multipart/form-data"
       >
-        <div className="form-group mb-4">
-          <label>Ürün Adı</label>
-          <input
+        <div className="mb-4">
+          <SlidingInput
             type="text"
             name="productName"
             placeholder="Ürün Adı"
-            onChange={handleChange}
             value={values.productName || ""}
-            className={`form-control ${errors.productName && "border-danger"}`}
+            onChangeEvent={handleChange}
+            error={errors.productName}
           />
-          {errors.productName && (
-            <div className="text-danger small">{errors.productName}</div>
-          )}
         </div>
 
-        <div className="form-row d-flex justify-between my-4">
-          <div className="col-4">
-            <label>Fiyat</label>
-            <input
-              type="number"
-              name="oldPrice"
-              step="0.01"
-              onChange={handleChange}
-              value={values.oldPrice || ""}
-              className={`form-control ${errors.oldPrice && "border-danger"}`}
-            />
-            {errors.oldPrice && (
-              <div className="text-danger small">{errors.oldPrice}</div>
-            )}
-          </div>
-          <div className="col-4">
-            <label>İndirimli Fiyat</label>
-            <input
-              type="number"
-              name="newPrice"
-              step="0.01"
-              onChange={handleChange}
-              value={values.newPrice || ""}
-              className={`form-control ${errors.newPrice && "border-danger"}`}
-            />
-            {errors.newPrice && (
-              <div className="text-danger small">{errors.newPrice}</div>
-            )}
-          </div>
-          <div className="col-4">
-            <label>Stok Adedi</label>
-            <input
-              type="number"
-              name="stock"
-              onChange={handleChange}
-              value={values.stock || ""}
-              className={`form-control ${errors.stock && "border-danger"}`}
-            />
-            {errors.stock && (
-              <div className="text-danger small">{errors.stock}</div>
-            )}
-          </div>
+        <div className="d-flex j-between mb-4">
+          <SlidingInput
+            type="number"
+            name="oldPrice"
+            placeholder="Fiyat"
+            value={values.oldPrice || ""}
+            onChangeEvent={handleChange}
+            error={errors.oldPrice}
+            step="0.01"
+            classes="pr-1"
+          />
+          <SlidingInput
+            type="number"
+            name="newPrice"
+            placeholder="İndirimli Fiyat"
+            value={values.newPrice || ""}
+            onChangeEvent={handleChange}
+            error={errors.newPrice}
+            step="0.01"
+            classes="pr-1"
+          />
+          <SlidingInput
+            type="number"
+            name="stock"
+            placeholder="Stok Adedi"
+            value={values.stock || ""}
+            onChangeEvent={handleChange}
+            error={errors.stock}
+          />
         </div>
 
-        <div className="form-group my-4">
-          <label>Ürün Bilgileri</label>
-          <textarea
-            value={values.productDescription || ""}
-            onChange={handleChange}
+        <div className="mb-4">
+          <TextEditor
+            placeholder="Ürün Açıklaması"
+            handleChange={handleChange}
             name="productDescription"
-            rows="5"
-            placeholder="Ürün Bilgileri"
-            className={`form-control ${
-              errors.productDescription && "border-danger"
-            }`}
-          ></textarea>
-          {errors.productDescription && (
-            <div className="text-danger small">{errors.productDescription}</div>
-          )}
+            value={values.productDescription}
+            error={errors.productDescription}
+          />
         </div>
 
-        <div className="my-4">
-          <label>Kategori</label>
+        <div className="mb-4">
           <CategorySelectBox
             handleChange={handleChange}
             categoryId={values.categoryId}
@@ -151,7 +130,7 @@ const AddProduct = ({ addProduct, validationErrors }) => {
           )}
         </div>
 
-        <div className="form-group my-4">
+        <div className="mb-4">
           <label>Ürün Resimleri</label>
           <input
             name="productImages"
@@ -162,10 +141,10 @@ const AddProduct = ({ addProduct, validationErrors }) => {
           />
         </div>
 
-        <div className="form-group my-4">
+        <div className="mb-4">
           <label>Donanım</label>
           <button
-            className="btn btn-primary btn-sm ml-3 mb-1"
+            className="btn btn-primary"
             onClick={(e) => {
               e.preventDefault();
               setSpecRowCount((prev) => (prev += 1));
@@ -173,12 +152,12 @@ const AddProduct = ({ addProduct, validationErrors }) => {
           >
             Satır Ekle
           </button>
-          <div className="form-row mt-2">{displaySpecRow.map((i) => i)}</div>
+          {displaySpecRow.map((i) => i)}
         </div>
 
         <button className="btn btn-primary w-100">Kaydet</button>
       </form>
-    </div>
+    </>
   );
 };
 

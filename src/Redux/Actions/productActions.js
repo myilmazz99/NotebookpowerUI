@@ -2,7 +2,7 @@ import * as actionTypes from "./actionTypes";
 import dispatchActionResult from "./dispatchActionResult";
 import webAPI from "../../Axios/webAPI";
 
-export const addProduct = (product) => {
+export const addProduct = (product, history) => {
   return async (dispatch) => {
     try {
       let formData = new FormData();
@@ -24,6 +24,7 @@ export const addProduct = (product) => {
         payload: { ...product, id: response.data },
       });
       dispatchActionResult(dispatch, true, "Ürün başarıyla eklendi.");
+      history.goBack();
     } catch (err) {
       dispatch({
         type: actionTypes.SET_PRODUCT_VALIDATION_ERROR,
@@ -39,34 +40,38 @@ export const addProduct = (product) => {
   };
 };
 
-export const updateProduct = (product) => async (dispatch) => {
+export const updateProduct = (product, history) => async (dispatch) => {
   try {
     let formData = new FormData();
 
-    if (product.productImages.length > 0) {
-      for (const i of product.productImages) {
-        formData.append("productImages", i);
-      }
-
-      delete product.productImages;
+    for (const key in product) {
+      if (key === "specifications")
+        formData.append(key, JSON.stringify(product[key]));
+      else if (key === "newProductImages")
+        for (const i of product.newProductImages) {
+          formData.append("productImages", i);
+        }
+      formData.append(key, product[key]);
     }
 
-    await webAPI.put("api/products", product);
-
-    formData.append("productId", parseInt(product.id));
-
-    await webAPI.post("api/products/addImages", formData);
+    await webAPI.post("api/products/update", formData);
 
     dispatch({ type: actionTypes.UPDATE_PRODUCT_SUCCESS, payload: product });
     dispatchActionResult(dispatch, true, "Ürün başarıyla güncellendi.");
+    history.goBack();
   } catch (err) {
-    if (err.response.data.ErrorType.toLowerCase().includes("validation")) {
+    if (
+      err.response &&
+      err.response.data &&
+      err.response.data.ErrorType.toLowerCase().includes("validation")
+    ) {
       let errorMessages = JSON.parse(err.response.data.ErrorMessage);
       dispatch({
         type: actionTypes.SET_PRODUCT_VALIDATION_ERROR,
         payload: errorMessages,
       });
     } else {
+      console.log(err.response);
       dispatchActionResult(
         dispatch,
         false,

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import SlidingInput from "../Admin/SlidingInput";
 
 const useSpecRows = (removeSpec, productId) => {
   const [specRowCount, setSpecRowCount] = useState(1);
@@ -15,26 +16,19 @@ const useSpecRows = (removeSpec, productId) => {
     if (specifications.length === 0)
       setDisplaySpecRow(
         Array(specRowCount).fill(
-          <>
-            <div className="col-6 mt-3">
-              <input
-                defaultValue=""
-                type="text"
-                name="specificationName[]"
-                placeholder="Donanım Adı, ö. GPU"
-                className="form-control"
-              />
-            </div>
-            <div className="col-6 mt-3">
-              <input
-                defaultValue=""
-                type="text"
-                name="specificationValue[]"
-                placeholder="Donanım, ö. GTX 1050"
-                className="form-control"
-              />
-            </div>
-          </>
+          <div className="d-flex">
+            <SlidingInput
+              placeholder="Donanım Adı, ö. GPU"
+              classes="mr-1"
+              name="specificationName[]"
+              type="text"
+            />
+            <SlidingInput
+              placeholder="Donanım, ö. GTX 1050"
+              name="specificationValue[]"
+              type="text"
+            />
+          </div>
         )
       );
 
@@ -42,26 +36,22 @@ const useSpecRows = (removeSpec, productId) => {
       setDisplaySpecRow((prev) => [
         ...prev,
         ...Array(1).fill(
-          <>
-            <div className="col-6 mt-3">
-              <input
-                defaultValue=""
-                type="text"
-                name="specificationName[]"
-                placeholder="Donanım Adı, ö. GPU"
-                className="form-control"
-              />
-            </div>
-            <div className="col-6 mt-3">
-              <input
-                defaultValue=""
-                type="text"
-                name="specificationValue[]"
-                placeholder="Donanım, ö. GTX 1050"
-                className="form-control"
-              />
-            </div>
-          </>
+          <div className="d-flex mb-1">
+            <SlidingInput
+              defaultValue=""
+              type="text"
+              name="specificationName[]"
+              placeholder="Donanım Adı, ö. GPU"
+              classes="pr-1"
+            />
+            <SlidingInput
+              defaultValue=""
+              type="text"
+              name="specificationValue[]"
+              placeholder="Donanım, ö. GTX 1050"
+              classes="pr-1"
+            />
+          </div>
         ),
       ]);
   }, [specRowCount]);
@@ -69,35 +59,29 @@ const useSpecRows = (removeSpec, productId) => {
   useEffect(() => {
     if (specifications.length > 0)
       setDisplaySpecRow(
-        specifications.map((i) => (
-          <>
-            <div className="col-6 mt-3">
-              <input
-                defaultValue={i.specificationName}
-                type="text"
-                name="specificationName[]"
-                placeholder="Donanım Adı, ö. GPU"
-                className="form-control"
-              />
-            </div>
-            <div className="col-5 mt-3">
-              <input
-                defaultValue={i.specificationValue}
-                type="text"
-                name="specificationValue[]"
-                placeholder="Donanım, ö. GTX 1050"
-                className="form-control"
-              />
-            </div>
-            <div className="col-1 mt-3 text-center">
-              <button
-                className="btn btn-danger"
-                onClick={(e) => getSpecId(e, i.id)}
-              >
-                Sil
-              </button>
-            </div>
-          </>
+        specifications.map((i, j) => (
+          <div key={j} className="d-flex a-center mb-1">
+            <SlidingInput
+              defaultValue={i.specificationName}
+              type="text"
+              name="specificationName[]"
+              placeholder="Donanım Adı, ö. GPU"
+              classes="pr-1"
+            />
+            <SlidingInput
+              defaultValue={i.specificationValue}
+              type="text"
+              name="specificationValue[]"
+              placeholder="Donanım, ö. GTX 1050"
+              classes="pr-1"
+            />
+            <button
+              className="btn btn-danger"
+              onClick={(e) => getSpecId(e, i.id)}
+            >
+              Sil
+            </button>
+          </div>
         ))
       );
   }, [specifications]);

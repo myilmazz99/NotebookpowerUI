@@ -10,16 +10,18 @@ const EmailList = ({ emails, getEmails }) => {
 
   return (
     <section id="email-list">
-      <h1 className="mb-5">Email Listesi</h1>
-      <div className="row">
+      <div className="bg-primary shadow p-4 text-white">
+        <h1>Email Listesi</h1>
+      </div>
+      <div className="p-4">
         {emails &&
           emails.map((i, j) => (
             <div
-              className={`col-5 mx-auto text-center alert alert-${
-                j % 2 === 0 ? "success" : "warning"
-              }`}
+              key={j}
+              className={`w-75 mp-info ${j % 2 === 0 ? "success" : "warning"}`}
+              style={{ margin: "0 auto 1rem auto" }}
             >
-              {i.email}
+              <div className="mp-info-body w-100 text-center">{i.email}</div>
             </div>
           ))}
       </div>
