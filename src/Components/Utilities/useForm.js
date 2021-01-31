@@ -34,7 +34,6 @@ const useForm = (callback, validate) => {
       ...prev,
       [name]: value,
     }));
-    console.log(e.target.value);
   };
 
   const handleUpload = (e, input) => {
