@@ -13,7 +13,7 @@ import { Helmet } from "react-helmet";
 import PageLoading from "./Components/Utilities/PageLoading";
 import loadable from "@loadable/component";
 import { Switch, Route, useLocation } from "react-router-dom";
-
+//test commit
 const App = ({ logout, authenticate }) => {
   const { pathname } = useLocation();
 
