@@ -1,16 +1,45 @@
-# NotebookPowerUI
+<p align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="https://rakun.wgb.reviews/img/follow.fashion_logo-ai.svg" alt="Logo" width="152" height="18">
+  </a>
 
-An online shopping responsive UI that connects to the [Notebookpower Web API](https://github.com/myilmazz99/NotebookPower) (also listed in my repository).
+  <h3 align="center">Follow.Fashion v2</h3>
 
-Designed and coded by myself only in order to practice and learn **React** deeper.
+  <p align="center">
+    This repository holds client-side web application of <a href="https://follow.fashion/textile.html"><strong>Follow.Fashion</strong></a>.
+  </p>
+</p>
 
-Login Credentials for Admin Control Panel :
+# Follow.Fashion v2
 
-- email -> admin@notebookpower.com
-- password -> Notebookpoweradmin1 (case sensitive)
+This repository holds client-side web application of [Follow.Fashion](https://follow.fashion/textile.html).
 
-Payment is done through iyzico's sandbox API.
-For a successful payment, you can use one of the test credit card numbers below :
+## About The Project
 
-- 5890040000000016
-- 4766620000000001
+The Project was created and being developed using [Angular 12](https://angular.io/), on top of [Nx Workspace](https://nx.dev/).
+
+## Getting Started
+
+### Starting The Development Server
+
+First of all, clone the project.
+
+```
+git clone https://github.com/GalaksiyaIT/ff-web-app.git
+```
+
+Open your terminal, navigate to the app's directory, and install the required dependencies.
+
+```
+npm install
+```
+
+Start the development server.
+
+```
+npm run followl-serve
+```
+
+As soon as the project compiles, a new tab with address http://localhost:4200 will open on your default browser.
+
+Finally log in with your company email and password, for access to the internal parts of the application.
