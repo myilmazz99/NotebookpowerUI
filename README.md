@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="https://rakun.wgb.reviews/img/follow.fashion_logo-ai.svg" alt="Logo" width="152" height="18">
+    <img src="./public/ff-logo-small.svg" alt="Logo" width="38" height="38">
   </a>
 
   <h3 align="center">Follow.Fashion v2</h3>
