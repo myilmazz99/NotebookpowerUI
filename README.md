@@ -1,16 +1,12 @@
-<p align="center" style="margin-top:16px;">
+<p align="center">
     <img src="./public/ff-logo-small.svg" alt="Logo" width="38" height="38">
 
-  <h3 align="center" style="margin-top:16px;">Follow.Fashion v2</h3>
+  <h3 align="center">Follow.Fashion v2</h3>
 
   <p align="center">
     This repository holds client-side web application of <a href="https://follow.fashion/textile.html"><strong>Follow.Fashion</strong></a>.
   </p>
 </p>
-
-# Follow.Fashion v2
-
-This repository holds client-side web application of [Follow.Fashion](https://follow.fashion/textile.html).
 
 ## About The Project
 
